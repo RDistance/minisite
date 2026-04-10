@@ -1,0 +1,547 @@
+body {
+    margin: 0;
+}
+
+.banner,
+.city-list,
+.content-experience,
+.vip-section {
+    padding: 0 8.75vw;
+}
+
+
+/* Banner */
+.store-main-content .banner {
+    margin-top: 60px;
+}
+
+.store-main-content .banner img {
+    width: 100%;
+    border-radius: 20px;
+    display: block;
+}
+
+/* 城市 */
+.store-main-content .city-list-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 106px 68px;
+}
+
+.store-main-content .city-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.store-main-content .city-icon {
+    width: 64px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.store-main-content .city-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+}
+
+.store-main-content .city-name {
+    font-size: 15px;
+    color: #161616;
+}
+
+/* 内容 */
+.store-main-content .content-experience {
+    padding-top: 80px;
+    text-align: center;
+    background-color: #f3f5f7;
+}
+
+.store-main-content .content-experience .content-title {
+    font-size: 38px;
+    height: 48px;
+    line-height: 48px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.store-main-content .tabs {
+    display: inline-flex;
+    margin: 30px 0 24px;
+    background: #e8eaee;
+    color: #9f9fa0;
+    border-radius: 8px;
+}
+
+.store-main-content .tab {
+    padding: 20px 60px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 24px;
+    height: 24px;
+}
+
+.store-main-content .tab.active {
+    background: #000;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+/* 卡片 */
+.store-main-content .card-list {
+    display: flex;
+}
+
+.store-main-content .card {
+    width: 100%;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: left;
+}
+
+.store-main-content .card img {
+    width: 100%;
+    object-fit: cover;
+    max-height: 360px;
+    display: block;
+}
+
+.store-main-content .card-content {
+    padding: 36px 24px 42px;
+}
+
+.store-main-content .card-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.store-main-content .card-time {
+    color: #afafaf;
+    font-size: 16px;
+    margin: 48px 0 40px;
+}
+
+.store-main-content .card-link {
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.store-main-content .more {
+    font-size: 22px;
+    line-height: 32px;
+    margin-top: 36px;
+    cursor: pointer;
+    text-align: right;
+}
+
+.store-main-content .more .more-text {
+    border-bottom: 1px solid #000;
+}
+
+/* ===== 会员区 ===== */
+.store-main-content .vip-section {
+    background-color: #f3f5f7;
+    padding-bottom: 110px;
+    text-align: center;
+}
+
+.store-main-content .vip-title {
+    font-size: 38px;
+    padding: 64px 52px;
+    margin: 0;
+}
+
+/* 图标区 */
+.store-main-content .vip-icons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 100px;
+}
+
+.store-main-content .vip-item {
+    width: 16.666666%;
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 18px;
+}
+
+.store-main-content .vip-item .icon {
+    width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.store-main-content .vip-item .icon img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.store-main-content .vip-item p {
+    margin: 32px 0 21px;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.store-main-content .vip-item span {
+    font-size: 16px;
+    line-height: 27px;
+    color: #747474;
+}
+
+
+/* 服务标题 */
+.store-main-content .service-title {
+    font-size: 38px;
+    margin: 0 0 80px;
+}
+
+/* 主体 */
+.store-main-content .service-box {
+    display: flex;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* 图片 */
+.store-main-content .service-img {
+    width: 50%;
+}
+
+.store-main-content .service-img img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.store-main-content .service-content-tabs {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px 0 48px;
+    gap: 4.479166vw;
+    width: 50%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+/* 内容 */
+.store-main-content .service-content-wrap {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+.store-main-content .service-heading {
+    font-size: 30px;
+    margin: 0;
+}
+
+.store-main-content .service-desc {
+    font-size: 16px;
+    margin: 42px 0 0 0;
+    color: #747474;
+    line-height: 27px;
+}
+
+/* 右侧tab */
+.store-main-content .service-tabs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 8.229166vw 0 48px;
+}
+
+.store-main-content .service-tab {
+    cursor: pointer;
+    color: #bababa;
+    border-right: 3px solid #dadada;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 26px 14px;
+    text-align: right;
+    width: 110px;
+}
+
+.store-main-content .service-tab.active {
+    color: #000;
+    border-right: 3px solid #000;
+}
+
+.store-main-content .city-list .city-title {
+    display: none;
+}
+
+.store-main-content .service-content-wrap.for-mobile {
+    display: none;
+}
+
+
+@media (max-width: 1664px) {
+
+    .banner,
+    .city-list,
+    .content-experience,
+    .vip-section {
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .store-main-content .banner {
+        margin-top: 26px;
+    }
+
+    .banner,
+    .city-list,
+    .content-experience,
+    .vip-section {
+        padding: 0 21px;
+    }
+
+    .store-main-content .city-list .city-title {
+        display: block;
+        text-align: center;
+        font-size: 51px;
+        line-height: 1.1;
+        margin: 54px 0 78px;
+    }
+
+    .store-main-content .city-list-container {
+        padding: 0 15px 106px;
+        overflow-x: auto;
+        gap: 25px;
+        scrollbar-width: none;
+    }
+
+    .store-main-content .city-list-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .store-main-content .city-icon {
+        width: 100px;
+        height: 86px;
+    }
+
+    .store-main-content .content-experience .content-title {
+        display: none;
+    }
+
+    .store-main-content .tabs {
+        margin: 0 0 40px;
+    }
+
+    .store-main-content .tab {
+        font-size: 22px;
+        padding: 18px 32px;
+        height: 28px;
+        line-height: 28px;
+    }
+
+    .store-main-content .tab.active {
+        font-size: 22px;
+    }
+
+     .store-main-content .card-swiper {
+        padding: 0 20px;
+    }
+
+
+    .store-main-content .card-list {
+        display: flex;
+    }
+
+    .store-main-content .swiper-slide {
+        width: 74.666667vw;
+    }
+
+    .store-main-content .card {
+        width: 100%;
+        background: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .store-main-content .card img {
+        width: 100%;
+        max-height: 364px;
+        object-fit: cover;
+    }
+
+    .store-main-content .card-content {
+        padding: 32px 24px 45px;
+    }
+
+    .store-main-content .card-title {
+        font-size: 26px;
+        line-height: 1.2;
+        font-weight: bold;
+    }
+
+    .store-main-content .card-time {
+        font-size: 24px;
+        line-height: 1.1;
+    }
+
+    .store-main-content .card-link {
+        font-size: 22px;
+        line-height: 1.1;
+    }
+
+    .store-main-content .more {
+        text-align: center;
+        margin-top: 48px;
+        padding-bottom: 66px;
+        font-size: 30px;
+        line-height: normal;
+    }
+
+    .store-main-content .vip-section {
+        padding: 0 0 88px;
+    }
+
+    .store-main-content .vip-section .vip-content {
+        background: #fff;
+    }
+
+    .store-main-content .vip-title {
+        font-size: 51px;
+        line-height: 1.1;
+        padding: 60px 40px;
+    }
+
+    .store-main-content .vip-icons {
+        flex-wrap: wrap;
+        gap: 60px 16px;
+        padding-bottom: 96px;
+        margin-bottom: 50px;
+    }
+
+    .store-main-content .vip-item {
+        width: calc((100% - 32px) / 3);
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        border-radius: 0;
+        padding: 0 18px;
+        position: relative;
+    }
+    
+    .store-main-content .vip-item:not(:nth-child(3n))::after {
+        content: '';
+        position: absolute;
+        right: -2px;
+        top: 10%;
+        bottom: 20%;
+        width: 2px;
+        background-color: #b9b9b9;
+    }
+
+    .store-main-content .vip-item .icon img {
+        height: 80px;
+    }
+
+    .store-main-content .vip-item p {
+        font-size: 30px;
+        line-height: 1.2;
+        margin: 36px 0 21px;
+    }
+
+    .store-main-content .vip-item span {
+        font-size: 22px;
+        line-height: 1.5;
+    }
+
+    .store-main-content .service-title {
+        font-size: 51px;
+        width: 475px;
+        margin: 0 auto 40px;
+        text-align: center;
+    }
+
+    .store-main-content .service-box {
+        flex-direction: column-reverse;
+        border-radius: 0;
+        background-color: #f3f5f7;
+    }
+
+    .store-main-content .service-img {
+        width: 100%;
+    }
+
+    .store-main-content .service-img img {
+        border-radius: 20px 20px 0 0;
+    }
+
+    .store-main-content .service-content-wrap.for-pc {
+        display: none;
+    }
+
+    .store-main-content .service-content-wrap.for-mobile {
+        display: block;
+    }
+
+    .store-main-content .service-content {
+        padding: 0 21px;
+    }
+
+    .store-main-content .service-tabs {
+        flex-direction: row;
+        margin: 0 auto 40px;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .store-main-content .service-content-tabs {
+        padding: 0;
+        width: 100%;
+    }
+
+    .store-main-content .service-content-wrap.for-mobile {
+        background: #fff;
+        border-radius: 0 0 20px 20px;
+        padding: 48px 40px 64px;
+        text-align: center;
+    }
+
+    .store-main-content .service-content-wrap.for-mobile .service-heading {
+        font-size: 40px;
+    }
+
+    .store-main-content .service-content-wrap.for-mobile .service-desc  {
+        font-size: 22px;
+        line-height: 36px;
+    }
+
+    .store-main-content .service-tab {
+        border-right: none;
+        text-align: center;
+        background-color: #e8eaee;
+        color: #9f9fa0;
+        padding: 10px 16px;
+        font-size: 20px;
+        line-height: 24px;
+        width: auto;
+    }
+
+    .store-main-content .service-tab.active {
+        border-right: none;
+        background-color: #000;
+        color: #fff;
+    }
+
+    .store-main-content .service-img img {
+        max-height: 392px;
+    }
+
+}

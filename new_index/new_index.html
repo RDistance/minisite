@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sony Store Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>直营店首页</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@7.4.1/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@7.4.1/swiper-bundle.min.js"></script>
+</head>
+<body>
+<div class="store-main-content">
+  <!-- Banner -->
+  <section class="banner">
+    <picture>
+      <!-- 移动端（宽度小于768px）显示 banner_wrap.jpg -->
+      <source media="(max-width: 767px)" srcset="banner_wrap.jpg">
+      <!-- 桌面端（宽度768px及以上）显示 banner.jpg -->
+      <img src="banner.jpg" alt="banner" />
+    </picture>
+  </section>
+
+  <!-- 城市 -->
+  <section class="city-list">
+    <h3 class="city-title">寻找你身边的Sony Store</h3>
+    <div class="city-list-container">
+      <div class="city-item">
+        <div class="city-icon"><img src="icon/北京.svg" alt="北京"></div>
+        <div class="city-name">北京</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="icon/上海.svg" alt="上海"></div>
+        <div class="city-name">上海</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="icon/广州.svg" alt="广州"></div>
+        <div class="city-name">广州</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="icon/成都.svg" alt="成都"></div>
+        <div class="city-name">成都</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="icon/深圳.svg" alt="深圳"></div>
+        <div class="city-name">深圳</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="icon/南京.svg" alt="南京"></div>
+        <div class="city-name">南京</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="icon/杭州.svg" alt="杭州"></div>
+        <div class="city-name">杭州</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="icon/武汉.svg" alt="武汉"></div>
+        <div class="city-name">武汉</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="icon/重庆.svg" alt="重庆"></div>
+        <div class="city-name">重庆</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="icon/苏州.svg" alt="苏州"></div>
+        <div class="city-name">苏州</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 内容区 -->
+  <section class="content-experience">
+    <h2 class="content-title">丰富体验 等你探索</h2>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" data-type="alpha">Alpha俱乐部</div>
+      <div class="tab" data-type="event">体验活动</div>
+      <div class="tab" data-type="promo">促销活动</div>
+    </div>
+
+    <!-- 列表 -->
+    <div class="swiper card-swiper">
+      <div class="swiper-wrapper card-list">
+        <!-- 动态插入 -->
+      </div>
+    </div>
+
+    <div class="more"><span class="more-text">查看全部></span></div>
+  </section>
+
+  <!-- 会员尊享 -->
+  <section class="vip-section">
+    <div class="vip-content">
+      <h2 class="vip-title">会员尊享会</h2>
+      <div class="vip-icons">
+        <div class="vip-item">
+          <div class="icon"><img src="icon/官方售后.svg" alt="官方售后"></div>
+          <p>官方售后</p>
+          <span>（金牌会员、铂金会员）</span>
+        </div>
+        <div class="vip-item">
+          <div class="icon"><img src="icon/到店福利.svg" alt="到店福利"></div>
+          <p>到店福利</p>
+          <span>（银牌会员、金牌会员、铂金会员）</span>
+        </div>
+        <div class="vip-item">
+          <div class="icon"><img src="icon/消费抽奖.svg" alt="消费抽奖"></div>
+          <p>消费抽奖</p>
+          <span>(注册/铜牌会员、银牌会员、金牌会员、铂金会员）</span>
+        </div>
+        <div class="vip-item">
+          <div class="icon"><img src="icon/相机清洁.svg" alt="相机清洁"></div>
+          <p>相机清洁</p>
+          <span>（金牌会员、铂金会员）</span>
+        </div>
+        <div class="vip-item">
+          <div class="icon"><img src="icon/相片打印.svg" alt="相片打印"></div>
+          <p>相片打印</p>
+          <span>(注册/铜牌会员、银牌会员、金牌会员、铂金会员）</span>
+        </div>
+        <div class="vip-item">
+          <div class="icon"><img src="icon/雨伞.svg" alt="雨伞"></div>
+          <p>雨伞</p>
+          <span>(注册/铜牌会员、银牌会员、金牌会员、铂金会员）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-content">
+      <h2 class="service-title">Sony Store专属体验与尊享服务</h2>
+
+      <div class="service-box">
+
+        <div class="service-content-wrap for-mobile">
+            <h3 class="service-heading">探索与体验</h3>
+            <p class="service-desc">
+             我们的专业团队将引导您亲手操作产品，解答您的每一个疑问，确保您获得最深度的使用体验。您还将有机会优先接触店内展出的前沿新品。
+            </p>
+        </div>
+
+        <!-- 左侧图片 -->
+        <div class="service-img">
+          <img src="service.jpg" />
+        </div>
+        <div class="service-content-tabs">
+          <!-- 中间内容 -->
+          <div class="service-content-wrap for-pc">
+            <h3 class="service-heading">探索与体验</h3>
+            <p class="service-desc">
+              我们的专业团队将引导您亲手操作产品，解答您的每一个疑问，确保您获得最深度的使用体验。您还将有机会优先接触店内展出的前沿新品。
+            </p>
+          </div>
+
+          <!-- 右侧菜单 -->
+          <div class="service-tabs">
+            <div class="service-tab active" data-index="0">探索与体验</div>
+            <div class="service-tab" data-index="1">您的专属顾问</div>
+            <div class="service-tab" data-index="2">多元化乐趣活动</div>
+            <div class="service-tab" data-index="3">会员俱乐部与成长礼遇</div>
+            <div class="service-tab" data-index="4">专业售后与个性定制</div>
+            <div class="service-tab" data-index="5">Aniplex</div>
+          </div>
+      </div>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
+
+
+
+<!-- https://pet.sonystyle.com.cn/content/sonystyle/smallapp/dealerweb/index.html
+https://www.sonystyle.com.cn/smallapp/dealerweb/index.html -->
