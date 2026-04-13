@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>活动列表</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container all-activity">
+        <h2 class="title">全部活动</h2>
+
+        <!-- 筛选 -->
+        <div class="filters">
+            <div class="custom-select" id="storeSelect">
+                <div class="select-trigger">北京东方广场店</div>
+                <div class="select-options">
+                    <div data-value="北京东方广场店">北京东方广场店</div>
+                    <div data-value="南京东方广场店">南京东方广场店</div>
+                </div>
+            </div>
+
+            <div class="custom-select" id="typeSelect">
+                <div class="select-trigger">新品体验</div>
+                <div class="select-options">
+                    <div data-value="新品体验">新品体验</div>
+                    <div data-value="促销活动">促销活动</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 列表 -->
+        <div class="card-list" id="cardList"></div>
+
+        <!-- 分页 -->
+        <div class="pagination" id="pagination">
+            <span class="prev">&lt;</span>
+            <span class="current">1</span>
+            <span class="total">共 1 页</span>
+            <span class="next">&gt;</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

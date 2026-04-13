@@ -141,9 +141,10 @@
         </div>
 
         <!-- 左侧图片 -->
-        <div class="service-img">
-          <img src="service.jpg" />
-        </div>
+        <picture class="service-img">
+           <source srcset="service_wrap.jpg" media="(max-width: 768px)" />
+          <img src="service.jpg" alt="服务图片" />
+        </picture>
         <div class="service-content-tabs">
           <!-- 中间内容 -->
           <div class="service-content-wrap for-pc">

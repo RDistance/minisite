@@ -25,27 +25,27 @@ $(function () {
     {
       title: "您的专属顾问",
       desc: "一对一顾问服务，为您提供个性化推荐与解决方案。",
-      img: "service2.jpg"
+      img: "service.jpg"
     },
     {
       title: "多元化活动",
       desc: "摄影课程、体验课、线下活动丰富多样。",
-      img: "service3.jpg"
+      img: "service.jpg"
     },
     {
       title: "会员俱乐部",
       desc: "加入会员俱乐部，享受更多权益与专属活动。",
-      img: "service4.jpg"
+      img: "service.jpg"
     },
     {
       title: "专业售后",
       desc: "专业售后支持，保障您的设备使用无忧。",
-      img: "service5.jpg"
+      img: "service.jpg"
     },
     {
       title: "Aniplex",
       desc: "动漫娱乐相关体验专区。",
-      img: "service6.jpg"
+      img: "service.jpg"
     }
   ];
 
