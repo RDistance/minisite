@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>活动列表</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7.4.1/swiper-bundle.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container store-detail">
+        <div class="header-info" id="storeInfo">
+        </div>
+        <div class="divider"></div>
+
+        <h2 class="section-title">Alpha俱乐部</h2>
+        <div class="swiper activity-swiper">
+            <div class="swiper-wrapper" id="alphaList"></div>
+        </div>
+
+        <h2 class="section-title experience-title">体验活动</h2>
+        <div class="swiper experience-swiper">
+            <div class="swiper-wrapper" id="experienceList"></div>
+        </div>
+
+        <h2 class="section-title promo-title">促销活动</h2>
+        <div class="tabs-container">
+            <div class="tabs" id="promoTabs"></div>
+        </div>
+        <div class="tab-panels">
+            <div class="swiper promo-swiper">
+                <div class="swiper-wrapper" id="promoList"></div>
+            </div>
+        </div>
+
+        <h2 class="section-title storelist-title">更多门店</h2>
+        <div class="store-container">
+            <div class="swiper store-swiper">
+                <div class="swiper-wrapper" id="storeList"></div>
+                <div class="swiper-scrollbar"></div>
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/swiper@7.4.1/swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
