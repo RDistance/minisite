@@ -74,6 +74,7 @@
     overflow: hidden;
     height: 100%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: relative;
 }
 
 .store-detail .card img {
@@ -83,6 +84,16 @@
     height: auto;
     max-height: 364px;
     display: block;
+}
+
+/* 懒加载图片样式 */
+.store-detail .card img.swiper-lazy {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.store-detail .card img.swiper-lazy-loaded {
+    opacity: 1;
 }
 
 .store-detail .card-body {
@@ -152,6 +163,7 @@
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    position: relative;
 }
 
 .store-detail .store-card img {
@@ -159,6 +171,49 @@
     max-height: 290px;
     object-fit: cover;
     display: block;
+}
+
+/* 门店卡片懒加载图片样式 */
+.store-detail .store-card img.swiper-lazy {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.store-detail .store-card img.swiper-lazy-loaded {
+    opacity: 1;
+}
+
+/* Swiper 懒加载通用样式 */
+.store-detail .swiper-lazy {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.store-detail .swiper-lazy-loaded {
+    opacity: 1;
+}
+
+.store-detail .swiper-lazy-preloader {
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -21px;
+    margin-top: -21px;
+    z-index: 10;
+    transform-origin: 50%;
+    animation: swiper-preloader-spin 1s infinite linear;
+    box-sizing: border-box;
+    border: 4px solid #5a87ed;
+    border-radius: 50%;
+    border-top-color: transparent;
+}
+
+@keyframes swiper-preloader-spin {
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .store-detail .store-info-box {

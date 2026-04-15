@@ -13,12 +13,28 @@ $(function () {
             slidesPerView: 'auto',
             spaceBetween: 30,
             centeredSlides: true,
-            initialSlide: 1
+            initialSlide: 1,
+            // 懒加载配置
+            lazy: {
+                loadPrevNext: true,
+                loadPrevNextAmount: 2,
+                loadOnTransitionStart: true
+            },
+            preloadImages: false,
+            watchSlidesProgress: true
         } : {
             slidesPerView: 3,
             spaceBetween: 50,
             centeredSlides: true,
-            initialSlide: 1
+            initialSlide: 1,
+            // 懒加载配置
+            lazy: {
+                loadPrevNext: true,
+                loadPrevNextAmount: 2,
+                loadOnTransitionStart: true
+            },
+            preloadImages: false,
+            watchSlidesProgress: true
         };
 
         swipers[selector] = new Swiper(selector, { ...defaultConfig, ...options });
@@ -29,7 +45,8 @@ $(function () {
         return `
             <div class="swiper-slide">
                 <div class="card">
-                    <img src="${item.img}" alt="${item.title}">
+                    <div class="swiper-lazy-preloader"></div>
+                    <img data-src="${item.img}" alt="${item.title}" class="swiper-lazy">
                     <div class="card-body">
                         <h3>${item.title}</h3>
                         <p class="time">${item.time}</p>
@@ -44,7 +61,8 @@ $(function () {
         return `
             <div class="swiper-slide">
                 <div class="store-card">
-                    <img src="${item.img}">
+                    <div class="swiper-lazy-preloader"></div>
+                    <img data-src="${item.img}" class="swiper-lazy">
                     <div class="store-info-box">
                         <h3>Sony Store · ${item.name}</h3>
                         <p>📍 ${item.address}</p>
@@ -157,7 +175,15 @@ $(function () {
             centeredSlides: false,
             scrollbar: { el: '.swiper-scrollbar', draggable: true },
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-            breakpoints: { 768: { slidesPerView: 3, spaceBetween: 20 } }
+            breakpoints: { 768: { slidesPerView: 3, spaceBetween: 20 } },
+            // 懒加载配置
+            lazy: {
+                loadPrevNext: true,
+                loadPrevNextAmount: 2,
+                loadOnTransitionStart: true
+            },
+            preloadImages: false,
+            watchSlidesProgress: true
         });
     });
 
