@@ -17,18 +17,16 @@
         <!-- 筛选 -->
         <div class="filters">
             <div class="custom-select" id="storeSelect">
-                <div class="select-trigger">北京东方广场店</div>
+                <div class="select-trigger"></div>
                 <div class="select-options">
-                    <div data-value="北京东方广场店">北京东方广场店</div>
-                    <div data-value="南京东方广场店">南京东方广场店</div>
                 </div>
             </div>
 
             <div class="custom-select" id="typeSelect">
                 <div class="select-trigger">新品体验</div>
                 <div class="select-options">
-                    <div data-value="新品体验">新品体验</div>
-                    <div data-value="促销活动">促销活动</div>
+                    <div data-vaule="新品体验" data-sort="0">新品体验</div>
+                    <div data-vaule="促销活动" data-sort="1">促销活动</div>
                 </div>
             </div>
         </div>
@@ -42,6 +40,11 @@
             <span class="current">1</span>
             <span class="total">共 1 页</span>
             <span class="next">&gt;</span>
+        </div>
+
+        <!-- 加载更多按钮（移动端） -->
+        <div class="load-more" id="loadMore">
+            <span class="load-more-text">加载更多</span>
         </div>
     </div>
 

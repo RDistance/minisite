@@ -89,6 +89,8 @@ body {
   z-index: 10;
   display: none;
   text-align: center;
+  max-height: 359px;
+  overflow-y: auto;
 }
 
 .all-activity .select-options.open {
@@ -301,6 +303,36 @@ body {
   }
 
   .all-activity .pagination {
+    display: none;
+  }
+
+  /* 加载更多按钮 */
+  .all-activity .load-more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4.8vw 2.8vw;
+    cursor: pointer;
+  }
+
+  .all-activity .load-more-text {
+    font-size: 3.2vw;
+    color: #000;
+  }
+
+  .all-activity .load-more.loading .load-more-text::after {
+    content: "...";
+  }
+
+  .all-activity .load-more.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* PC端隐藏加载更多按钮 */
+@media (min-width: 769px) {
+  .all-activity .load-more {
     display: none;
   }
 }
