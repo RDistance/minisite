@@ -7,17 +7,18 @@ $(function () {
         // 如果已存在实例，先销毁
         if (swipers[selector]) swipers[selector].destroy(true, true);
 
-        const defaultConfig = {
-            slidesPerView: 1.2,
-            spaceBetween: 15,
+        const isMobile = window.innerWidth <= 768;
+        
+        const defaultConfig = isMobile ? {
+            slidesPerView: 'auto',
+            spaceBetween: 30,
             centeredSlides: true,
-            breakpoints: {
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 50,
-                    centeredSlides: false
-                }
-            }
+            initialSlide: 1
+        } : {
+            slidesPerView: 3,
+            spaceBetween: 50,
+            centeredSlides: true,
+            initialSlide: 1
         };
 
         swipers[selector] = new Swiper(selector, { ...defaultConfig, ...options });
@@ -118,11 +119,23 @@ $(function () {
 
         // 1. 渲染头部
         const info = data.storeInfo;
-        $('#storeInfo').html(`
-            <div class="info-item"><h4>门店地址</h4><p>${info.address}</p></div>
-            <div class="info-item"><h4>营业时间</h4><p>${info.time}</p></div>
-            <div class="info-item"><h4>联系方式</h4><p>${info.phone}</p></div>
-        `);
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            $('#storeInfo').html(`
+                <div class="info-item"><h4>门店地址</h4><p>${info.address}</p></div>
+                <div class="info-right-group">
+                    <div class="info-item"><h4>营业时间</h4><p>${info.time}</p></div>
+                    <div class="info-item"><h4>联系方式</h4><p>${info.phone}</p></div>
+                </div>
+            `);
+        } else {
+            $('#storeInfo').html(`
+                <div class="info-item"><h4>门店地址</h4><p>${info.address}</p></div>
+                <div class="info-item"><h4>营业时间</h4><p>${info.time}</p></div>
+                <div class="info-item"><h4>联系方式</h4><p>${info.phone}</p></div>
+            `);
+        }
 
         // 2. 渲染 Alpha 和 体验
         $('#alphaList').html(data.alpha.map(createCardHtml).join(''));
@@ -140,7 +153,7 @@ $(function () {
         // 4. 更多门店
         $('#storeList').html(data.stores.map(createStoreHtml).join(''));
         initSwiper('.store-swiper', {
-            slidesPerView: 1.4,
+            slidesPerView: 1.45,
             centeredSlides: false,
             scrollbar: { el: '.swiper-scrollbar', draggable: true },
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },

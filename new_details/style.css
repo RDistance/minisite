@@ -10,7 +10,7 @@
     font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
-.store-detail .container {
+.store-detail.container {
     width: 1580px;
     margin: 0 auto;
 }
@@ -244,7 +244,7 @@
 
 
 @media (max-width: 1660px) {
-    .store-detail.container.store-detail {
+    .store-detail.container {
         width: calc(100% - 80px);
         margin: 0 auto;
     }
@@ -252,14 +252,42 @@
 
 /* 移动端适配 */
 @media (max-width: 768px) {
-    .store-detail.container.store-detail {
+    .store-detail.container {
         width: calc(100% - 5.333333vw);
     }
 
     .store-detail .header-info {
-        gap: 2.666667vw;
+        display: flex;
+        gap: 21.333333vw;
         padding: 4.8vw 2.8vw 8.8vw;
-        justify-content: space-between;
+        text-align: left;
+    }
+
+    .store-detail .header-info .info-item:first-child {
+        flex: 1;
+    }
+
+    .store-detail .header-info .info-right-group {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 4vw;
+    }
+
+    .store-detail .header-info h4 {
+        font-size: 4.4vw;
+        line-height: 1.1;
+        margin-bottom: 2.4vw;
+    }
+
+    .store-detail .header-info p {
+        font-size: 3.466667vw;
+        line-height: 5.866667vw;
+        max-width: none;
+    }
+
+    .store-detail .divider {
+        margin: 0 2.8vw 6.666667vw;
     }
 
     .store-detail .section-title {
@@ -290,6 +318,12 @@
     .store-detail .card-body .btn-link {
         font-size: 2.933333vw;
         line-height: 1.1;
+    }
+
+    .store-detail .activity-swiper .swiper-slide,
+    .store-detail .experience-swiper .swiper-slide,
+    .store-detail .promo-swiper .swiper-slide {
+        width: 74.666667vw;
     }
 
     .store-detail .section-title.experience-title {
