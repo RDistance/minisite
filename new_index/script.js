@@ -1,22 +1,208 @@
 $(function () {
 
-  let swiper = null; // 声明 swiper 变量
+  var swiper = null; // 声明 swiper 变量
+  
+  // 城市列表配置（保持原始顺序）
+  var cityList = [
+    { name: "北京", icon: "icon/北京.svg" },
+    { name: "上海", icon: "icon/上海.svg" },
+    { name: "广州", icon: "icon/广州.svg" },
+    { name: "成都", icon: "icon/成都.svg" },
+    { name: "深圳", icon: "icon/深圳.svg" },
+    { name: "南京", icon: "icon/南京.svg" },
+    { name: "杭州", icon: "icon/杭州.svg" },
+    { name: "武汉", icon: "icon/武汉.svg" },
+    { name: "重庆", icon: "icon/重庆.svg" },
+    { name: "苏州", icon: "icon/苏州.svg" }
+  ];
 
-  const data = {
-    alpha: [
-      { title: "从0到1学摄影+专人答疑", time: "2026-03-25 17:00 - 17:30", img: "service.jpg" },
-      { title: "摄影基础训练营", time: "2026-03-26 17:00 - 17:30", img: "service.jpg" },
-      { title: "人像拍摄技巧", time: "2026-03-27 17:00 - 17:30", img: "service.jpg" }
-    ],
-    event: [
-      { title: "新品体验会", time: "2026-04-01", img: "service.jpg" }
-    ],
-    promo: [
-      { title: "限时优惠活动", time: "2026-04-10", img: "service.jpg" }
-    ]
+  // 使用百度地图获取当前城市
+  function getCurrentCity(callback) {
+    if (typeof BMap === 'undefined') {
+      console.error("百度地图API未加载");
+      callback(null);
+      return;
+    }
+
+    var geolocation = new BMap.Geolocation();
+    geolocation.getCurrentPosition(function(r) {
+      if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+        var myGeo = new BMap.Geocoder();
+        myGeo.getLocation(r.point, function(result) {
+          if (result) {
+            var cityName = result.addressComponents.city;
+            // 去掉"市"字
+            cityName = cityName.replace('市', '');
+            console.log('当前城市:', cityName);
+            callback(cityName);
+          } else {
+            console.warn('获取城市信息失败');
+            callback(null);
+          }
+        });
+      } else {
+        console.warn('定位失败');
+        callback(null);
+      }
+    }, { enableHighAccuracy: true });
+  }
+
+  // 渲染城市列表
+  function renderCityList(currentCity) {
+    var sortedCityList = cityList.slice(); // 复制数组
+
+    // 如果找到当前城市，将其移到第一位
+    if (currentCity) {
+      var currentIndex = -1;
+      for (var i = 0; i < sortedCityList.length; i++) {
+        if (sortedCityList[i].name === currentCity || sortedCityList[i].name.indexOf(currentCity) !== -1) {
+          currentIndex = i;
+          break;
+        }
+      }
+
+      if (currentIndex > 0) {
+        var currentCityItem = sortedCityList.splice(currentIndex, 1)[0];
+        sortedCityList.unshift(currentCityItem);
+        console.log('城市列表已重排，当前城市:', currentCityItem.name);
+      }
+    }
+
+    // 渲染城市列表
+    var html = '';
+    for (var i = 0; i < sortedCityList.length; i++) {
+      var city = sortedCityList[i];
+      html += '<div class="city-item">' +
+              '<div class="city-icon"><img src="' + city.icon + '" alt="' + city.name + '"></div>' +
+              '<div class="city-name">' + city.name + '</div>' +
+              '</div>';
+    }
+    $('.city-list-container').empty().html(html);
+  }
+
+  // 初始化城市列表
+  function initCityList() {
+    getCurrentCity(function(cityName) {
+      renderCityList(cityName);
+    });
+  }
+
+  // 初始化城市列表
+  initCityList();
+
+  // 获取首页促销活动数据
+  function fetchPromoActivities() {
+    return $.ajax({
+      url: "https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/homeData",
+      method: "GET",
+      dataType: "json"
+    });
+  }
+
+  // 获取Alpha俱乐部数据
+  function fetchAlphaActivities() {
+    return $.ajax({
+      url: "https://dev-nsp.sonystyle.com.cn/ssoapps/retailer_activity/dealer/shopActivitysByCategory?category=DI",
+      method: "GET",
+      dataType: "json"
+    });
+  }
+
+  // 获取体验活动数据
+  function fetchEventActivities() {
+    var categories = encodeURIComponent("全品类,PA,PS,TV/HAV,其它");
+    return $.ajax({
+      url: "https://dev-nsp.sonystyle.com.cn/ssoapps/retailer_activity/dealer/shopActivitysByCategory?category=" + categories,
+      method: "GET",
+      dataType: "json"
+    });
+  }
+
+  // 数据缓存
+  var activityData = {
+    alpha: [],
+    event: [],
+    promo: []
   };
 
-   const serviceData = [
+  // 加载所有活动数据
+  function loadAllActivities() {
+    // 加载促销活动
+    fetchPromoActivities()
+      .done(function(response) {
+        if (response.result && response.returnData && response.returnData.activityList) {
+          activityData.promo = response.returnData.activityList.map(function(item) {
+            return {
+              title: item.title,
+              time: item.activityDate,
+              img: item.activityImgUrl || "activity-default.jpg",
+              linkUrl: item.linkUrl || "#",
+              mobileLink: item.mobileLink || "#",
+              linkType: item.linkType,
+              linkName: item.linkName
+            };
+          });
+          console.log('促销活动加载成功:', activityData.promo.length + '条');
+        }
+      })
+      .fail(function(error) {
+        console.error("获取促销活动失败:", error);
+      });
+
+    // 加载Alpha俱乐部
+    fetchAlphaActivities()
+      .done(function(response) {
+        if (response.result && response.returnData) {
+          activityData.alpha = response.returnData.map(function(item) {
+            return {
+              title: item.title,
+              time: item.activityDate || item.activityTime,
+              img: item.activityImgUrl || "activity-default.jpg",
+              linkUrl: item.linkUrl || "#",
+              mobileLink: item.mobileLink || "#",
+              linkType: item.linkType,
+              linkName: item.linkName
+            };
+          });
+          console.log('Alpha俱乐部加载成功:', activityData.alpha.length + '条');
+          // Alpha是默认显示的，加载完成后渲染
+          render("alpha");
+        }
+      })
+      .fail(function(error) {
+        console.error("获取Alpha俱乐部失败:", error);
+      });
+
+    // 加载体验活动
+    fetchEventActivities()
+      .done(function(response) {
+        if (response.result && response.returnData) {
+          activityData.event = response.returnData.map(function(item) {
+            return {
+              title: item.title,
+              time: item.activityDate || item.activityTime,
+              img: item.activityImgUrl || "activity-default.jpg",
+              linkUrl: item.linkUrl || "#",
+              mobileLink: item.mobileLink || "#",
+              linkType: item.linkType,
+              linkName: item.linkName
+            };
+          });
+          console.log('体验活动加载成功:', activityData.event.length + '条');
+        }
+      })
+      .fail(function(error) {
+        console.error("获取体验活动失败:", error);
+      });
+  }
+
+  // 加载所有活动数据
+  loadAllActivities();
+
+  // 加载所有活动数据
+  loadAllActivities();
+
+  var serviceData = [
     {
       title: "探索与体验",
       desc: "我们的专业团队将引导您亲手操作产品，解答您的每一个疑问，确保您获得最深度的使用体验。还有机会优先体验新品。",
@@ -72,24 +258,25 @@ $(function () {
   }
 
   function render(type) {
-    const list = data[type];
-    let html = "";
+    var list = activityData[type] || [];
+    var html = "";
 
-
-   list.forEach(item => {
-    html += `
-      <div class="swiper-slide">
-        <div class="card">
-          <img src="${item.img}" />
-          <div class="card-content">
-            <div class="card-title">${item.title}</div>
-            <div class="card-time">${item.time}</div>
-            <div class="card-link">我要报名 ></div>
-          </div>
-        </div>
-      </div>
-    `;
-    });
+    if (list.length === 0) {
+      html = '<div class="swiper-slide"><div class="card"><div class="card-content"><div class="card-title">暂无活动</div></div></div></div>';
+    } else {
+      list.forEach(function(item) {
+        html += '<div class="swiper-slide">' +
+                '<div class="card">' +
+                '<img src="' + item.img + '" />' +
+                '<div class="card-content">' +
+                '<div class="card-title">' + item.title + '</div>' +
+                '<div class="card-time">' + item.time + '</div>' +
+                '<div class="card-link">我要报名 ></div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+      });
+    }
 
     $(".card-list").html(html);
 
@@ -97,7 +284,7 @@ $(function () {
 
   }
 
-  // 初始化
+  // 初始化（先渲染空状态，等数据加载完成后会自动更新）
   render("alpha");
 
   // tab切换
@@ -105,17 +292,17 @@ $(function () {
     $(".tab").removeClass("active");
     $(this).addClass("active");
 
-    const type = $(this).data("type");
+    var type = $(this).data("type");
     render(type);
   });
 
   $(".service-tab").click(function () {
-    const index = $(this).data("index");
+    var index = $(this).data("index");
 
     $(".service-tab").removeClass("active");
     $(this).addClass("active");
 
-    const item = serviceData[index];
+    var item = serviceData[index];
 
     $(".service-heading").text(item.title);
     $(".service-desc").text(item.desc);

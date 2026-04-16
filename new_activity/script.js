@@ -251,12 +251,36 @@ $(function () {
     });
 
     // 获取商店数据API
-    function fetchDealerData() {
+    function fetchDealerData(longitude, latitude) {
+        longitude = longitude || 0;
+        latitude = latitude || 0;
         return $.ajax({
-            url: "https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/dealer/findAllDealer",
+            url: "https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/dealer/findAllDealer?longitude=" + longitude + "&latitude=" + latitude,
             method: "GET",
             dataType: "json"
         });
+    }
+
+    // 使用百度地图获取当前位置
+    function getCurrentLocation(callback) {
+        if (typeof BMap === 'undefined') {
+            console.error("百度地图API未加载");
+            callback({ longitude: 0, latitude: 0 });
+            return;
+        }
+
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function(r) {
+            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                var longitude = r.point.lng;
+                var latitude = r.point.lat;
+                console.log('当前位置:', { longitude: longitude, latitude: latitude });
+                callback({ longitude: longitude, latitude: latitude });
+            } else {
+                console.warn('定位失败，使用默认位置');
+                callback({ longitude: 0, latitude: 0 });
+            }
+        }, { enableHighAccuracy: true });
     }
 
     // 获取活动列表API
@@ -393,19 +417,21 @@ $(function () {
     }
 
     // 初始化
-    fetchDealerData()
-        .done(function(response) {
-            // 从响应对象中提取resultData字段
-            if (response.result && response.resultData) {
-                dealerData = response.resultData; // 存储resultData数据
-                initStoreSelect(dealerData);
-            } else {
-                console.error("API返回数据格式错误:", response);
+    getCurrentLocation(function(location) {
+        fetchDealerData(location.longitude, location.latitude)
+            .done(function(response) {
+                // 从响应对象中提取resultData字段
+                if (response.result && response.resultData) {
+                    dealerData = response.resultData; // 存储resultData数据
+                    initStoreSelect(dealerData);
+                } else {
+                    console.error("API返回数据格式错误:", response);
+                    renderPagination();
+                }
+            })
+            .fail(function(error) {
+                console.error("获取商店数据失败:", error);
                 renderPagination();
-            }
-        })
-        .fail(function(error) {
-            console.error("获取商店数据失败:", error);
-            renderPagination();
-        });
+            });
+    });
 });
