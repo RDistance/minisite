@@ -1,5 +1,8 @@
 $(function () {
 
+  // 检测是否是移动端
+  var isMobile = $(window).width() <= 768;
+
   var swiper = null; // 声明 swiper 变量
   
   // 城市列表配置（保持原始顺序）
@@ -99,6 +102,37 @@ $(function () {
     });
   }
 
+  // 显示二维码tooltip（PC端hover）
+  function showQRCodeTooltip($element, qrImgPath) {
+    // 如果已存在tooltip，不重复创建
+    if ($("#qrTooltip").length > 0) {
+      return;
+    }
+    
+    // 获取按钮位置
+    var offset = $element.offset();
+    var width = $element.outerWidth();
+    
+    // 计算tooltip位置（显示在按钮右边）
+    var tooltipLeft = offset.left + width + 10;
+    var tooltipTop = offset.top;
+    
+    // 创建tooltip HTML
+    var tooltipHtml = '<div id="qrTooltip" style="position: absolute; top: ' + tooltipTop + 'px; left: ' + tooltipLeft + 'px; z-index: 9999; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">' +
+      '<span class="qr-close-btn" style="position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 20px; color: #999; line-height: 1; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;">&times;</span>' +
+      '<img src="' + qrImgPath + '" alt="二维码" style="width: 150px; height: 150px; display: block;" />' +
+      '</div>';
+    
+    // 添加tooltip到页面
+    $("body").append(tooltipHtml);
+    
+    // 点击关闭按钮关闭tooltip
+    $(".qr-close-btn").on("click", function(e) {
+      e.stopPropagation();
+      $("#qrTooltip").remove();
+    });
+  }
+
   // 获取Alpha俱乐部数据
   function fetchAlphaActivities() {
     return $.ajax({
@@ -170,7 +204,9 @@ $(function () {
               linkUrl: item.linkUrl || "#",
               mobileLink: item.mobileLink || "#",
               linkType: item.linkType,
-              linkName: item.linkName
+              linkName: item.linkName,
+              remark: item.remark || "",
+              qrImgPath: item.qrImgPath || ""
             };
           });
           console.log('促销活动加载成功:', activityData.promo.length + '条');
@@ -287,13 +323,46 @@ $(function () {
       html = '<div class="swiper-slide"><div class="card"><div class="card-content"><div class="card-title">暂无活动</div></div></div></div>';
     } else {
       list.forEach(function(item) {
+        // 处理促销活动的链接逻辑
+        var btnText = "查看详情 >";
+        var linkUrl = item.linkUrl;
+        var qrImgPath = item.qrImgPath || "";
+        var linkClass = "";
+        var linkData = "";
+        
+        if (type === "promo") {
+          // 促销活动特殊处理
+          if (item.linkName == "1" || item.linkName == "2") {
+            // 查看详情和立即报名逻辑相同
+            btnText = item.linkName == "1" ? "查看详情 >" : "立即报名 >";
+            
+            if (item.linkType == "1") {
+              // linkType为1时PC端直接跳转
+              linkUrl = isMobile ? (item.mobileLink || item.linkUrl) : item.linkUrl;
+            } else if (item.linkType == "2") {
+              // linkType为2时PC端显示二维码，移动端跳转
+              if (isMobile) {
+                linkUrl = item.mobileLink || item.linkUrl;
+              } else {
+                linkUrl = "#"; // PC端不跳转，显示二维码
+                linkClass = " has-qr";
+                linkData = ' data-qr="' + qrImgPath + '"';
+              }
+            }
+          } else if (item.linkName == "3") {
+            btnText = item.remark || "";
+            linkUrl = "#"; // 备注不可跳转
+            linkClass = " no-link";
+          }
+        }
+        
         html += '<div class="swiper-slide">' +
                 '<div class="card">' +
                 '<img src="' + item.img + '" />' +
                 '<div class="card-content">' +
                 '<div class="card-title">' + item.title + '</div>' +
                 '<div class="card-time">' + item.time + '</div>' +
-                '<div class="card-link" data-url="' + item.linkUrl + '">查看详情 ></div>' +
+                '<div class="card-link' + linkClass + '" data-url="' + linkUrl + '"' + linkData + '>' + btnText + '</div>' +
                 '</div>' +
                 '</div>' +
                 '</div>';
@@ -309,9 +378,24 @@ $(function () {
   // 初始化（先渲染空状态，等数据加载完成后会自动更新）
   render("alpha");
 
+  // 卡片链接hover显示二维码（PC端）
+  $(document).on({
+    mouseenter: function () {
+      var qrImgPath = $(this).data("qr");
+      if (qrImgPath && !isMobile) {
+        showQRCodeTooltip($(this), qrImgPath);
+      }
+    }
+  }, ".card-link.has-qr");
+
   // 卡片链接点击事件
   $(document).on("click", ".card-link", function() {
     var url = $(this).data("url");
+    // 如果有no-link类，不跳转
+    if ($(this).hasClass("no-link")) {
+      return;
+    }
+    // 正常跳转
     if (url && url !== "#") {
       window.open(url, "_blank");
     }
