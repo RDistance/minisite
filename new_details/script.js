@@ -80,54 +80,204 @@ $(function () {
             </div>`;
     }
 
-    // 模拟获取数据
-    function fetchData() {
-        // 这里替换为你真实的后端接口
-        return new Promise(resolve => {
-            setTimeout(() => {
-                resolve({
-                    storeInfo: {
-                        address: '广州市天河区天河路 228号正佳广场3楼 3B035-40/059号商铺',
-                        time: '10:00-22:00',
-                        phone: '020-38682903'
-                    },
-                    alpha: [
-                        { title: 'What不用后期就能发圈', img: 'https://picsum.photos/600/400?random=1', time: '2026-03-25 17:00 - 17:30' },
-                        { title: 'What不用后期就能发圈', img: 'https://picsum.photos/600/400?random=2', time: '2026-03-25 17:00 - 17:30' },
-                        { title: 'What不用后期就能发圈', img: 'https://picsum.photos/600/400?random=3', time: '2026-03-25 17:00 - 17:30' },
-                        { title: 'Alpha 额外活动', img: 'https://picsum.photos/600/400?random=4', time: '2026-03-25 17:00 - 17:30' }
-                    ],
-                    experience: [
-                        { title: '福气满满的理想家', img: 'https://picsum.photos/600/400?random=5', time: '2026-02-10 - 02-24' },
-                        { title: '福气满满的理想家', img: 'https://picsum.photos/600/400?random=6', time: '2026-02-10 - 02-24' },
-                        { title: '福气满满的理想家', img: 'https://picsum.photos/600/400?random=7', time: '2026-02-10 - 02-24' }
-                    ],
-                    promoTabs: [
-                        { key: 'new', name: '新品体验' },
-                        { key: 'sale', name: '促销活动' },
-                        { key: 'all', name: '全部活动' }
-                    ],
-                    promoData: {
-                        new: [{ title: '新品首发体验', img: 'https://picsum.photos/600/400?random=8', time: '3-25' },
-                            { title: '新品首发体验1', img: 'https://picsum.photos/600/400?random=8', time: '3-25' },
-                            { title: '新品首发体验2', img: 'https://picsum.photos/600/400?random=8', time: '3-25' },
-                            { title: '新品首发体验4', img: 'https://picsum.photos/600/400?random=8', time: '3-25' }
-                        ],
-                        sale: [{ title: '限时促销优惠', img: 'https://picsum.photos/600/400?random=9', time: '3-25' }],
-                        all: [{ title: '新品首发体验', img: 'https://picsum.photos/600/400?random=8', time: '3-25' },
-                            { title: '新品首发体验1', img: 'https://picsum.photos/600/400?random=8', time: '3-25' },
-                            { title: '新品首发体验2', img: 'https://picsum.photos/600/400?random=8', time: '3-25' },
-                            { title: '新品首发体验4', img: 'https://picsum.photos/600/400?random=8', time: '3-25' },
-                            { title: '所有精彩活动', img: 'https://picsum.photos/600/400?random=10', time: '3-25' }]
-                    },
-                    stores: [
-                        { name: '上海淮海中路店', address: '淮海中路901-909号1-3楼', phone: '021-64721212', time: '10:00-21:00', img: 'https://picsum.photos/600/400?random=11' },
-                        { name: '苏州万象天地店', address: '苏州市姑苏区广济南路', phone: '0512-68833008', time: '10:00-22:00', img: 'https://picsum.photos/600/400?random=12' },
-                        { name: '重庆万象城店', address: '重庆市九龙坡区谢家湾正街', phone: '023-68689181', time: '10:00-22:00', img: 'https://picsum.photos/600/400?random=13' },
-                         { name: '重庆万象城店1', address: '重庆市九龙坡区谢家湾正街1', phone: '023-68689181', time: '10:00-22:00', img: 'https://picsum.photos/600/400?random=13' }
-                    ]
+    // 从URL获取storeId
+    function getStoreIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('storeId');
+    }
+
+    // 获取门店详情数据
+    function fetchStoreDetail(dfId) {
+        return $.ajax({
+            url: 'https://www.sonystyle.com.cn/dealero2o/app/master/dealer',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ dfId: dfId })
+        });
+    }
+
+    // 获取门店活动数据
+    function fetchShopActivities(shopId) {
+        return $.ajax({
+            url: 'https://dev-nsp.sonystyle.com.cn/ssoapps/retailer_activity/dealer/shopActivitys',
+            type: 'GET',
+            data: {
+                conceal: 0,
+                shopId: shopId,
+                _: new Date().getTime()
+            }
+        });
+    }
+
+    // 获取所有门店列表
+    function fetchAllStores() {
+        return $.ajax({
+            url: 'https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/dealer/findAllDealer',
+            type: 'GET',
+            data: {
+                longitude: 0,
+                latitude: 0
+            }
+        });
+    }
+
+    // 处理活动数据，区分Alpha俱乐部和体验活动
+    function processActivities(activities) {
+        const alpha = [];
+        const experience = [];
+
+        if (activities && activities.result) {
+            activities.result.forEach(item => {
+                const activityData = {
+                    title: item.activityName || '活动',
+                    img: item.activityPics && item.activityPics.length > 0 
+                        ? item.activityPics[0].picUrl 
+                        : 'https://via.placeholder.com/600x400',
+                    time: `${item.startTime || ''} - ${item.endTime || ''}`,
+                    url: item.activityUrl || '#'
+                };
+
+                // activityType为DI的是Alpha俱乐部，非DI的是体验活动
+                if (item.activityType === 'DI') {
+                    alpha.push(activityData);
+                } else {
+                    experience.push(activityData);
+                }
+            });
+        }
+
+        return { alpha, experience };
+    }
+
+    // 处理门店详情数据中的促销活动和新品体验
+    function processStoreData(storeData) {
+        const promoData = {
+            new: [], // 新品体验
+            sale: [] // 促销活动
+        };
+
+        // 处理新品体验 (productList)
+        if (storeData.productList && storeData.productList.length > 0) {
+            storeData.productList.forEach(item => {
+                const productData = {
+                    title: item.productName || item.title || '新品体验',
+                    img: item.activityImgUrl || 'https://via.placeholder.com/600x400',
+                    time: item.activityDate || '',
+                    url: item.linkUrl || item.mobileLink || '#'
+                };
+                promoData.new.push(productData);
+            });
+        }
+
+        // 处理促销活动 (activityList)
+        if (storeData.activityList && storeData.activityList.length > 0) {
+            storeData.activityList.forEach(item => {
+                const activityData = {
+                    title: item.title || '促销活动',
+                    img: item.activityImgUrl || 'https://via.placeholder.com/600x400',
+                    time: item.activityDate || '',
+                    url: item.linkUrl || item.mobileLink || '#'
+                };
+                promoData.sale.push(activityData);
+            });
+        }
+
+        return promoData;
+    }
+
+    // 处理门店列表数据
+    function processStores(storesData) {
+        const stores = [];
+        
+        if (storesData && storesData.resultData) {
+            storesData.resultData.forEach(item => {
+                stores.push({
+                    name: item.name || '门店',
+                    address: item.address || '地址待更新',
+                    phone: item.phone || '电话待更新',
+                    time: item.businessHour || '营业时间待更新',
+                    img: item.imgURL || 'https://via.placeholder.com/600x400',
+                    id: item.id
                 });
-            }, 500);
+            });
+        }
+
+        return stores;
+    }
+
+    // 获取所有数据
+    function fetchData() {
+        const storeId = getStoreIdFromUrl();
+        
+        if (!storeId) {
+            console.error('未找到storeId参数');
+            return Promise.reject('未找到storeId参数');
+        }
+
+        // 并行请求所有接口
+        return Promise.all([
+            fetchStoreDetail(storeId),
+            fetchShopActivities(storeId),
+            fetchAllStores()
+        ]).then(([storeDetail, shopActivities, allStores]) => {
+            // 处理活动数据
+            const { alpha, experience } = processActivities(shopActivities);
+            
+            // 处理促销活动和新品体验
+            const promoData = processStoreData(storeDetail);
+            
+            // 处理门店列表
+            const stores = processStores(allStores);
+
+            return {
+                storeInfo: {
+                    address: storeDetail.address || '地址待更新',
+                    time: storeDetail.businessHour || '营业时间待更新',
+                    phone: storeDetail.phone || storeDetail.mobile || '电话待更新'
+                },
+                alpha: alpha.length > 0 ? alpha : [
+                    { title: '暂无Alpha俱乐部活动', img: 'https://via.placeholder.com/600x400', time: '' }
+                ],
+                experience: experience.length > 0 ? experience : [
+                    { title: '暂无体验活动', img: 'https://via.placeholder.com/600x400', time: '' }
+                ],
+                promoTabs: [
+                    { key: 'new', name: '新品体验' },
+                    { key: 'sale', name: '促销活动' }
+                ],
+                promoData: {
+                    new: promoData.new.length > 0 ? promoData.new : [
+                        { title: '暂无新品体验', img: 'https://via.placeholder.com/600x400', time: '' }
+                    ],
+                    sale: promoData.sale.length > 0 ? promoData.sale : [
+                        { title: '暂无促销活动', img: 'https://via.placeholder.com/600x400', time: '' }
+                    ]
+                },
+                stores: stores.length > 0 ? stores : [
+                    { name: '暂无更多门店', address: '', phone: '', time: '', img: 'https://via.placeholder.com/600x400' }
+                ]
+            };
+        }).catch(error => {
+            console.error('数据获取失败:', error);
+            // 返回默认数据
+            return {
+                storeInfo: {
+                    address: '数据加载失败',
+                    time: '数据加载失败',
+                    phone: '数据加载失败'
+                },
+                alpha: [{ title: '数据加载失败', img: 'https://via.placeholder.com/600x400', time: '' }],
+                experience: [{ title: '数据加载失败', img: 'https://via.placeholder.com/600x400', time: '' }],
+                promoTabs: [
+                    { key: 'new', name: '新品体验' },
+                    { key: 'sale', name: '促销活动' }
+                ],
+                promoData: {
+                    new: [{ title: '数据加载失败', img: 'https://via.placeholder.com/600x400', time: '' }],
+                    sale: [{ title: '数据加载失败', img: 'https://via.placeholder.com/600x400', time: '' }]
+                },
+                stores: [{ name: '数据加载失败', address: '', phone: '', time: '', img: 'https://via.placeholder.com/600x400' }]
+            };
         });
     }
 
