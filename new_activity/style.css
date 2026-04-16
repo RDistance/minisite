@@ -43,6 +43,9 @@ body {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .all-activity .select-trigger.active {
@@ -106,6 +109,9 @@ body {
   font-size: 16px;
   line-height: 32px;
   position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .all-activity .select-options > div::before {
@@ -137,6 +143,21 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 30px 50px;
+}
+
+/* ===== 暂无活动提示 ===== */
+.all-activity .no-activity {
+  text-align: center;
+  padding: 80px 0;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.all-activity .no-activity-text {
+  font-size: 24px;
+  color: #999;
 }
 
 .all-activity .card {
@@ -387,6 +408,16 @@ body {
   .all-activity .load-more.disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  /* 暂无活动提示 */
+  .all-activity .no-activity {
+    padding: 13.333333vw 0;
+    min-height: 53.333333vw;
+  }
+
+  .all-activity .no-activity-text {
+    font-size: 4.266667vw;
   }
 }
 

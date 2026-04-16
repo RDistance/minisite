@@ -12,6 +12,21 @@ $(function () {
 
     // 渲染卡片（移动端：追加，PC端：替换）
     function renderList(append = false) {
+        // 如果没有数据，显示暂无活动提示
+        if (filteredData.length === 0 && !append) {
+            $("#cardList").html("");
+            $("#noActivity").show();
+            $("#pagination").hide();
+            $("#loadMore").hide();
+            return;
+        } else {
+            $("#noActivity").hide();
+            $("#pagination").show();
+            if (isMobile) {
+                $("#loadMore").show();
+            }
+        }
+
         const html = filteredData.map(item => {
             // 1 查看详情 2 立即报名 3 备注
             let btnText = "";
@@ -59,6 +74,15 @@ $(function () {
 
     // 分页
     function renderPagination() {
+        // 如果没有活动，隐藏分页
+        if (totalCount === 0) {
+            $("#pagination").hide();
+            if (isMobile) {
+                $("#loadMore").hide();
+            }
+            return;
+        }
+
         const totalPages = Math.ceil(totalCount / pageSize);
 
         $(".current").text(currentPage);
@@ -120,11 +144,6 @@ $(function () {
             if (qrImgPath && !isMobile) {
                 showQRCodeTooltip($(this), qrImgPath);
             }
-        },
-        mouseleave: function () {
-            if (!isMobile) {
-                hideQRCodeTooltip();
-            }
         }
     }, ".card-btn");
 
@@ -176,23 +195,36 @@ $(function () {
 
     // 显示二维码tooltip（PC端hover）
     function showQRCodeTooltip($element, qrImgPath) {
-        // 移除已存在的tooltip
-        $("#qrTooltip").remove();
+        // 如果已存在tooltip，不重复创建
+        if ($("#qrTooltip").length > 0) {
+            return;
+        }
         
         // 获取按钮位置
         const offset = $element.offset();
         const width = $element.outerWidth();
         const height = $element.outerHeight();
         
+        // 计算tooltip位置（显示在按钮右边）
+        const tooltipLeft = offset.left + width + 10;
+        const tooltipTop = offset.top;
+        
         // 创建tooltip HTML
         const tooltipHtml = `
-            <div id="qrTooltip" style="position: absolute; top: ${offset.top + height + 10}px; left: ${offset.left}px; z-index: 9999; background: white; padding: 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                <img src="${qrImgPath}" alt="二维码" style="width: 150px; height: 150px;" />
+            <div id="qrTooltip" style="position: absolute; top: ${tooltipTop}px; left: ${tooltipLeft}px; z-index: 9999; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                <span class="qr-close-btn" style="position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 20px; color: #999; line-height: 1; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;">&times;</span>
+                <img src="${qrImgPath}" alt="二维码" style="width: 150px; height: 150px; display: block;" />
             </div>
         `;
         
         // 添加tooltip到页面
         $("body").append(tooltipHtml);
+        
+        // 点击关闭按钮关闭tooltip
+        $(".qr-close-btn").on("click", function(e) {
+            e.stopPropagation();
+            hideQRCodeTooltip();
+        });
     }
 
     // 隐藏二维码tooltip

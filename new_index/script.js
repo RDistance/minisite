@@ -118,6 +118,37 @@ $(function () {
     });
   }
 
+  // 从activityPics数组中获取封面图
+  function getCoverImage(activityPics) {
+    if (!activityPics || activityPics.length === 0) {
+      return "activity-default.jpg";
+    }
+    for (var i = 0; i < activityPics.length; i++) {
+      if (activityPics[i].picType === "封面图") {
+        return activityPics[i].picUrl;
+      }
+    }
+    return activityPics[0].picUrl || "activity-default.jpg";
+  }
+
+  // 格式化时间：从startTime和endTime提取时间部分
+  function formatActivityTime(startTime, endTime) {
+    if (!startTime) return "";
+    
+    // startTime格式: "2026-04-15 05:00"
+    var startParts = startTime.split(" ");
+    var startDate = startParts[0]; // "2026-04-15"
+    var startHour = startParts[1]; // "05:00"
+    
+    var endHour = "";
+    if (endTime) {
+      var endParts = endTime.split(" ");
+      endHour = endParts[1]; // "05:00"
+    }
+    
+    return startDate + " " + startHour + (endHour ? " - " + endHour : "");
+  }
+
   // 数据缓存
   var activityData = {
     alpha: [],
@@ -152,16 +183,13 @@ $(function () {
     // 加载Alpha俱乐部
     fetchAlphaActivities()
       .done(function(response) {
-        if (response.result && response.returnData) {
-          activityData.alpha = response.returnData.map(function(item) {
+        if (response.code === 200 && response.result) {
+          activityData.alpha = response.result.map(function(item) {
             return {
-              title: item.title,
-              time: item.activityDate || item.activityTime,
-              img: item.activityImgUrl || "activity-default.jpg",
-              linkUrl: item.linkUrl || "#",
-              mobileLink: item.mobileLink || "#",
-              linkType: item.linkType,
-              linkName: item.linkName
+              title: item.activityName,
+              time: formatActivityTime(item.startTime, item.endTime),
+              img: getCoverImage(item.activityPics),
+              linkUrl: item.activityUrl || "#"
             };
           });
           console.log('Alpha俱乐部加载成功:', activityData.alpha.length + '条');
@@ -176,16 +204,13 @@ $(function () {
     // 加载体验活动
     fetchEventActivities()
       .done(function(response) {
-        if (response.result && response.returnData) {
-          activityData.event = response.returnData.map(function(item) {
+        if (response.code === 200 && response.result) {
+          activityData.event = response.result.map(function(item) {
             return {
-              title: item.title,
-              time: item.activityDate || item.activityTime,
-              img: item.activityImgUrl || "activity-default.jpg",
-              linkUrl: item.linkUrl || "#",
-              mobileLink: item.mobileLink || "#",
-              linkType: item.linkType,
-              linkName: item.linkName
+              title: item.activityName,
+              time: formatActivityTime(item.startTime, item.endTime),
+              img: getCoverImage(item.activityPics),
+              linkUrl: item.activityUrl || "#"
             };
           });
           console.log('体验活动加载成功:', activityData.event.length + '条');
@@ -268,7 +293,7 @@ $(function () {
                 '<div class="card-content">' +
                 '<div class="card-title">' + item.title + '</div>' +
                 '<div class="card-time">' + item.time + '</div>' +
-                '<div class="card-link">我要报名 ></div>' +
+                '<div class="card-link" data-url="' + item.linkUrl + '">查看详情 ></div>' +
                 '</div>' +
                 '</div>' +
                 '</div>';
@@ -283,6 +308,14 @@ $(function () {
 
   // 初始化（先渲染空状态，等数据加载完成后会自动更新）
   render("alpha");
+
+  // 卡片链接点击事件
+  $(document).on("click", ".card-link", function() {
+    var url = $(this).data("url");
+    if (url && url !== "#") {
+      window.open(url, "_blank");
+    }
+  });
 
   // tab切换
   $(".tab").click(function () {
