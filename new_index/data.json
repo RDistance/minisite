@@ -1,0 +1,201 @@
+// https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/homeData
+{
+    "result": true,
+    "message": "Success",
+    "returnCode": "00",
+    "returnData": {
+        "activityList": [
+            {
+                "id": "6178facebf7c47449c5c8aebbd7b1c17",
+                "dealerId": "",
+                "title": "ntest01",
+                "content": "test",
+                "activityTime": "09:25-09:25",
+                "activityDate": "2026/04/14-08/31",
+                "sort": "0",
+                "activityEndDate": 1788139500000,
+                "activityStartDate": 1776129900000,
+                "mobileLink": "https://www.sonystyle.com.cn/",
+                "qrImgPath": null,
+                "activityImgUrl": "https://www.sony.com.cn/content/dam/sonyportal/new-index/followus/Sony_GPVI_Logo_White_RGB.png",
+                "showOnHomePage": 1,
+                "linkType": 1,
+                "linkUrl": "https://www.sonystyle.com.cn/",
+                "linkName": 1,
+                "remark": null
+            }
+        ]
+    }
+}
+
+//https://dev-nsp.sonystyle.com.cn/ssoapps/retailer_activity/dealer/shopActivitysByCategory?category=DI
+{
+    "code": 200,
+    "message": "查询成功",
+    "result": [
+        {
+            "activityCourseType": "搞笑",
+            "lecturerType": "摄影师",
+            "endApplyTime": "",
+            "activityfingerprint": "202501",
+            "noNeedRegistration": false,
+            "qrcodeConsumeStartTime": "2026-04-08 00:00",
+            "shopName": "Sony Store 武汉梦时代店",
+            "qrcodeConsumeEndTime": "2026-04-08 20:00",
+            "activityPics": [
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2Ff7d786c4-7ed2-403d-b131-6cd0a4a4feb7",
+                    "picType": "封面图"
+                },
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2Fa8c34d33-1c14-4cab-9891-2a403e22c784",
+                    "picType": "KV pc图"
+                },
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2Fcffc29f1-2290-45db-9e0a-3d1ae3c566c4",
+                    "picType": "KV mobile图"
+                },
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2Fe5fd4c38-b1df-4eb1-baac-19804f30f46c",
+                    "picType": "详情图一"
+                },
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2F2a8f5fc4-34a1-4311-9e20-f268b85bd384",
+                    "picType": "详情图二"
+                }
+            ],
+            "lecturerPic": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2F213ca9d8-10a2-47ef-9917-a33d14235a9dm2.png",
+            "shopAddress": "武汉市武昌区武珞路598号武汉梦时代广场负一楼A区A-004/005/006",
+            "maxNum": 11111,
+            "content": "test0924001:测试内容2",
+            "activityId": "4ff522ec-1c87-40a9-b7ac-70a0501acf4c",
+            "activityCourseId": "baed20bb-195f-4bfc-bca3-122e1a0f84af",
+            "lecturerName": "测试0325v2",
+            "activityCity": "武汉市",
+            "isReview": false,
+            "appliedNum": 0,
+            "startTime": "2026-04-08 02:00",
+            "activityLevel": "中级",
+            "isRegistration": false,
+            "signedNum": 0,
+            "activityName": "萌宠拍摄大作战",
+            "startApplyTime": "2026-04-08 02:00",
+            "activityUrl": "https://pet.sonystyle.com.cn/smallapp/lecture/offline/lectures/detail.htm?acid=4ff522ec-1c87-40a9-b7ac-70a0501acf4c",
+            "endTime": "2026-04-28 19:00",
+            "activityType": "DI",
+            "status": 1
+        }
+    ]
+}
+//https://dev-nsp.sonystyle.com.cn/ssoapps/retailer_activity/dealer/shopActivitysByCategory?category=%E5%85%A8%E5%93%81%E7%B1%BB%2CPA%2CPS%2CTV%2FHAV%2C%E5%85%B6%E5%AE%83
+{
+    "code": 200,
+    "message": "查询成功",
+    "result": [
+        {
+            "activityCourseType": "搞笑",
+            "lecturerType": "索尼讲师",
+            "endApplyTime": "",
+            "activityfingerprint": "202501",
+            "noNeedRegistration": false,
+            "qrcodeConsumeStartTime": "2026-04-15 03:00",
+            "shopName": "Sony Store上海淮海中路店",
+            "qrcodeConsumeEndTime": "2026-04-30 06:00",
+            "activityPics": [
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2Ff7d786c4-7ed2-403d-b131-6cd0a4a4feb7",
+                    "picType": "封面图"
+                },
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2Fa8c34d33-1c14-4cab-9891-2a403e22c784",
+                    "picType": "KV pc图"
+                },
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2Fcffc29f1-2290-45db-9e0a-3d1ae3c566c4",
+                    "picType": "KV mobile图"
+                },
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2Fe5fd4c38-b1df-4eb1-baac-19804f30f46c",
+                    "picType": "详情图一"
+                },
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2F2a8f5fc4-34a1-4311-9e20-f268b85bd384",
+                    "picType": "详情图二"
+                }
+            ],
+            "lecturerPic": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2F704fd7db-ec00-4e8c-9a2c-0a099ed2fccc7501000.jpg",
+            "shopAddress": "淮海中路901-909号1-3楼",
+            "maxNum": 100,
+            "content": "test0924001:测试内容2",
+            "activityId": "86b00454-a970-4ddd-9fd2-6e4a65dceeac",
+            "activityCourseId": "baed20bb-195f-4bfc-bca3-122e1a0f84af",
+            "lecturerName": "多coi讲师测试0413v1",
+            "activityCity": "上海市",
+            "isReview": false,
+            "appliedNum": 0,
+            "startTime": "2026-04-15 05:00",
+            "activityLevel": "中级",
+            "isRegistration": false,
+            "signedNum": 0,
+            "activityName": "萌宠拍摄大作战",
+            "startApplyTime": "2026-04-15 23:00",
+            "activityUrl": "https://pet.sonystyle.com.cn/smallapp/lecture/offline/lectures/detail.htm?acid=86b00454-a970-4ddd-9fd2-6e4a65dceeac",
+            "endTime": "2026-04-30 05:00",
+            "activityType": "全品类",
+            "status": 1
+        },
+        {
+            "activityCourseType": "搞笑",
+            "lecturerType": "索尼讲师",
+            "endApplyTime": "",
+            "activityfingerprint": "202501",
+            "noNeedRegistration": false,
+            "qrcodeConsumeStartTime": "2026-04-01 22:00",
+            "shopName": "Sony Store",
+            "qrcodeConsumeEndTime": "2026-04-30 01:00",
+            "activityPics": [
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2Ff7d786c4-7ed2-403d-b131-6cd0a4a4feb7",
+                    "picType": "封面图"
+                },
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2Fa8c34d33-1c14-4cab-9891-2a403e22c784",
+                    "picType": "KV pc图"
+                },
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2Fcffc29f1-2290-45db-9e0a-3d1ae3c566c4",
+                    "picType": "KV mobile图"
+                },
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2Fe5fd4c38-b1df-4eb1-baac-19804f30f46c",
+                    "picType": "详情图一"
+                },
+                {
+                    "picUrl": "https://www.sonystyle.com.cn/dealersearch-prd/di_lecture/%2F2a8f5fc4-34a1-4311-9e20-f268b85bd384",
+                    "picType": "详情图二"
+                }
+            ],
+            "lecturerPic": "",
+            "shopAddress": "测试地址",
+            "maxNum": 1000,
+            "content": "test0924001:测试内容2",
+            "activityId": "62b97436-df9c-4982-afe4-20c86ca3c33b",
+            "activityCourseId": "baed20bb-195f-4bfc-bca3-122e1a0f84af",
+            "lecturerName": "测试413",
+            "activityCity": "北京市",
+            "isReview": false,
+            "appliedNum": 0,
+            "startTime": "2026-03-31 00:00",
+            "activityLevel": "中级",
+            "isRegistration": false,
+            "signedNum": 0,
+            "activityName": "萌宠拍摄大作战",
+            "startApplyTime": "2026-03-31 17:00",
+            "activityUrl": "https://pet.sonystyle.com.cn/smallapp/lecture/offline/lectures/detail.htm?acid=62b97436-df9c-4982-afe4-20c86ca3c33b",
+            "endTime": "2026-04-30 00:00",
+            "activityType": "其它",
+            "status": 1
+        }
+    ]
+}
+

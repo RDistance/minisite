@@ -199,9 +199,6 @@ $(function () {
   // 加载所有活动数据
   loadAllActivities();
 
-  // 加载所有活动数据
-  loadAllActivities();
-
   var serviceData = [
     {
       title: "探索与体验",
