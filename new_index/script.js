@@ -7,16 +7,16 @@ $(function () {
   
   // 城市列表配置（保持原始顺序）
   var cityList = [
-    { name: "北京", icon: "icon/北京.svg" },
-    { name: "上海", icon: "icon/上海.svg" },
-    { name: "广州", icon: "icon/广州.svg" },
-    { name: "成都", icon: "icon/成都.svg" },
-    { name: "深圳", icon: "icon/深圳.svg" },
-    { name: "南京", icon: "icon/南京.svg" },
-    { name: "杭州", icon: "icon/杭州.svg" },
-    { name: "武汉", icon: "icon/武汉.svg" },
-    { name: "重庆", icon: "icon/重庆.svg" },
-    { name: "苏州", icon: "icon/苏州.svg" }
+    { name: "北京", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/北京.svg" },
+    { name: "上海", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/上海.svg" },
+    { name: "广州", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/广州.svg" },
+    { name: "成都", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/成都.svg" },
+    { name: "深圳", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/深圳.svg" },
+    { name: "南京", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/南京.svg" },
+    { name: "杭州", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/杭州.svg" },
+    { name: "武汉", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/武汉.svg" },
+    { name: "重庆", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/重庆.svg" },
+    { name: "苏州", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/苏州.svg" }
   ];
 
   // 使用百度地图获取当前城市
@@ -168,9 +168,12 @@ $(function () {
       .done(function(response) {
         if (response.result && response.returnData && response.returnData.activityList) {
           activityData.promo = response.returnData.activityList.map(function(item) {
+            // 将 activityStartDate 时间戳转换为日期格式
+            const startDate = new Date(item.activityStartDate);
+            const formattedDate = startDate.toISOString().split('T')[0];
             return {
               title: item.title,
-              time: item.activityDate,
+              time: `${formattedDate} ${item.activityTime}`,
               img: item.activityImgUrl || "activity-default.jpg",
               linkUrl: item.linkUrl || "#",
               mobileLink: item.mobileLink || "#",
@@ -235,32 +238,32 @@ $(function () {
     {
       title: "探索与体验",
       desc: "我们的专业团队将引导您亲手操作产品，解答您的每一个疑问，确保您获得最深度的使用体验。还有机会优先体验新品。",
-      img: "service.jpg"
+      img: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg"
     },
     {
       title: "您的专属顾问",
       desc: "一对一顾问服务，为您提供个性化推荐与解决方案。",
-      img: "service.jpg"
+      img: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg"
     },
     {
       title: "多元化活动",
       desc: "摄影课程、体验课、线下活动丰富多样。",
-      img: "service.jpg"
+      img: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg"
     },
     {
       title: "会员俱乐部",
       desc: "加入会员俱乐部，享受更多权益与专属活动。",
-      img: "service.jpg"
+      img: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg"
     },
     {
       title: "专业售后",
       desc: "专业售后支持，保障您的设备使用无忧。",
-      img: "service.jpg"
+      img: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg"
     },
     {
       title: "Aniplex",
       desc: "动漫娱乐相关体验专区。",
-      img: "service.jpg"
+      img: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg"
     }
   ];
 

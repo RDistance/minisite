@@ -72,7 +72,7 @@ body {
   transform: translateY(-50%);
   width: 20px;
   height: 11px;
-  background-image: url(arrow.png);
+  background-image: url(/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/arrow.png);
   background-repeat: no-repeat;
   background-position: center;
 }

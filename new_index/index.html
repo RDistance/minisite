@@ -1,0 +1,1217 @@
+
+<style>
+body {
+    margin: 0;
+}
+
+.banner,
+.city-list,
+.content-experience,
+.vip-section {
+    padding: 0 8.75vw;
+}
+
+
+/* Banner */
+.store-main-content .banner {
+    margin-top: 60px;
+}
+
+.store-main-content .banner img {
+    width: 100%;
+    border-radius: 20px;
+    display: block;
+}
+
+/* 城市 */
+.store-main-content .city-list-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 106px 68px;
+}
+
+.store-main-content .city-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.store-main-content .city-icon {
+    width: 64px;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+.store-main-content .city-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+}
+
+.store-main-content .city-name {
+    font-size: 15px;
+    color: #161616;
+}
+
+/* 内容 */
+.store-main-content .content-experience {
+    padding-top: 80px;
+    text-align: center;
+    background-color: #f3f5f7;
+}
+
+.store-main-content .content-experience .content-title {
+    font-size: 38px;
+    height: 48px;
+    line-height: 48px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.store-main-content .tabs {
+    display: inline-flex;
+    margin: 30px 0 24px;
+    background: #e8eaee;
+    color: #9f9fa0;
+    border-radius: 8px;
+}
+
+.store-main-content .tab {
+    padding: 20px 60px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 24px;
+    height: 24px;
+}
+
+.store-main-content .tab.active {
+    background: #000;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+/* 卡片 */
+.store-main-content .card-list {
+    display: flex;
+}
+
+.store-main-content .card {
+    width: 100%;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: left;
+}
+
+.store-main-content .card img {
+    width: 100%;
+    object-fit: cover;
+    max-height: 360px;
+    display: block;
+}
+
+.store-main-content .card-content {
+    padding: 36px 24px 42px;
+}
+
+.store-main-content .card-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.store-main-content .card-time {
+    color: #afafaf;
+    font-size: 16px;
+    margin: 48px 0 40px;
+}
+
+/* 按钮和二维码的父级容器 */
+.store-main-content .card-btn-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* 二维码样式 */
+.store-main-content .card-qr-code {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 100;
+    white-space: nowrap;
+}
+
+.store-main-content .card-qr-code img {
+    width: 150px;
+    height: 150px;
+    display: block;
+}
+
+.store-main-content .card-link {
+    font-size: 15px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+}
+
+.store-main-content .card-link.no-link {
+    cursor: default;
+}
+
+/* ===== 二维码弹窗 ===== */
+#qrModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 1000;
+}
+
+#qrModal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#qrModal .modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+#qrModal .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 32px;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+#qrModal .close-btn:hover {
+  color: #000;
+}
+
+#qrModal img {
+  max-width: 300px;
+  max-height: 300px;
+  display: block;
+}
+
+.store-main-content .more {
+    font-size: 22px;
+    line-height: 32px;
+    margin-top: 36px;
+    cursor: pointer;
+    text-align: right;
+}
+
+.store-main-content .more .more-text {
+    border-bottom: 1px solid #000;
+}
+
+/* ===== 会员区 ===== */
+.store-main-content .vip-section {
+    background-color: #f3f5f7;
+    padding-bottom: 110px;
+    text-align: center;
+}
+
+.store-main-content .vip-title {
+    font-size: 38px;
+    padding: 64px 52px;
+    margin: 0;
+}
+
+/* 图标区 */
+.store-main-content .vip-icons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 100px;
+}
+
+.store-main-content .vip-item {
+    width: 16.666666%;
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 18px;
+}
+
+.store-main-content .vip-item .icon {
+    width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.store-main-content .vip-item .icon img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.store-main-content .vip-item p {
+    margin: 32px 0 21px;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.store-main-content .vip-item span {
+    font-size: 16px;
+    line-height: 27px;
+    color: #747474;
+}
+
+
+/* 服务标题 */
+.store-main-content .service-title {
+    font-size: 38px;
+    margin: 0 0 80px;
+}
+
+/* 主体 */
+.store-main-content .service-box {
+    display: flex;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* 图片 */
+.store-main-content .service-img {
+    width: 50%;
+}
+
+.store-main-content .service-img img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.store-main-content .service-content-tabs {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px 0 48px;
+    gap: 4.479166vw;
+    width: 50%;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+/* 内容 */
+.store-main-content .service-content-wrap {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+.store-main-content .service-heading {
+    font-size: 30px;
+    margin: 0;
+}
+
+.store-main-content .service-desc {
+    font-size: 16px;
+    margin: 42px 0 0 0;
+    color: #747474;
+    line-height: 27px;
+}
+
+/* 右侧tab */
+.store-main-content .service-tabs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 8.229166vw 0 48px;
+    gap: 1.25vw;
+}
+
+.store-main-content .service-tab {
+    cursor: pointer;
+    color: #bababa;
+    border-right: 3px solid #dadada;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 26px 14px;
+    text-align: right;
+    width: 110px;
+}
+
+.store-main-content .service-tab.active {
+    color: #000;
+    border-right: 3px solid #000;
+}
+
+.store-main-content .city-list .city-title {
+    display: none;
+}
+
+.store-main-content .service-content-wrap.for-mobile {
+    display: none;
+}
+
+
+@media (max-width: 1664px) {
+
+    .banner,
+    .city-list,
+    .content-experience,
+    .vip-section {
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .store-main-content .banner {
+        margin-top: 3.466667vw;
+    }
+
+    .banner,
+    .city-list,
+    .content-experience,
+    .vip-section {
+        padding: 0 2.8vw;
+    }
+
+    .store-main-content .city-list .city-title {
+        display: block;
+        text-align: center;
+        font-size: 6.8vw;
+        line-height: 1.1;
+        margin: 7.2vw 0 10.4vw;
+    }
+
+    .store-main-content .city-list-container {
+        padding: 0 2vw 14.133333vw;
+        overflow-x: auto;
+        gap: 3.333333vw;
+        scrollbar-width: none;
+    }
+
+    .store-main-content .city-list-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .store-main-content .city-icon {
+        width: 13.333333vw;
+        height: 11.466667vw;
+    }
+
+    .store-main-content .content-experience .content-title {
+        display: none;
+    }
+
+    .store-main-content .tabs {
+        margin: 0 0 5.333333vw;
+    }
+
+    .store-main-content .tab {
+        font-size: 2.933333vw;
+        padding: 2.4vw 4.266667vw;
+        height: 3.733333vw;
+        line-height: 3.733333vw;
+    }
+
+    .store-main-content .tab.active {
+        font-size: 2.933333vw;
+    }
+
+     .store-main-content .card-swiper {
+        padding: 0 2.666667vw;
+    }
+
+
+    .store-main-content .card-list {
+        display: flex;
+    }
+
+    .store-main-content .swiper-slide {
+        width: 74.666667vw;
+    }
+
+    .store-main-content .card {
+        width: 100%;
+        background: #fff;
+        border-radius: 2.666667vw;
+        overflow: hidden;
+    }
+
+    .store-main-content .card img {
+        width: 100%;
+        max-height: 48.533333vw;
+        object-fit: cover;
+    }
+
+    .store-main-content .card-content {
+        padding: 4.266667vw 3.2vw 6vw;
+    }
+
+    .store-main-content .card-title {
+        font-size: 3.466667vw;
+        line-height: 1.2;
+        font-weight: bold;
+    }
+
+    .store-main-content .card-time {
+        font-size: 3.2vw;
+        line-height: 1.1;
+    }
+
+    .store-main-content .card-link {
+        font-size: 2.933333vw;
+        line-height: 1.1;
+    }
+
+    .store-main-content .more {
+        text-align: center;
+        margin-top: 6.4vw;
+        padding-bottom: 8.8vw;
+        font-size: 4vw;
+        line-height: normal;
+    }
+
+    .store-main-content .vip-section {
+        padding: 0 0 11.733333vw;
+    }
+
+    .store-main-content .vip-section .vip-content {
+        background: #fff;
+    }
+
+    .store-main-content .vip-title {
+        font-size: 6.8vw;
+        line-height: 1.1;
+        padding: 8vw 5.333333vw;
+    }
+
+    .store-main-content .vip-icons {
+        flex-wrap: wrap;
+        gap: 8vw 2.133333vw;
+        padding-bottom: 12.8vw;
+        margin-bottom: 6.666667vw;
+    }
+
+    .store-main-content .vip-item {
+        width: calc((100% - 4.266667vw) / 3);
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        border-radius: 0;
+        padding: 0 2.4vw;
+        position: relative;
+    }
+    
+    .store-main-content .vip-item:not(:nth-child(3n))::after {
+        content: '';
+        position: absolute;
+        right: -0.266667vw;
+        top: 10%;
+        bottom: 20%;
+        width: 0.266667vw;
+        background-color: #b9b9b9;
+    }
+
+    .store-main-content .vip-item .icon img {
+        height: 10.666667vw;
+    }
+
+    .store-main-content .vip-item p {
+        font-size: 4vw;
+        line-height: 1.2;
+        margin: 4.8vw 0 2.8vw;
+    }
+
+    .store-main-content .vip-item span {
+        font-size: 2.933333vw;
+        line-height: 1.5;
+    }
+
+    .store-main-content .service-title {
+        font-size: 6.8vw;
+        width: 63.333333vw;
+        margin: 0 auto 5.333333vw;
+        text-align: center;
+    }
+
+    .store-main-content .service-box {
+        flex-direction: column-reverse;
+        border-radius: 0;
+        background-color: #f3f5f7;
+    }
+
+    .store-main-content .service-img {
+        width: 100%;
+    }
+
+    .store-main-content .service-img img {
+        border-radius: 2.666667vw 2.666667vw 0 0;
+    }
+
+    .store-main-content .service-content-wrap.for-pc {
+        display: none;
+    }
+
+    .store-main-content .service-content-wrap.for-mobile {
+        display: block;
+    }
+
+    .store-main-content .service-content {
+        padding: 0 2.8vw;
+    }
+
+    .store-main-content .service-tabs {
+        flex-direction: row;
+        margin: 0 auto 5.333333vw;
+        border-radius: 2.133333vw;
+        overflow: hidden;
+        background-color: #e8eaee;
+        padding: 6px;
+    }
+
+    .store-main-content .service-content-tabs {
+        padding: 0;
+        width: 100%;
+    }
+
+    .store-main-content .service-content-wrap.for-mobile {
+        background: #fff;
+        border-radius: 0 0 2.666667vw 2.666667vw;
+        padding: 6.4vw 5.333333vw 8.533333vw;
+        text-align: center;
+    }
+
+    .store-main-content .service-content-wrap.for-mobile .service-heading {
+        font-size: 5.333333vw;
+    }
+
+    .store-main-content .service-content-wrap.for-mobile .service-desc  {
+        font-size: 2.933333vw;
+        line-height: 4.8vw;
+    }
+
+    .store-main-content .service-tab {
+        border-right: none;
+        text-align: center;
+        background-color: #e8eaee;
+        color: #9f9fa0;
+        padding: 1.333333vw 14px;
+        font-size: 2.666667vw;
+        line-height: 3.2vw;
+        width: auto;
+        display: flex;
+        align-items: center;
+    }
+
+    .store-main-content .service-tab.active {
+        border-right: none;
+        background-color: #000;
+        color: #fff;
+        border-radius: 8px;
+    }
+
+    .store-main-content .service-img img {
+        max-height: 52.266667vw;
+    }
+
+}
+</style>
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&amp;ak=q7LFs3kP1PNSP0ccE0etjLErsIN8GzjD&amp;s=1"></script>
+<div class="store-main-content">
+  <!-- Banner -->
+  <section class="banner">
+    <picture>
+      <!-- 移动端（宽度小于768px）显示 banner_wrap.jpg -->
+      <source media="(max-width: 767px)" srcset="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/banner_wrap.jpg">
+      <!-- 桌面端（宽度768px及以上）显示 banner.jpg -->
+      <img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/banner.jpg" alt="banner" />
+    </picture>
+  </section>
+
+  <!-- 城市 -->
+  <section class="city-list">
+    <h3 class="city-title">寻找你身边的Sony Store</h3>
+    <div class="city-list-container">
+      <div class="city-item">
+        <div class="city-icon"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/北京.svg" alt="北京"></div>
+        <div class="city-name">北京</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/上海.svg" alt="上海"></div>
+        <div class="city-name">上海</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/广州.svg" alt="广州"></div>
+        <div class="city-name">广州</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/成都.svg" alt="成都"></div>
+        <div class="city-name">成都</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/深圳.svg" alt="深圳"></div>
+        <div class="city-name">深圳</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/南京.svg" alt="南京"></div>
+        <div class="city-name">南京</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/杭州.svg" alt="杭州"></div>
+        <div class="city-name">杭州</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/武汉.svg" alt="武汉"></div>
+        <div class="city-name">武汉</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/重庆.svg" alt="重庆"></div>
+        <div class="city-name">重庆</div>
+      </div>
+      <div class="city-item">
+        <div class="city-icon"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/苏州.svg" alt="苏州"></div>
+        <div class="city-name">苏州</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 内容区 -->
+  <section class="content-experience">
+    <h2 class="content-title">丰富体验 等你探索</h2>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" data-type="alpha">Alpha俱乐部</div>
+      <div class="tab" data-type="event">体验活动</div>
+      <div class="tab" data-type="promo">促销活动</div>
+    </div>
+
+    <!-- 列表 -->
+    <div class="swiper card-swiper">
+      <div class="swiper-wrapper card-list">
+        <!-- 动态插入 -->
+      </div>
+    </div>
+
+    <div class="more"><span class="more-text">查看全部></span></div>
+  </section>
+
+  <!-- 会员尊享 -->
+  <section class="vip-section">
+    <div class="vip-content">
+      <h2 class="vip-title">会员尊享会</h2>
+      <div class="vip-icons">
+        <div class="vip-item">
+          <div icon><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/官方售后.svg" alt="官方售后"></div>
+          <p>官方售后</p>
+          <span>（金牌会员、铂金会员）</span>
+        </div>
+        <div class="vip-item">
+          <div icon><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/到店福利.svg" alt="到店福利"></div>
+          <p>到店福利</p>
+          <span>（银牌会员、金牌会员、铂金会员）</span>
+        </div>
+        <div class="vip-item">
+          <div icon><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/消费抽奖.svg" alt="消费抽奖"></div>
+          <p>消费抽奖</p>
+          <span>(注册/铜牌会员、银牌会员、金牌会员、铂金会员）</span>
+        </div>
+        <div class="vip-item">
+          <div icon><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/相机清洁.svg" alt="相机清洁"></div>
+          <p>相机清洁</p>
+          <span>（金牌会员、铂金会员）</span>
+        </div>
+        <div class="vip-item">
+          <div icon><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/相片打印.svg" alt="相片打印"></div>
+          <p>相片打印</p>
+          <span>(注册/铜牌会员、银牌会员、金牌会员、铂金会员）</span>
+        </div>
+        <div class="vip-item">
+          <div icon><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/雨伞.svg" alt="雨伞"></div>
+          <p>雨伞</p>
+          <span>(注册/铜牌会员、银牌会员、金牌会员、铂金会员）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-content">
+      <h2 class="service-title">Sony Store专属体验与尊享服务</h2>
+
+      <div class="service-box">
+
+        <div class="service-content-wrap for-mobile">
+            <h3 class="service-heading">探索与体验</h3>
+            <p class="service-desc">
+             我们的专业团队将引导您亲手操作产品，解答您的每一个疑问，确保您获得最深度的使用体验。您还将有机会优先接触店内展出的前沿新品。
+            </p>
+        </div>
+
+        <!-- 左侧图片 -->
+        <picture class="service-img">
+           <source srcset="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service_wrap.jpg" media="(max-width: 768px)" />
+          <img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg" alt="服务图片" />
+        </picture>
+        <div class="service-content-tabs">
+          <!-- 中间内容 -->
+          <div class="service-content-wrap for-pc">
+            <h3 class="service-heading">探索与体验</h3>
+            <p class="service-desc">
+              我们的专业团队将引导您亲手操作产品，解答您的每一个疑问，确保您获得最深度的使用体验。您还将有机会优先接触店内展出的前沿新品。
+            </p>
+          </div>
+
+          <!-- 右侧菜单 -->
+          <div class="service-tabs">
+            <div class="service-tab active" data-index="0"><span>探索与体验</span></div>
+            <div class="service-tab" data-index="1"><span>您的专属顾问</span></div>
+            <div class="service-tab" data-index="2"><span>多元化乐趣活动</span></div>
+            <div class="service-tab" data-index="3"><span>会员俱乐部与成长礼遇</div>
+            <div class="service-tab" data-index="4"><span>专业售后与个性定制</span></div>
+            <div class="service-tab" data-index="5"><span>Aniplex</span></div>
+          </div>
+      </div>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+<script>
+$(function () {
+
+  // 检测是否是移动端
+  var isMobile = $(window).width() <= 768;
+
+  var swiper = null; // 声明 swiper 变量
+  
+  // 城市列表配置（保持原始顺序）
+  var cityList = [
+    { name: "北京", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/北京.svg" },
+    { name: "上海", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/上海.svg" },
+    { name: "广州", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/广州.svg" },
+    { name: "成都", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/成都.svg" },
+    { name: "深圳", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/深圳.svg" },
+    { name: "南京", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/南京.svg" },
+    { name: "杭州", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/杭州.svg" },
+    { name: "武汉", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/武汉.svg" },
+    { name: "重庆", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/重庆.svg" },
+    { name: "苏州", icon: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/苏州.svg" }
+  ];
+
+  // 使用百度地图获取当前城市
+  function getCurrentCity(callback) {
+    if (typeof BMap === 'undefined') {
+      console.error("百度地图API未加载");
+      callback(null);
+      return;
+    }
+
+    var geolocation = new BMap.Geolocation();
+    geolocation.getCurrentPosition(function(r) {
+      if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+        var myGeo = new BMap.Geocoder();
+        myGeo.getLocation(r.point, function(result) {
+          if (result) {
+            var cityName = result.addressComponents.city;
+            // 去掉"市"字
+            cityName = cityName.replace('市', '');
+            console.log('当前城市:', cityName);
+            callback(cityName);
+          } else {
+            console.warn('获取城市信息失败');
+            callback(null);
+          }
+        });
+      } else {
+        console.warn('定位失败');
+        callback(null);
+      }
+    }, { enableHighAccuracy: true });
+  }
+
+  // 渲染城市列表
+  function renderCityList(currentCity) {
+    var sortedCityList = cityList.slice(); // 复制数组
+
+    // 如果找到当前城市，将其移到第一位
+    if (currentCity) {
+      var currentIndex = -1;
+      for (var i = 0; i < sortedCityList.length; i++) {
+        if (sortedCityList[i].name === currentCity || sortedCityList[i].name.indexOf(currentCity) !== -1) {
+          currentIndex = i;
+          break;
+        }
+      }
+
+      if (currentIndex > 0) {
+        var currentCityItem = sortedCityList.splice(currentIndex, 1)[0];
+        sortedCityList.unshift(currentCityItem);
+        console.log('城市列表已重排，当前城市:', currentCityItem.name);
+      }
+    }
+
+    // 渲染城市列表
+    var html = '';
+    for (var i = 0; i < sortedCityList.length; i++) {
+      var city = sortedCityList[i];
+      html += '<div class="city-item">' +
+              '<div class="city-icon"><img src="' + city.icon + '" alt="' + city.name + '"></div>' +
+              '<div class="city-name">' + city.name + '</div>' +
+              '</div>';
+    }
+    $('.city-list-container').empty().html(html);
+  }
+
+  // 初始化城市列表
+  function initCityList() {
+    getCurrentCity(function(cityName) {
+      renderCityList(cityName);
+    });
+  }
+
+  // 初始化城市列表
+  initCityList();
+
+  // 获取首页促销活动数据
+  function fetchPromoActivities() {
+    return $.ajax({
+      url: "https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/homeData",
+      method: "GET",
+      dataType: "json"
+    });
+  }
+
+  // 移除旧的tooltip显示函数（不再需要）
+
+  // 获取Alpha俱乐部数据
+  function fetchAlphaActivities() {
+    return $.ajax({
+      url: "https://dev-nsp.sonystyle.com.cn/ssoapps/retailer_activity/dealer/shopActivitysByCategory?category=DI",
+      method: "GET",
+      dataType: "json"
+    });
+  }
+
+  // 获取体验活动数据
+  function fetchEventActivities() {
+    var categories = encodeURIComponent("全品类,PA,PS,TV/HAV,其它");
+    return $.ajax({
+      url: "https://dev-nsp.sonystyle.com.cn/ssoapps/retailer_activity/dealer/shopActivitysByCategory?category=" + categories,
+      method: "GET",
+      dataType: "json"
+    });
+  }
+
+  // 从activityPics数组中获取封面图
+  function getCoverImage(activityPics) {
+    if (!activityPics || activityPics.length === 0) {
+      return "activity-default.jpg";
+    }
+    for (var i = 0; i < activityPics.length; i++) {
+      if (activityPics[i].picType === "封面图") {
+        return activityPics[i].picUrl;
+      }
+    }
+    return activityPics[0].picUrl || "activity-default.jpg";
+  }
+
+  // 格式化时间：从startTime和endTime提取时间部分
+  function formatActivityTime(startTime, endTime) {
+    if (!startTime) return "";
+    
+    // startTime格式: "2026-04-15 05:00"
+    var startParts = startTime.split(" ");
+    var startDate = startParts[0]; // "2026-04-15"
+    var startHour = startParts[1]; // "05:00"
+    
+    var endHour = "";
+    if (endTime) {
+      var endParts = endTime.split(" ");
+      endHour = endParts[1]; // "05:00"
+    }
+    
+    return startDate + " " + startHour + (endHour ? " - " + endHour : "");
+  }
+
+  // 数据缓存
+  var activityData = {
+    alpha: [],
+    event: [],
+    promo: []
+  };
+
+  // 加载所有活动数据
+  function loadAllActivities() {
+    // 加载促销活动
+    fetchPromoActivities()
+      .done(function(response) {
+        if (response.result && response.returnData && response.returnData.activityList) {
+          activityData.promo = response.returnData.activityList.map(function(item) {
+            // 将 activityStartDate 时间戳转换为日期格式
+            const startDate = new Date(item.activityStartDate);
+            const formattedDate = startDate.toISOString().split('T')[0];
+            return {
+              title: item.title,
+              time: `${formattedDate} ${item.activityTime}`,
+              img: item.activityImgUrl || "activity-default.jpg",
+              linkUrl: item.linkUrl || "#",
+              mobileLink: item.mobileLink || "#",
+              linkType: item.linkType,
+              linkName: item.linkName,
+              remark: item.remark || "",
+              qrImgPath: item.qrImgPath || ""
+            };
+          });
+          console.log('促销活动加载成功:', activityData.promo.length + '条');
+        }
+      })
+      .fail(function(error) {
+        console.error("获取促销活动失败:", error);
+      });
+
+    // 加载Alpha俱乐部
+    fetchAlphaActivities()
+      .done(function(response) {
+        if (response.code === 200 && response.result) {
+          activityData.alpha = response.result.map(function(item) {
+            return {
+              title: item.activityName,
+              time: formatActivityTime(item.startTime, item.endTime),
+              img: getCoverImage(item.activityPics),
+              linkUrl: item.activityUrl || "#"
+            };
+          });
+          console.log('Alpha俱乐部加载成功:', activityData.alpha.length + '条');
+          // Alpha是默认显示的，加载完成后渲染
+          render("alpha");
+        }
+      })
+      .fail(function(error) {
+        console.error("获取Alpha俱乐部失败:", error);
+      });
+
+    // 加载体验活动
+    fetchEventActivities()
+      .done(function(response) {
+        if (response.code === 200 && response.result) {
+          activityData.event = response.result.map(function(item) {
+            return {
+              title: item.activityName,
+              time: formatActivityTime(item.startTime, item.endTime),
+              img: getCoverImage(item.activityPics),
+              linkUrl: item.activityUrl || "#"
+            };
+          });
+          console.log('体验活动加载成功:', activityData.event.length + '条');
+        }
+      })
+      .fail(function(error) {
+        console.error("获取体验活动失败:", error);
+      });
+  }
+
+  // 加载所有活动数据
+  loadAllActivities();
+
+  var serviceData = [
+    {
+      title: "探索与体验",
+      desc: "我们的专业团队将引导您亲手操作产品，解答您的每一个疑问，确保您获得最深度的使用体验。还有机会优先体验新品。",
+      img: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg"
+    },
+    {
+      title: "您的专属顾问",
+      desc: "一对一顾问服务，为您提供个性化推荐与解决方案。",
+      img: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg"
+    },
+    {
+      title: "多元化活动",
+      desc: "摄影课程、体验课、线下活动丰富多样。",
+      img: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg"
+    },
+    {
+      title: "会员俱乐部",
+      desc: "加入会员俱乐部，享受更多权益与专属活动。",
+      img: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg"
+    },
+    {
+      title: "专业售后",
+      desc: "专业售后支持，保障您的设备使用无忧。",
+      img: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg"
+    },
+    {
+      title: "Aniplex",
+      desc: "动漫娱乐相关体验专区。",
+      img: "/content/dam/sonystyle/smallapp/dealerweb/images/directstore/banner/service.jpg"
+    }
+  ];
+
+  function initSwiper() {
+    if (swiper) swiper.destroy(true, true);
+
+    if (window.innerWidth > 768) {
+      // PC端显示3个卡片
+      swiper = new Swiper(".card-swiper", {
+        slidesPerView: 3,
+        spaceBetween: 50,
+        initialSlide: 1,
+        centeredSlides: true
+      });
+    } else {
+      // 移动端自适应
+      swiper = new Swiper(".card-swiper", {
+        initialSlide: 1,
+        slidesPerView: "auto",
+        spaceBetween: 30,
+        centeredSlides: true
+      });
+    }
+  }
+
+  function render(type) {
+    var list = activityData[type] || [];
+    var html = "";
+
+    if (list.length === 0) {
+      html = '<div class="swiper-slide"><div class="card"><div class="card-content"><div class="card-title">暂无活动</div></div></div></div>';
+    } else {
+      list.forEach(function(item) {
+        // 处理促销活动的链接逻辑
+        var btnText = "查看详情 >";
+        var linkUrl = item.linkUrl;
+        var qrImgPath = item.qrImgPath || "";
+        var linkClass = "";
+        var linkData = "";
+        
+        if (type === "promo") {
+          // 促销活动特殊处理
+          if (item.linkName == "1" || item.linkName == "2") {
+            // 查看详情和立即报名逻辑相同
+            btnText = item.linkName == "1" ? "查看详情 >" : "立即报名 >";
+            
+            if (item.linkType == "1") {
+              // linkType为1时PC端直接跳转
+              linkUrl = isMobile ? (item.mobileLink || item.linkUrl) : item.linkUrl;
+            } else if (item.linkType == "2") {
+              // linkType为2时PC端显示二维码，移动端跳转
+              if (isMobile) {
+                linkUrl = item.mobileLink || item.linkUrl;
+              } else {
+                linkUrl = "#"; // PC端不跳转，显示二维码
+                linkClass = " has-qr";
+                linkData = ' data-qr="' + qrImgPath + '"';
+              }
+            }
+          } else if (item.linkName == "3") {
+            btnText = item.remark || "";
+            linkUrl = "#"; // 备注不可跳转
+            linkClass = " no-link";
+          }
+        }
+        
+        html += '<div class="swiper-slide">' +
+                '<div class="card">' +
+                '<img src="' + item.img + '" />' +
+                '<div class="card-content">' +
+                '<div class="card-title">' + item.title + '</div>' +
+                '<div class="card-time">' + item.time + '</div>' +
+                '<div class="card-btn-wrapper">' +
+                '<div class="card-qr-code" style="display: none;">' +
+                '<img src="' + qrImgPath + '" alt="二维码" />' +
+                '</div>' +
+                '<div class="card-link' + linkClass + '" data-url="' + linkUrl + '"' + linkData + '>' + btnText + '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+      });
+    }
+
+    $(".card-list").html(html);
+
+    initSwiper();
+
+  }
+
+  // 初始化（先渲染空状态，等数据加载完成后会自动更新）
+  render("alpha");
+
+  // 卡片链接hover显示二维码（PC端）
+  $(document).on({
+    mouseenter: function () {
+      var qrImgPath = $(this).data("qr");
+      var $wrapper = $(this).closest(".card-btn-wrapper");
+      var $qrCode = $wrapper.find(".card-qr-code");
+
+      if (qrImgPath && !isMobile) {
+        $qrCode.fadeIn(200);
+      }
+    },
+    mouseleave: function () {
+      var $wrapper = $(this).closest(".card-btn-wrapper");
+      var $qrCode = $wrapper.find(".card-qr-code");
+      $qrCode.fadeOut(200);
+    }
+  }, ".card-link.has-qr");
+
+  // 卡片链接点击事件
+  $(document).on("click", ".card-link", function() {
+    var url = $(this).data("url");
+    // 如果有no-link类，不跳转
+    if ($(this).hasClass("no-link")) {
+      return;
+    }
+    // 正常跳转
+    if (url && url !== "#") {
+      window.open(url, "_blank");
+    }
+  });
+
+  // tab切换
+  $(".tab").click(function () {
+    $(".tab").removeClass("active");
+    $(this).addClass("active");
+
+    var type = $(this).data("type");
+    render(type);
+  });
+
+  $(".service-tab").click(function () {
+    var index = $(this).data("index");
+
+    $(".service-tab").removeClass("active");
+    $(this).addClass("active");
+
+    var item = serviceData[index];
+
+    $(".service-heading").text(item.title);
+    $(".service-desc").text(item.desc);
+
+    // 图片切换（带淡入）
+    $(".service-img img").fadeOut(150, function () {
+      $(this).attr("src", item.img).fadeIn(150);
+    });
+  });
+
+
+});
+</script>

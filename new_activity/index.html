@@ -1,0 +1,933 @@
+<style>
+/* ===== 基础 ===== */
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #f5f5f5;
+}
+
+.container.all-activity {
+  width: 1580px;
+  margin: 0 auto;
+}
+
+.all-activity .title {
+  text-align: center;
+  font-size: 38px;
+  margin: 80px 0 36px;
+  color: #000;
+}
+
+/* ===== 筛选 ===== */
+.all-activity .filters {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 42px;
+}
+
+/* 自定义下拉框 */
+.all-activity .custom-select {
+  position: relative;
+  min-width: 160px;
+}
+
+.all-activity .select-trigger {
+  width: 380px;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  line-height: 32px;
+  padding: 14px 36px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.all-activity .select-trigger.active {
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  color: #000;
+}
+
+.all-activity .select-trigger.active::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 1px;
+  background: #e8eaee;
+}
+
+.all-activity .select-trigger::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 11px;
+  background-image: url("/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/arrow.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+
+.all-activity .select-trigger.active::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+
+.all-activity .select-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 0 0 8px 8px;
+  z-index: 10;
+  display: none;
+  text-align: center;
+  max-height: 359px;
+  overflow-y: auto;
+}
+
+.all-activity .select-options.open {
+  display: block;
+}
+
+.all-activity .select-options > div {
+  color: #9f9fa0;
+  padding: 14px 36px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 32px;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.all-activity .select-options > div::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 1px;
+  background: #e8eaee;
+}
+
+.all-activity .select-options > div:last-child {
+  border-bottom: none;
+}
+
+.all-activity .select-options > div:last-child::before {
+  display: none;
+}
+
+.all-activity .select-options > div:hover,
+.all-activity .select-options > div.selected {
+  background: #dae4fa;
+  border-radius: 8px;
+}
+
+/* ===== 列表（flex版）===== */
+.all-activity .card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px 50px;
+}
+
+/* ===== 暂无活动提示 ===== */
+.all-activity .no-activity {
+  text-align: center;
+  padding: 80px 0;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.all-activity .no-activity-text {
+  font-size: 24px;
+  color: #999;
+}
+
+.all-activity .card {
+  width: calc(33.333333% - 33.333333px);
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  cursor: pointer;
+}
+
+/* 图片 */
+.all-activity .card img {
+  width: 100%;
+  height: auto;
+  max-height: 364px;
+  object-fit: cover;
+  display: block;
+}
+
+
+.all-activity .card.name-3 {
+  cursor: default;
+}
+
+/* 内容 */
+.all-activity .card-content {
+  padding: 36px 28px 48px;
+}
+
+.all-activity .card-title {
+  font-size: 18px;
+  margin-bottom: 48px;
+  /* 两行省略 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.all-activity .card-time {
+  font-size: 16px;
+  color: #afafaf;
+  margin-bottom: 42px;
+}
+
+.all-activity .card-btn {
+  color: #000;
+  font-size: 15px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+/* 按钮和二维码的父级容器 */
+.all-activity .card-btn-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* 二维码样式 */
+.all-activity .card-qr-code {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 100;
+  white-space: nowrap;
+}
+
+.all-activity .card-qr-code img {
+  width: 150px;
+  height: 150px;
+  display: block;
+}
+
+/* ===== 分页 ===== */
+.all-activity .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.all-activity .pagination span {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 当前页 */
+.all-activity .pagination .current {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  color: #000;
+  background: #fff;
+}
+
+/* 箭头 */
+.all-activity .pagination .prev,
+.all-activity .pagination .next {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* 禁用 */
+.all-activity .pagination .disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+
+/* ===== 二维码弹窗 ===== */
+#qrModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 1000;
+}
+
+#qrModal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#qrModal .modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+#qrModal .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 32px;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+#qrModal .close-btn:hover {
+  color: #000;
+}
+
+#qrModal img {
+  max-width: 300px;
+  max-height: 300px;
+  display: block;
+}
+
+.all-activity .card-btn.name-3 {
+  cursor: default;
+}
+
+@media (max-width: 1660px) {
+  .container.all-activity {
+    width: calc(100% - 80px);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .all-activity .select-trigger {
+    max-width: 30vw;
+  }
+}
+
+/* ===== 移动端适配 ===== */
+@media (max-width: 768px) {
+
+  .container.all-activity {
+    width: calc(100% - 5.6vw);
+    padding: 9.333333vw 2.8vw;
+  }
+
+  .all-activity .title {
+    font-size: 6.8vw;
+    margin: 0 0 5.866667vw;
+  }
+
+  /* 筛选 */
+  .all-activity .filters {
+    gap: 2.133333vw;
+    margin-bottom: 3.333333vw;
+  }
+
+  .all-activity .filters select,
+  .all-activity .custom-select {
+    flex: 1;
+    width: 100%;
+  }
+
+  .all-activity .select-trigger {
+    font-size: 2.933333vw;
+    padding: 2.133333vw 4.8vw;
+    width: auto;
+    max-width: none;
+  }
+
+  .all-activity .select-options > div {
+    font-size: 2.933333vw;
+    padding: 2.133333vw 4.8vw;
+  }
+
+  /* 列表：2列 */
+  .all-activity .card-list {
+    gap: 2.933333vw 1.866667vw;
+  }
+
+  .all-activity .card {
+    width: calc(50% - 0.933333vw);
+    border-radius: 2.666667vw;
+  }
+
+  .all-activity .card img {
+    height: auto;
+  }
+
+  .all-activity .card-content {
+    padding: 4.8vw 2.133333vw 5.866667vw;
+  }
+
+  .all-activity .card-title {
+    font-size: 3.466667vw;
+    margin-bottom: 6.4vw;
+  }
+
+  .all-activity .card-time {
+    font-size: 3.2vw;
+    margin-bottom: 5.6vw;
+  }
+
+  .all-activity .card-btn {
+    font-size: 2.933333vw;
+  }
+
+  .all-activity .select-trigger::after {
+    background-size: 2.66666667vw;
+  }
+
+  .all-activity .pagination {
+    display: none;
+  }
+
+  /* 加载更多按钮 */
+  .all-activity .load-more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4.8vw 2.8vw;
+    cursor: pointer;
+  }
+
+  .all-activity .load-more-text {
+    font-size: 3.2vw;
+    color: #000;
+  }
+
+  .all-activity .load-more.loading .load-more-text::after {
+    content: "...";
+  }
+
+  .all-activity .load-more.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* 暂无活动提示 */
+  .all-activity .no-activity {
+    padding: 13.333333vw 0;
+    min-height: 53.333333vw;
+  }
+
+  .all-activity .no-activity-text {
+    font-size: 4.266667vw;
+  }
+}
+
+/* PC端隐藏加载更多按钮 */
+@media (min-width: 769px) {
+  .all-activity .load-more {
+    display: none;
+  }
+}
+
+
+</style>
+<script type="text/javascript"
+    src="https://api.map.baidu.com/api?v=2.0&amp;ak=q7LFs3kP1PNSP0ccE0etjLErsIN8GzjD&amp;s=1"></script>
+<div class="container all-activity">
+    <h2 class="title">全部活动</h2>
+
+    <!-- 筛选 -->
+    <div class="filters">
+        <div class="custom-select" id="storeSelect">
+            <div class="select-trigger"></div>
+            <div class="select-options">
+            </div>
+        </div>
+
+        <div class="custom-select" id="typeSelect">
+            <div class="select-trigger">新品体验</div>
+            <div class="select-options">
+                <div data-vaule="新品体验" data-sort="0">新品体验</div>
+                <div data-vaule="促销活动" data-sort="1">促销活动</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 列表 -->
+    <div class="card-list" id="cardList"></div>
+
+    <!-- 暂无活动提示 -->
+    <div class="no-activity" id="noActivity" style="display: none;">
+        <div class="no-activity-text">暂无活动</div>
+    </div>
+
+    <!-- 分页 -->
+    <div class="pagination" id="pagination">
+        <span class="prev">&lt;</span>
+        <span class="current">1</span>
+        <span class="total">共 1 页</span>
+        <span class="next">&gt;</span>
+    </div>
+
+    <!-- 加载更多按钮（移动端） -->
+    <div class="load-more" id="loadMore">
+        <span class="load-more-text">加载更多</span>
+    </div>
+</div>
+<script>
+  $(function () {
+    // 检测是否是移动端
+    const isMobile = $(window).width() <= 768;
+    const pageSize = isMobile ? 10 : 9;
+    let currentPage = 1;
+    let filteredData = [];
+    let currentStoreId = "";
+    let currentSort = 0; // 0是新品，1是促销
+    let dealerData = []; // 存储API返回的商店数据
+    let totalCount = 0; // 活动总数
+    let isLoading = false; // 是否正在加载
+
+    // 渲染卡片（移动端：追加，PC端：替换）
+    function renderList(append = false) {
+        // 如果没有数据，显示暂无活动提示
+        if (filteredData.length === 0 && !append) {
+            $("#cardList").html("");
+            $("#noActivity").show();
+            $("#pagination").hide();
+            $("#loadMore").hide();
+            return;
+        } else {
+            $("#noActivity").hide();
+            $("#pagination").show();
+            if (isMobile) {
+                $("#loadMore").show();
+            }
+        }
+
+        const html = filteredData.map(item => {
+            // 1 查看详情 2 立即报名 3 备注
+            let btnText = "";
+            let linkUrl = item.linkUrl;
+            let qrImgPath = item.qrImgPath || "";
+            
+            if (item.linkName == "1" || item.linkName == "2") {
+                // 查看详情和立即报名逻辑相同
+                btnText = item.linkName == "1" ? "查看详情 >" : "立即报名 >";
+                
+                if (item.linkType == "1") {
+                    // linkType为1时PC端直接跳转
+                    linkUrl = isMobile ? (item.mobileLink || item.linkUrl) : item.linkUrl;
+                } else if (item.linkType == "2") {
+                    // linkType为2时PC端显示二维码，移动端跳转
+                    if (isMobile) {
+                        linkUrl = item.mobileLink || item.linkUrl;
+                    } else {
+                        linkUrl = "#"; // PC端不跳转，显示二维码
+                    }
+                }
+            } else if (item.linkName == "3") {
+                btnText = item.remark || "";
+                linkUrl = "#"; // 备注不可跳转
+            }
+            
+            return `
+      <div class="card name-${item.linkName}" data-link="${linkUrl}">
+        <img class="card-img" src="${item.img}" alt="${item.title}" data-link="${linkUrl}" data-qr="${qrImgPath}" />
+        <div class="card-content">
+          <div class="card-title">${item.title}</div>
+          <div class="card-time">${item.time}</div>
+          <div class="card-btn-wrapper">
+            <div class="card-qr-code" style="display: none;">
+              <img src="${qrImgPath}" alt="二维码" />
+            </div>
+            <div class="card-btn name-${item.linkName}" data-link="${linkUrl}" data-qr="${qrImgPath}">${btnText}</div>
+          </div>
+        </div>
+      </div>
+    `;
+        }).join("");
+
+        if (append) {
+            $("#cardList").append(html);
+        } else {
+            $("#cardList").html(html);
+        }
+    }
+
+    // 分页
+    function renderPagination() {
+        // 如果没有活动，隐藏分页
+        if (totalCount === 0) {
+            $("#pagination").hide();
+            if (isMobile) {
+                $("#loadMore").hide();
+            }
+            return;
+        }
+
+        const totalPages = Math.ceil(totalCount / pageSize);
+
+        // 移动端不展示pagination
+        if (isMobile) {
+            $("#pagination").hide();
+        } else {
+            $("#pagination").show();
+        }
+
+        $(".current").text(currentPage);
+        $(".total").text(`共 ${totalPages} 页`);
+
+        if (currentPage === 1) {
+            $(".prev").addClass("disabled");
+        } else {
+            $(".prev").removeClass("disabled");
+        }
+
+        if (currentPage === totalPages) {
+            $(".next").addClass("disabled");
+        } else {
+            $(".next").removeClass("disabled");
+        }
+
+        // 更新加载更多按钮状态
+        if (isMobile) {
+            if (filteredData.length >= totalCount) {
+                $("#loadMore").addClass("disabled");
+                $(".load-more-text").text("没有更多了");
+            } else {
+                $("#loadMore").removeClass("disabled");
+                $(".load-more-text").text("加载更多");
+            }
+        }
+    }
+
+    // 上一页
+    $(document).on("click", ".prev", function () {
+        if ($(this).hasClass("disabled")) return;
+
+        currentPage--;
+        loadActivityList();
+    });
+
+    // 下一页
+    $(document).on("click", ".next", function () {
+
+        if ($(this).hasClass("disabled")) return;
+
+        currentPage++;
+        loadActivityList();
+    });
+
+    // 加载更多（移动端）
+    $(document).on("click", "#loadMore", function () {
+        if ($(this).hasClass("disabled") || isLoading) return;
+
+        currentPage++;
+        loadMoreActivityList();
+    });
+
+    // 卡片按钮hover显示二维码（PC端）
+    $(document).on({
+        mouseenter: function () {
+            const qrImgPath = $(this).data("qr");
+            const $wrapper = $(this).closest(".card-btn-wrapper");
+            const $qrCode = $wrapper.find(".card-qr-code");
+
+            if (qrImgPath && !isMobile) {
+                $qrCode.fadeIn(200);
+            }
+        },
+        mouseleave: function () {
+            const $wrapper = $(this).closest(".card-btn-wrapper");
+            const $qrCode = $wrapper.find(".card-qr-code");
+            $qrCode.fadeOut(200);
+        }
+    }, ".card-btn");
+
+    // 卡片按钮点击跳转
+    $(document).on("click", ".card-btn", function () {
+        const linkUrl = $(this).data("link");
+        // 正常跳转
+        if (linkUrl && linkUrl !== "#") {
+            window.open(linkUrl, "_blank");
+        }
+    });
+
+    // 卡片图片点击跳转
+    $(document).on("click", ".card", function () {
+        const linkUrl = $(this).data("link");
+        // 正常跳转
+        if (linkUrl && linkUrl !== "#") {
+            window.open(linkUrl, "_blank");
+        }
+    });
+
+
+
+    // 自定义下拉框
+    $(".custom-select").on("click", ".select-trigger", function(e) {
+        e.stopPropagation();
+        const $options = $(this).siblings(".select-options");
+        const $trigger = $(this);
+
+        $(".select-options").not($options).removeClass("open");
+        $(".select-trigger").not($trigger).removeClass("active");
+
+        $options.toggleClass("open");
+        $trigger.toggleClass("active");
+    });
+
+    // 选择选项
+    $(".custom-select").on("click", ".select-options > div", function() {
+        const value = $(this).data("value");
+        const $select = $(this).closest(".custom-select");
+
+        // 移除之前的selected状态
+        $select.find(".select-options > div").removeClass("selected");
+        // 给当前选项添加selected状态
+        $(this).addClass("selected");
+
+        // 更新触发器文字
+        $select.find(".select-trigger").text(value);
+
+        // 关闭下拉并移除active状态
+        $select.find(".select-options").removeClass("open");
+        $select.find(".select-trigger").removeClass("active");
+
+        // 根据不同下拉框处理
+        if ($select.attr("id") === "typeSelect") {
+            currentSort = $(this).data("sort");
+            currentPage = 1;
+            // 切换活动类型时重新加载活动列表
+            loadActivityList();
+        } else if ($select.attr("id") === "storeSelect") {
+            currentStoreId = $(this).data("id");
+            currentPage = 1;
+            // 切换门店时重新加载活动列表
+            loadActivityList();
+        }
+    });
+
+    // 点击外部关闭下拉
+    $(document).on("click", function() {
+        $(".select-options").removeClass("open");
+        $(".select-trigger").removeClass("active");
+    });
+
+    // 获取商店数据API
+    function fetchDealerData(longitude, latitude) {
+        longitude = longitude || 0;
+        latitude = latitude || 0;
+        return $.ajax({
+            url: "https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/dealer/findAllDealer?longitude=" + longitude + "&latitude=" + latitude,
+            method: "GET",
+            dataType: "json"
+        });
+    }
+
+    // 使用百度地图获取当前位置
+    function getCurrentLocation(callback) {
+        if (typeof BMap === 'undefined') {
+            console.error("百度地图API未加载");
+            callback({ longitude: 0, latitude: 0 });
+            return;
+        }
+
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function(r) {
+            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                var longitude = r.point.lng;
+                var latitude = r.point.lat;
+                console.log('当前位置:', { longitude: longitude, latitude: latitude });
+                callback({ longitude: longitude, latitude: latitude });
+            } else {
+                console.warn('定位失败，使用默认位置');
+                callback({ longitude: 0, latitude: 0 });
+            }
+        }, { enableHighAccuracy: true });
+    }
+
+    // 获取活动列表API
+    function fetchActivityList(pageNumber, pageSize, sort, dealerId) {
+        const baseUrl = "https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/getActivityList";
+        let url = `${baseUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}&sort=${sort}`;
+        if (dealerId) {
+            url += `&dealerId=${dealerId}`;
+        }
+        return $.ajax({
+            url: url,
+            method: "GET",
+            dataType: "json"
+        });
+    }
+
+    // 初始化商店下拉框
+    function initStoreSelect(dealerData) {
+        console.log(dealerData)
+        const $storeSelect = $("#storeSelect");
+        const $optionsContainer = $storeSelect.find(".select-options");
+
+        // 清空现有选项
+        $optionsContainer.empty();
+
+        // 添加API返回的商店选项
+        dealerData.forEach(dealer => {
+            $optionsContainer.append(`<div data-value="${dealer.name}" data-id="${dealer.id}">${dealer.name}</div>`);
+        });
+
+        // 设置默认选中第一个商店
+        if (dealerData.length > 0) {
+            const firstDealer = dealerData[0];
+            $storeSelect.find(".select-trigger").text(firstDealer.name);
+            currentStoreId = firstDealer.id;
+
+            // 加载第一个门店的活动列表
+            loadActivityList();
+        }
+    }
+
+    // 加载活动列表（PC端：替换，移动端：初次加载替换）
+    function loadActivityList() {
+        if (!currentStoreId) return;
+
+        fetchActivityList(currentPage, pageSize, currentSort, currentStoreId)
+            .done(function(response) {
+                if (response.result && response.returnData) {
+                    const returnData = response.returnData;
+                    const activities = returnData.listData;
+
+                    totalCount = returnData.totalCount || 0; // 更新总数
+
+                    // 转换数据格式以匹配现有的渲染逻辑
+                    filteredData = activities.map(item => {
+                        // 将 activityStartDate 时间戳转换为日期格式
+                        const startDate = new Date(item.activityStartDate);
+                        const formattedDate = startDate.toISOString().split('T')[0];
+                        
+                        return {
+                            title: item.title,
+                            time: `${formattedDate} ${item.activityTime}`,
+                            img: item.activityImgUrl,
+                            linkUrl: item.linkUrl || "#",
+                            mobileLink: item.mobileLink || "#",
+                            linkType: item.linkType,
+                            linkName: item.linkName,
+                            remark: item.remark || "",
+                            qrImgPath: item.qrImgPath || ""
+                        };
+                    });
+
+                    // PC端：替换；移动端：初次加载替换
+                    renderList(false);
+                    renderPagination();
+                } else {
+                    console.error("活动列表API返回数据格式错误:", response);
+                }
+            })
+            .fail(function(error) {
+                console.error("获取活动列表失败:", error);
+            });
+    }
+
+    // 加载更多活动列表（移动端：追加）
+    function loadMoreActivityList() {
+        if (!currentStoreId || isLoading) return;
+
+        isLoading = true;
+        $("#loadMore").addClass("loading");
+
+        fetchActivityList(currentPage, pageSize, currentSort, currentStoreId)
+            .done(function(response) {
+                if (response.result && response.returnData) {
+                    const returnData = response.returnData;
+                    const activities = returnData.listData;
+
+                    // 转换数据格式以匹配现有的渲染逻辑
+                    const newItems = activities.map(item => {
+                        // 将 activityStartDate 时间戳转换为日期格式
+                        const startDate = new Date(item.activityStartDate);
+                        const formattedDate = startDate.toISOString().split('T')[0];
+                        
+                        return {
+                            title: item.title,
+                            time: `${formattedDate} ${item.activityTime}`,
+                            img: item.activityImgUrl,
+                            linkUrl: item.linkUrl || "#",
+                            mobileLink: item.mobileLink || "#",
+                            linkType: item.linkType,
+                            linkName: item.linkName,
+                            remark: item.remark || "",
+                            qrImgPath: item.qrImgPath || ""
+                        };
+                    });
+
+                    // 追加到现有数据
+                    filteredData = filteredData.concat(newItems);
+
+                    // 追加渲染
+                    renderList(true);
+                    renderPagination();
+                } else {
+                    console.error("活动列表API返回数据格式错误:", response);
+                }
+            })
+            .fail(function(error) {
+                console.error("获取活动列表失败:", error);
+            })
+            .always(function() {
+                isLoading = false;
+                $("#loadMore").removeClass("loading");
+            });
+    }
+
+    // 初始化
+    getCurrentLocation(function(location) {
+        fetchDealerData(location.longitude, location.latitude)
+            .done(function(response) {
+                // 从响应对象中提取resultData字段
+                if (response.result && response.resultData) {
+                    dealerData = response.resultData; // 存储resultData数据
+                    initStoreSelect(dealerData);
+                } else {
+                    console.error("API返回数据格式错误:", response);
+                    renderPagination();
+                }
+            })
+            .fail(function(error) {
+                console.error("获取商店数据失败:", error);
+                renderPagination();
+            });
+    });
+});
+  
+</script>
