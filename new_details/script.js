@@ -1,6 +1,22 @@
 $(function () {
     let allData = null; // 存储数据流
     const swipers = {}; // 存储所有 swiper 实例
+    let map = null; // 百度地图实例
+    let currentStoreData = null; // 当前门店数据
+
+    // 其他门店数据（用于下拉选择）
+    const otherStores = [
+        { id: "884e852190394db8b3c584dfddb17285", name: "Sony Store重庆万象城店" },
+        { id: "92449722c1b7423db185b99819de8b53", name: "Sony Store武汉梦时代店" },
+        { id: "615f36d66a694724ab62070db516571b", name: "Sony Store北京东方广场店" },
+        { id: "11dd790be96140b392dfd4d2e7026075", name: "Sony Store上海淮海中路店" },
+        { id: "c921749301a34e17af42ce331485311a", name: "Sony Store广州正佳广场店" },
+        { id: "ed667737875c45b888886c192bd324af", name: "Sony Store成都来福士店" },
+        { id: "50403606a52e486dbb7ce6ce6373e944", name: "Sony Store深圳深业上城店" },
+        { id: "9921f17ab60e458c91b1439167393116", name: "Sony Store南京水游城店" },
+        { id: "ac76e7798c3540748d2119f48bbc3ea3", name: "Sony Store杭州湖滨88店" },
+        { id: "7cf912ff839a4c0a9cddedfe2aff7b41", name: "Sony Store苏州万象天地店" }
+    ];
 
     // 通用 Swiper 初始化配置
     function initSwiper(selector, options = {}) {
@@ -141,6 +157,108 @@ $(function () {
                 </div>
             </div>`;
     }
+
+    // 从URL获取storeId
+    function getStoreIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('storeId');
+    }
+
+    // 初始化地图
+    function initMap(latitude, longitude, name, address, phone, img) {
+        if (!map) {
+            map = new BMap.Map("map");
+        }
+        
+        const poi = new BMap.Point(latitude, longitude);
+        map.centerAndZoom(poi, 20);
+        map.enableScrollWheelZoom();
+
+        const content = '<div style="margin:0;line-height:20px;padding:2px;">' +
+            '<img src="' + img + '" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;margin-left:3px;"/>' +
+            '地址：' + address + '<br/>电话：' + phone + '<br/>' +
+            '</div>';
+
+        // 创建检索信息窗口对象
+        const searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+            title: name,
+            width: 290,
+            height: 120,
+            panel: "panel",
+            enableAutoPan: true,
+            searchTypes: [
+                BMAPLIB_TAB_TO_HERE,
+                BMAPLIB_TAB_FROM_HERE,
+                BMAPLIB_TAB_SEARCH
+            ]
+        });
+
+        const marker = new BMap.Marker(poi);
+        marker.enableDragging();
+        marker.addEventListener("click", function(e) {
+            searchInfoWindow.open(marker);
+        });
+        map.addOverlay(marker);
+    }
+
+    // 渲染地图区域信息
+    function renderMapSection(storeData) {
+        currentStoreData = storeData;
+        
+        // 更新门店名称
+        const storeName = storeData.name.replace(/Sony Store/gi, "");
+        $('#breadcrumbStoreName').text(storeName);
+        $('#mapStoreName').text(storeName);
+        
+        // 更新门店信息
+        $('#mapStoreAddr').text(storeData.address || '');
+        $('#mapStoreTime').text(storeData.businessHour || '');
+        const phone = storeData.phone && storeData.mobile 
+            ? storeData.phone + '，' + storeData.mobile 
+            : (storeData.phone || storeData.mobile || '');
+        $('#mapStorePhone').text(phone);
+        
+        // 更新门店图片 - 从接口的 imgURL 字段获取
+        if (storeData.imgURL && storeData.imgURL !== '/dealero2o/upload/images/default.jpg') {
+            $('#storeImg').attr('src', storeData.imgURL);
+        } else {
+            // 如果没有图片或是默认图片，使用占位图
+            $('#storeImg').attr('src', 'https://via.placeholder.com/862x500?text=Store+Image');
+        }
+        
+        // 填充下拉选择框
+        const currentStoreId = getStoreIdFromUrl();
+        let optionsHtml = '<option value="0">选择其他直营店</option>';
+        otherStores.forEach(store => {
+            if (store.id !== currentStoreId) {
+                optionsHtml += '<option value="' + store.id + '">' + store.name + '</option>';
+            }
+        });
+        $('#storeSelect').html(optionsHtml);
+        
+        // 初始化地图 - 使用门店图片作为地图标注的缩略图
+        const mapThumbnail = storeData.imgURL && storeData.imgURL !== '/dealero2o/upload/images/default.jpg' 
+            ? storeData.imgURL 
+            : 'https://via.placeholder.com/100x100?text=Store';
+        initMap(storeData.longitude, storeData.latitude, storeData.name, storeData.address, phone, mapThumbnail);
+    }
+
+    // 地图/实景切换
+    $(document).on('click', '.map-control a', function() {
+        const target = $(this).data('target');
+        $('.map-control a').removeClass('active');
+        $(this).addClass('active');
+        $('.map-display').removeClass('active');
+        $('#' + target).addClass('active');
+    });
+
+    // 下拉选择切换门店
+    $('#storeSelect').on('change', function() {
+        const storeId = $(this).val();
+        if (storeId !== '0') {
+            window.location.href = 'new_details.html?storeId=' + storeId;
+        }
+    });
 
     // 从URL获取storeId
     function getStoreIdFromUrl() {
@@ -322,6 +440,9 @@ $(function () {
 
         // 1. 获取门店详情并渲染
         fetchStoreDetail(storeId).then(storeDetail => {
+            // 渲染地图区域
+            renderMapSection(storeDetail);
+            
             // 渲染门店信息
             const info = {
                 address: storeDetail.address || '',

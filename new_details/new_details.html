@@ -5,10 +5,216 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>活动列表</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper@7.4.1/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* 地图区域样式 */
+        .map-section {
+            width: 100%;
+            background: #fff;
+            padding: 20px 0;
+        }
+        .map-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .map-nav-left a {
+            color: #555;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .map-nav-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .store-select {
+            border: 1px solid #a4a4a4;
+            background: #ffffff;
+            height: 32px;
+            width: 210px;
+            color: #999999;
+            font-size: 14px;
+            border-radius: 20px;
+            padding: 0 10px;
+        }
+        .breadcrumb {
+            padding: 15px 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        .breadcrumb a {
+            color: #666;
+            text-decoration: none;
+        }
+        .breadcrumb span {
+            margin: 0 5px;
+        }
+        .map-content {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+        .map-info {
+            flex: 1;
+            max-width: 500px;
+        }
+        .map-info h2 {
+            font-size: 48px;
+            margin: 0 0 10px 0;
+            color: #000;
+        }
+        .map-info h3 {
+            font-size: 60px;
+            margin: 0 0 20px 0;
+            color: #000;
+            border-bottom: 1px solid #555;
+            padding-bottom: 10px;
+        }
+        .map-info-item {
+            padding: 15px 0;
+            font-size: 18px;
+            color: #000;
+            line-height: 30px;
+            padding-left: 36px;
+            background-repeat: no-repeat;
+            background-position: left 6px;
+        }
+        .map-info-item.addr {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23000" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>');
+        }
+        .map-info-item.time {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23000" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>');
+        }
+        .map-info-item.tel {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23000" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>');
+        }
+        .map-zone {
+            flex: 1;
+            position: relative;
+            min-height: 500px;
+        }
+        .map-display {
+            display: none;
+        }
+        .map-display.active {
+            display: block;
+        }
+        .map-display img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+        .map-control {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            background: #fff;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .map-control a {
+            padding: 8px 30px;
+            color: #666;
+            text-decoration: none;
+            background: #fff;
+            border-right: 1px solid #ddd;
+            cursor: pointer;
+        }
+        .map-control a:last-child {
+            border-right: none;
+        }
+        .map-control a.active {
+            background: #1fa8e2;
+            color: #fff;
+        }
+        .BMapLib_sendToPhone {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .map-content {
+                flex-direction: column;
+            }
+            .map-info {
+                max-width: 100%;
+            }
+            .map-info h2 {
+                font-size: 32px;
+            }
+            .map-info h3 {
+                font-size: 40px;
+            }
+            .map-nav {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            .map-nav-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container store-detail">
+        <!-- 地图区域 -->
+        <div class="map-section">
+            <div class="map-nav">
+                <div class="map-nav-left">
+                    <a href="index.html" title="返回搜索">← 返回搜索</a>
+                </div>
+                <div class="map-nav-right">
+                    <select class="store-select" id="storeSelect">
+                        <option value="0">选择其他直营店</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="breadcrumb">
+                <span>索尼在线商城</span>
+                <span>></span>
+                <a href="index.html">门店查找</a>
+                <span>></span>
+                <span id="breadcrumbStoreName">加载中...</span>
+            </div>
+            
+            <div class="map-content">
+                <div class="map-info">
+                    <h2>Sony Store</h2>
+                    <h3 id="mapStoreName">加载中...</h3>
+                    <div class="map-info-item addr" id="mapStoreAddr">加载中...</div>
+                    <div class="map-info-item time" id="mapStoreTime">加载中...</div>
+                    <div class="map-info-item tel" id="mapStorePhone">加载中...</div>
+                </div>
+                
+                <div class="map-zone">
+                    <div class="map-display active" id="storeImage">
+                        <img src="https://via.placeholder.com/862x500?text=Store+Image" alt="门店图片" id="storeImg">
+                    </div>
+                    <div class="map-display" id="mapContainer">
+                        <div id="map"></div>
+                    </div>
+                    
+                    <div class="map-control">
+                        <a href="javascript:void(0)" class="active" data-target="storeImage">门店实景</a>
+                        <a href="javascript:void(0)" data-target="mapContainer">地图</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="header-info" id="storeInfo">
         </div>
         <div class="divider"></div>
@@ -46,6 +252,8 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/swiper@7.4.1/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=q7LFs3kP1PNSP0ccE0etjLErsIN8GzjD&s=1"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
