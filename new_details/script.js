@@ -205,18 +205,9 @@ $(function () {
     function renderMapSection(storeData) {
         currentStoreData = storeData;
         
-        // 更新门店名称
+        // 更新门店名称（只更新面包屑）
         const storeName = storeData.name.replace(/Sony Store/gi, "");
         $('#breadcrumbStoreName').text(storeName);
-        $('#mapStoreName').text(storeName);
-        
-        // 更新门店信息
-        $('#mapStoreAddr').text(storeData.address || '');
-        $('#mapStoreTime').text(storeData.businessHour || '');
-        const phone = storeData.phone && storeData.mobile 
-            ? storeData.phone + '，' + storeData.mobile 
-            : (storeData.phone || storeData.mobile || '');
-        $('#mapStorePhone').text(phone);
         
         // 更新门店图片 - 从接口的 imgURL 字段获取
         if (storeData.imgURL && storeData.imgURL !== '/dealero2o/upload/images/default.jpg') {
@@ -237,6 +228,9 @@ $(function () {
         $('#storeSelect').html(optionsHtml);
         
         // 初始化地图 - 使用门店图片作为地图标注的缩略图
+        const phone = storeData.phone && storeData.mobile 
+            ? storeData.phone + '，' + storeData.mobile 
+            : (storeData.phone || storeData.mobile || '');
         const mapThumbnail = storeData.imgURL && storeData.imgURL !== '/dealero2o/upload/images/default.jpg' 
             ? storeData.imgURL 
             : 'https://via.placeholder.com/100x100?text=Store';
@@ -250,6 +244,13 @@ $(function () {
         $(this).addClass('active');
         $('.map-display').removeClass('active');
         $('#' + target).addClass('active');
+        
+        // 如果切换到地图，需要触发地图重新渲染
+        if (target === 'mapContainer' && map) {
+            setTimeout(function() {
+                map.dispatchEvent('resize');
+            }, 100);
+        }
     });
 
     // 下拉选择切换门店
