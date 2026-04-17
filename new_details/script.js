@@ -89,7 +89,7 @@ $(function () {
     // 获取门店详情数据
     function fetchStoreDetail(dfId) {
         return $.ajax({
-            url: 'https://www.sonystyle.com.cn/dealero2o/app/master/dealer',
+            url: 'https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/dealer',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ dfId: dfId })

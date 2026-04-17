@@ -312,6 +312,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     margin: 8.229166vw 0 48px;
+    gap: 1.25vw;
 }
 
 .store-main-content .service-tab {

@@ -59,7 +59,12 @@ $(function () {
         <div class="card-content">
           <div class="card-title">${item.title}</div>
           <div class="card-time">${item.time}</div>
-          <div class="card-btn name-${item.linkName}" data-link="${linkUrl}" data-qr="${qrImgPath}">${btnText}</div>
+          <div class="card-btn-wrapper">
+            <div class="card-qr-code" style="display: none;">
+              <img src="${qrImgPath}" alt="二维码" />
+            </div>
+            <div class="card-btn name-${item.linkName}" data-link="${linkUrl}" data-qr="${qrImgPath}">${btnText}</div>
+          </div>
         </div>
       </div>
     `;
@@ -84,6 +89,13 @@ $(function () {
         }
 
         const totalPages = Math.ceil(totalCount / pageSize);
+
+        // 移动端不展示pagination
+        if (isMobile) {
+            $("#pagination").hide();
+        } else {
+            $("#pagination").show();
+        }
 
         $(".current").text(currentPage);
         $(".total").text(`共 ${totalPages} 页`);
@@ -141,9 +153,17 @@ $(function () {
     $(document).on({
         mouseenter: function () {
             const qrImgPath = $(this).data("qr");
+            const $wrapper = $(this).closest(".card-btn-wrapper");
+            const $qrCode = $wrapper.find(".card-qr-code");
+
             if (qrImgPath && !isMobile) {
-                showQRCodeTooltip($(this), qrImgPath);
+                $qrCode.fadeIn(200);
             }
+        },
+        mouseleave: function () {
+            const $wrapper = $(this).closest(".card-btn-wrapper");
+            const $qrCode = $wrapper.find(".card-qr-code");
+            $qrCode.fadeOut(200);
         }
     }, ".card-btn");
 
@@ -165,72 +185,7 @@ $(function () {
         }
     });
 
-    // 显示二维码弹窗
-    function showQRCodeModal(qrImgPath) {
-        // 移除已存在的弹窗
-        $("#qrModal").remove();
-        
-        // 创建弹窗HTML
-        const modalHtml = `
-            <div id="qrModal" class="show">
-                <div class="modal-content">
-                    <span class="close-btn">&times;</span>
-                    <img src="${qrImgPath}" alt="二维码" />
-                </div>
-            </div>
-        `;
-        
-        // 添加弹窗到页面
-        $("body").append(modalHtml);
-        
-        // 点击关闭按钮或弹窗外部关闭
-        $(".close-btn, #qrModal").on("click", function(e) {
-            if (e.target === this) {
-                $("#qrModal").fadeOut(300, function() {
-                    $(this).remove();
-                });
-            }
-        });
-    }
 
-    // 显示二维码tooltip（PC端hover）
-    function showQRCodeTooltip($element, qrImgPath) {
-        // 如果已存在tooltip，不重复创建
-        if ($("#qrTooltip").length > 0) {
-            return;
-        }
-        
-        // 获取按钮位置
-        const offset = $element.offset();
-        const width = $element.outerWidth();
-        const height = $element.outerHeight();
-        
-        // 计算tooltip位置（显示在按钮右边）
-        const tooltipLeft = offset.left + width + 10;
-        const tooltipTop = offset.top;
-        
-        // 创建tooltip HTML
-        const tooltipHtml = `
-            <div id="qrTooltip" style="position: absolute; top: ${tooltipTop}px; left: ${tooltipLeft}px; z-index: 9999; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-                <span class="qr-close-btn" style="position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 20px; color: #999; line-height: 1; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;">&times;</span>
-                <img src="${qrImgPath}" alt="二维码" style="width: 150px; height: 150px; display: block;" />
-            </div>
-        `;
-        
-        // 添加tooltip到页面
-        $("body").append(tooltipHtml);
-        
-        // 点击关闭按钮关闭tooltip
-        $(".qr-close-btn").on("click", function(e) {
-            e.stopPropagation();
-            hideQRCodeTooltip();
-        });
-    }
-
-    // 隐藏二维码tooltip
-    function hideQRCodeTooltip() {
-        $("#qrTooltip").remove();
-    }
 
     // 自定义下拉框
     $(".custom-select").on("click", ".select-trigger", function(e) {
