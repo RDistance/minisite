@@ -1,6 +1,6 @@
 //http://127.0.0.1:5500/minisite/new_details/new_details.html?storeId=b0161f57df6744bb887a7a016414230a
 //门店详情促销活动
-//https://www.sonystyle.com.cn/dealero2o/app/master/dealer dfId 入参 post 方法
+//https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/dealer dfId 入参 post 方法
 //activityList是促销活动，productList是新品体验  
 
 {
@@ -506,23 +506,52 @@ activityType DI 的话是Alpha俱乐部 非DI 是体验活动
   ]
 }
 
-https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/dealer/findAllDealer?longitude=0&latitude=0  获取所有分店
+https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/dealer/findDirectDealer?longitude=0&latitude=0  获取所有分店
 
 
 {
   "result": true,
   "resultData": [
     {
-      "id": "e8288226cf524a3280a20b7a534a331d",
-      "name": "我家电器伊犁立峰店",
-      "longitude": 81.328265,
-      "latitude": 43.927865
-    },
-    {
-      "id": "0035565b91a1471f9216c9326db22fb3",
-      "name": "我家电器伊犁立峰店",
-      "longitude": 81.328265,
-      "latitude": 43.927865
+      "id": "042c38a24ad14448b865814682ce2425",
+      "shopName": "北京test门店",    
+      "name": "北京test门店",  //名称
+      "provinceId": "4028ab5a58b919900158b91995c60087",
+      "cityId": "4028ab5a58b919900158b91995c60088",
+      "dicstrictId": "4028ab5a58b919900158b91995c6008a",
+      "address": "12345678",
+      "phone": "",
+      "mobile": "12345678",
+      "longitude": 170.01,
+      "latitude": 80.22,
+      "businessHour": "10:00 - 19:00", //事件
+      "categoryId": "0dd315add5494141885cf15dad3c2000",
+      "imgURL": "https://www.sonystyle.com.cn/dealersearch-prd/appdata/%2Fdaef3115d92e40aeb7cdc383411778cb.jpg",  //门店图片
+      "likeCount": 0,
+      "companyCode": "CSMC",
+      "descrption": null,
+      "showMap": true,
+      "createDate": "2026-03-27 02:58:03",
+      "updateDate": 1774580283201,
+      "recommended": false,
+      "concealed": false,
+      "miniId": "",
+      "redirectUrl": "",
+      "pcode": "123456",
+      "manager": null,
+      "group": null,
+      "distance": 11090.5552025751,
+      "list": null,
+      "activityList": null,
+      "productList": null,
+      "productRegisterUrl": "/dealer/upload/images/default.jpg",
+      "customerServiceUrl": "/dealer/upload/images/default.jpg",  //二维码图片
+      "activityUrl": "/dealer/upload/images/default.jpg",
+      "fullScope": null,
+      "company": "Sony 中国",
+      "dealerDistrict": null,
+      "remark": null,
+      "additionalList": null
     }
-    ]
+  ]
 }
