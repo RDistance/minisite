@@ -115,6 +115,21 @@
     margin-bottom: 42px;
 }
 
+/* 暂无活动提示 */
+.store-detail .no-activity {
+    text-align: center;
+    padding: 60px 0;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.store-detail .no-activity-text {
+    font-size: 18px;
+    color: #999;
+}
+
 /* 按钮和二维码的父级容器 */
 .store-detail .card-btn-wrapper {
     position: relative;
@@ -343,6 +358,15 @@
 @media (max-width: 768px) {
     .store-detail.container {
         width: calc(100% - 5.333333vw);
+    }
+
+    .store-detail .no-activity {
+        padding: 13.333333vw 0;
+        min-height: 40vw;
+    }
+
+    .store-detail .no-activity-text {
+        font-size: 4.266667vw;
     }
 
     .store-detail .header-info {

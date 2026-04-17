@@ -59,6 +59,11 @@ $(function () {
             </div>`;
     }
 
+    // 渲染暂无活动提示
+    function createNoActivityHtml() {
+        return `<div class="no-activity"><div class="no-activity-text">暂无活动</div></div>`;
+    }
+
     // 渲染促销活动卡片 HTML（新品体验和促销活动）
     function createPromoCardHtml(item) {
         // 1 查看详情 2 立即报名 3 备注
@@ -344,14 +349,25 @@ $(function () {
             const { alpha, experience } = processActivities(shopActivities);
             
             // 渲染 Alpha 俱乐部
-            $('#alphaList').html(alpha.map(createCardHtml).join(''));
-            initSwiper('.activity-swiper');
+            if (alpha.length === 0) {
+                $('.activity-swiper').replaceWith(createNoActivityHtml());
+            } else {
+                $('#alphaList').html(alpha.map(createCardHtml).join(''));
+                initSwiper('.activity-swiper');
+            }
 
             // 渲染体验活动
-            $('#experienceList').html(experience.map(createCardHtml).join(''));
-            initSwiper('.experience-swiper');
+            if (experience.length === 0) {
+                $('.experience-swiper').replaceWith(createNoActivityHtml());
+            } else {
+                $('#experienceList').html(experience.map(createCardHtml).join(''));
+                initSwiper('.experience-swiper');
+            }
         }).catch(error => {
             console.error('门店活动获取失败:', error);
+            // 失败时也显示暂无活动
+            $('.activity-swiper').replaceWith(createNoActivityHtml());
+            $('.experience-swiper').replaceWith(createNoActivityHtml());
         });
 
         // 3. 获取用户位置后获取所有门店并渲染
@@ -414,8 +430,17 @@ $(function () {
 
     function updatePromo(key) {
         const list = allData.promoData[key];
-        $('#promoList').html(list.map(createPromoCardHtml).join(''));
-        initSwiper('.promo-swiper');
+        
+        if (list.length === 0) {
+            $('.promo-swiper').replaceWith(createNoActivityHtml());
+        } else {
+            // 如果之前是暂无活动状态，需要恢复swiper结构
+            if ($('.tab-panels .no-activity').length > 0) {
+                $('.tab-panels').html('<div class="swiper promo-swiper"><div class="swiper-wrapper" id="promoList"></div></div>');
+            }
+            $('#promoList').html(list.map(createPromoCardHtml).join(''));
+            initSwiper('.promo-swiper');
+        }
     }
 
     // 卡片按钮hover显示二维码（PC端）
