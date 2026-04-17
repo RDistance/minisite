@@ -168,9 +168,12 @@ $(function () {
     function initMap(latitude, longitude, name, address, phone, img) {
         if (!map) {
             map = new BMap.Map("map");
+        } else {
+            // 清除地图上的所有覆盖物
+            map.clearOverlays();
         }
         
-        const poi = new BMap.Point(latitude, longitude);
+        const poi = new BMap.Point(longitude, latitude);
         map.centerAndZoom(poi, 20);
         map.enableScrollWheelZoom();
 
@@ -248,7 +251,12 @@ $(function () {
         // 如果切换到地图，需要触发地图重新渲染
         if (target === 'mapContainer' && map) {
             setTimeout(function() {
-                map.dispatchEvent('resize');
+                map.resize();
+                // 重新设置中心点以确保标注点显示
+                if (currentStoreData) {
+                    const poi = new BMap.Point(currentStoreData.longitude, currentStoreData.latitude);
+                    map.setCenter(poi);
+                }
             }, 100);
         }
     });

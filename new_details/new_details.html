@@ -16,15 +16,10 @@
         }
         .map-nav {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             padding: 0 20px 20px;
             border-bottom: 1px solid #e0e0e0;
-        }
-        .map-nav-left a {
-            color: #555;
-            text-decoration: none;
-            font-size: 16px;
         }
         .map-nav-right {
             display: flex;
@@ -96,7 +91,6 @@
             background: #fff;
             border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
         .map-control a {
             padding: 8px 30px;
@@ -119,13 +113,14 @@
         
         @media (max-width: 768px) {
             .map-nav {
-                flex-direction: column;
+                flex-direction: row;
                 gap: 10px;
-                align-items: flex-start;
+                align-items: center;
+                justify-content: flex-end;
             }
             .map-nav-right {
-                width: 100%;
-                justify-content: space-between;
+                width: auto;
+                justify-content: flex-end;
             }
             .map-zone {
                 padding: 10px;
@@ -142,9 +137,6 @@
         <!-- 地图区域 -->
         <div class="map-section">
             <div class="map-nav">
-                <div class="map-nav-left">
-                    <a href="index.html" title="返回搜索">← 返回搜索</a>
-                </div>
                 <div class="map-nav-right">
                     <select class="store-select" id="storeSelect">
                         <option value="0">选择其他直营店</option>
