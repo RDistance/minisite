@@ -1,0 +1,574 @@
+<link rel="stylesheet" href="/content/dam/sonystyle/smallapp/dealerweb/css/innder_s.css">
+<link rel="stylesheet" href="/content/dam/sonystyle/smallapp/dealerweb/css/innder_s_new.css">
+ 
+  <link rel="stylesheet" href="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css">
+  <link rel="stylesheet" type="text/css" href="/content/dam/sonystyle/smallapp/dealerweb/css/swiper.min.css">
+  <script type="text/javascript"
+  src="https://www.sonystyle.com.cn/etc/designs/sonystyle/clientlib-jquery1124.js"></script>
+  <script type="text/javascript"
+    src="https://www.sonystyle.com.cn/etc/designs/sonystyle/clientlib-jquery-cookie.js"></script>
+  <script type="text/javascript" src="https://www.sonystyle.com.cn/etc/designs/sonystyle/clientlib-vue.js"></script>
+  <script type="text/javascript" src="https://www.sonystyle.com.cn/etc/designs/sonystyle/clientlib-axios.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="//g.alicdn.com/sd/ncpc/nc.js?t=2015052012"></script>
+
+ <script type="text/javascript"
+    src="https://www.sonystyle.com.cn/content/dam/sonystyle/smallapp/dealerweb/js/jquery.bpopup-0.7.0.min.js"></script>
+  <script type="text/javascript" src="https://www.sonystyle.com.cn/content/dam/sonystyle/smallapp/dealerweb/js/doT.min.js"></script>
+ <script type="text/javascript" src="https://www.sonystyle.com.cn/content/dam/sonystyle/smallapp/dealerweb/js/common716.js"></script> 
+  <script type="text/javascript" src="/content/dam/sonystyle/smallapp/dealerweb/js/swiper.min.js"></script>
+  <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
+  <script type="text/javascript">
+     var ipaddress = returnCitySN["cip"]
+  </script>
+<style>
+    .BMapLib_sendToPhone {
+      display: none;
+    }
+
+
+
+    .qyh {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 9999;
+      width: 150px;
+    }
+
+    .qyh img {
+      width: 100%;
+    }
+
+    .beizhu {
+      width: 100%;
+      padding: 20px 0px;
+    }
+
+    .beizhu p {
+      font-size: 12px;
+      color: #2F2F2F;
+      line-height: 22px;
+    }
+
+
+
+    .beizhu_title {
+      font-size: 14px;
+    }
+
+
+    .scopelist {
+      padding-top: 4px;
+    }
+
+    .scopelist ul li {
+      float: left;
+      width: auto;
+      margin-right: 6px;
+      margin-bottom: 6px;
+      padding: 0 10px;
+      line-height: 20px;
+      color: #000000;
+      font-size: 12px;
+      border: 1px solid #000000;
+      border-radius: 6px;
+      word-break: break-all;
+      white-space: nowrap;
+    }
+
+    .smain1{ width: 1000px; margin: 0 auto; padding-top: 40px; padding-bottom: 40px;}
+    .smain1 .name{ font-size: 20px;}
+
+
+  </style>
+  <script type="text/javascript">
+    function protocolCheck() {
+      if (window.location.protocol == "http:") {
+        window.location.href = window.location.href.replace("http:", "https:");
+      }
+    }
+//protocolCheck();
+  </script>
+
+
+ <div id="header_con"></div>
+  <div class="contaiter">
+    <!-- <div class="nav_bg">
+      <div class="smain clearfix">
+        <div class="snav_left">
+          <a href="index.html" class="go_prev" title="返回搜索">返回搜索</a>
+        </div>
+        <div class="snav_right">
+          <div class="snav_zx">
+            <a href="javascript:void(0)" class="likes heart" title="赞">赞<span></span></a>
+          </div>
+          <div class="snav_other">
+            <div class="select">
+              <select name="" id="other_m">
+
+              </select>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div> -->
+    <div class="d_w1200 crumbs">
+      <span>索尼在线商城</span>
+      <span> > </span>
+      <span><a href="index.html" title="门店查找">门店查找</a></span>
+      <span> > </span>
+      <span class="shop_name"></span>
+    </div>
+    <!-- 切换店铺 -->
+    <div class="d_w1200 shoptitleAll">
+      <div class="shop_name shop_title"></div>
+      <div class="snav_other">
+        <div class="select">
+          <select name="" id="other_m">
+
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- 门店详情 -->
+    <div class="d_w1200 main_shop">
+      <div class="shop_info">
+        <div class="mpas store_img">
+          
+        </div>
+        <div class="mpas" style="visibility: hidden">
+          <div class="map">
+            <div id="map"></div>
+          </div>
+        </div>
+        <div class="shop_slide_left">
+          <div class="swiper-title1"></div>
+            <div class="swiper-title" id="shopName"></div>
+            <div class="info_text">
+              <img class="info_text_img icon1" src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/position_icon.png">
+              <img class="info_text_img icon2" src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/phone_icon2.png">
+              <span id="shopAddress"></span>
+            </div>
+            <div class="info_text">
+              <img class="info_text_img icon1" src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/time_icon.png">
+              <img class="info_text_img icon2" src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/time_icon2.png">
+              <span id="businessHour"></span>
+            </div>
+            <div class="info_text">
+              <img class="info_text_img icon1" src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/phone_icon.png">
+              <img class="info_text_img icon2" src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/phone_icon2.png">
+              <span id="shopPhone"></span>
+            </div>
+            <div class="info_text" id="QRListAll">
+              <img class="info_text_img icon1" src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/QR_icon.png">
+              <img class="info_text_img icon2" src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/QR_icon2.png">
+              <div id="QRList"></div>
+            </div>
+        </div>
+        <div class="shop_slide_right">
+          <div class="map_control">
+            <a href="javascript:void(0)" class="m_active" title="门店实景"><span class="map_1"> 门店实景</span></a>
+            <a href="javascript:void(0)" title="地图"><span class="map_2"> 地图</span></a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="info_zone">
+      <div class="smain clearfix">
+
+        <div class="info_left">
+          <div class="info_li">
+            <div class="info_title">
+              <p class="info_s_title">Sony Store</p>
+              <p class="info_b_title mct11"></p>
+              <div class="scopelist clearfix">
+                <ul id="scopelist"></ul>
+              </div>
+            </div>
+            <div class="info_i_item">
+              <p class="addr"></p>
+            </div>
+            <div class="info_i_item">
+              <p class="time"></p>
+            </div>
+            <div class="info_i_item">
+              <p class="tel"></p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="map_zone">
+          <div class="mpas">
+            <div class="store_img">
+
+            </div>
+          </div>
+          <div class="mpas" style="visibility: hidden;">
+            <div class="map">
+              <div id="map"></div>
+            </div>
+          </div>
+
+
+
+          <div class="map_control">
+            <a href="javascript:void(0)" class="m_active" title="门店实景"><span class="map_1"> 门店实景</span></a>
+            <a href="javascript:void(0)" title="图片"><span class="map_2"> 图片</span></a>
+
+          </div>
+
+        </div>
+
+
+
+
+
+
+
+
+      </div>
+
+
+
+    </div> -->
+    <div class="notice_infos">
+      <div class="d_w1200 clearfix">
+        <div class="notice_img"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/n.png" alt="通知信息"></div>
+        <div class="notice_info">
+
+        </div>
+      </div>
+
+    </div>
+    <!-- 涵盖品类 -->
+    <div class="d_w1200" style="padding-bottom: 80px;">
+      <div class="title_Name">涵盖品类</div>
+      <div class="category_class" id="category">
+          <div class="swiper-container category_banner">
+            <div class="swiper-wrapper" >
+            </div>
+          </div>
+          <div class="swiper-button-prev-banner swiper-banner">
+            <img src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/arrow_forward_ios.png">
+          </div>
+          <div class="swiper-button-next-banner swiper-banner">
+            <img src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/arrow_forward_ios.png">
+          </div>
+      </div>
+    </div>
+
+    <!-- <div class="smain1">
+      <div class="item newitem clearfix">
+        <div class="m_title clearfix">
+          <p class="name">涵盖品类</p>
+        </div>
+        <div class="co_cat" id="co_cat">
+          <ul>
+            
+          </ul>
+        </div>
+      </div>
+
+    </div> -->
+    <div class="main_con">
+      <!-- 主题活动 -->
+      <div class="d_w1200 event_lecture" id="active_list_all">
+        <div class="title_Name">主题活动</div>
+        <div class="active_all" id="active_event_lecture"></div>
+        <div class="loading" id="active_loading" style="display: block;">
+          暂无活动
+        </div>
+      </div>
+      <!-- 产品体验 -->
+      <div class="d_w1200 event_lecture" id="new_product">
+        <div class="title_Name">产品体验</div>
+        <div class="active_all" id="new_product_info">
+        
+        </div>
+      </div>
+      <!-- 线下课程 -->
+      <div class="lecture_ms">
+        <div class="title_Name">线下课程</div>
+        <div class="d_w1200 pad50">
+          <div class="offline_wraps clearfix">
+            <div class="loading" style="display: none;">
+              数据加载中
+            </div>
+            <div class="no_result" style="display: none;">
+              您所选的城市暂无课程！
+            </div>
+            <ul id="off_lectures">
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cc">
+      <div class="smain">
+        <div class="cc_title">
+          <p class="actived"><span class="nav1">活动讲座</span></p>
+          <p><span class="nav2">新品体验及购买</span></p>
+        </div>
+        <div class="act_m clearfix">
+          <ul class="clearfix">
+            <li class="riqi big">活动日期</li>
+            <li class="shijian big">活动时间</li>
+            <li class="zhuti big">活动主题</li>
+            <li class="neirong big">活动内容</li>
+          </ul>
+          <div class="actis" id="lectrue">
+
+
+
+          </div>
+        </div>
+        <div class="act_m clearfix" style="display:none;">
+          <ul class="clearfix">
+            <li class="micheng big">新品名称</li>
+            <li class="ssneirong big">新品描述</li>
+          </ul>
+          <div class="actis" id="xinpinz">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Sony Store直营店 优势 -->
+    <div class="d_w1200 advantage">
+      <div class="advantage_title">Sony Store直营店优势</div>
+      <div class="advantage_main">
+        <div class="advantage_info">
+          <div class="advantage_img"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/advantage_icon1.png" alt=""></div>
+          <div class="advantage_text_title">丰富的产品线</div>
+          <div class="advantage_text">索尼商品覆盖耳机、手机、音响、电视、相机、摄像机等品类的产品，一站式满足您的多样化需求。</div>
+        </div>
+        <div class="advantage_info">
+          <div class="advantage_img"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/advantage_icon2.png" alt=""></div>
+          <div class="advantage_text_title">现场咨询与线下体验</div>
+          <div class="advantage_text">
+            现场工作人员将为您提供专业的使用指导与产品解答，并协助体验产品，您还有机会接触到Sony Store优先展出的新品。同时，免费的线下交流课堂伴您轻松学摄影。
+              <p class="ssy_info">*详情参考新品体验活动或致电直营门店咨询。</p>
+          </div>
+        </div>
+        <div class="advantage_info">
+          <div class="advantage_img"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/advantage_icon3.png" alt=""></div>
+          <div class="advantage_text_title">便捷安心的购物</div>
+          <div class="advantage_text">支持支付宝、微信支付、储蓄卡、信用卡等多种支付方式。同时，还可进行现场验货，质量有保障。</div>
+        </div>
+        <div class="advantage_info">
+          <div class="advantage_img"><img src="/content/dam/sonystyle/smallapp/dealerweb/images/index_new/advantage_icon3.png" alt=""></div>
+          <div class="advantage_text_title">专业售后及个性化服务</div>
+          <div class="advantage_text">在Sony Store直营店您可享受便捷、专业的维修服务，同时还提供如Just Ear耳机定制等丰富的个性化服务。</div>
+        </div>
+      </div>
+     </div>
+    <!-- <div class="s_xx">
+      <div class="s_xx_t">
+        <p class="sxx_s">Sony Store直营店</p>
+        <p class="sxx_b">优势</p>
+      </div>
+      <div class="d_w1200 sxx_con clearfix">
+        <ul class="clearfix">
+          <li class="ssy_1">
+            <div class="ssy_title clearfix">
+              <img src="/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/ys1.jpg" alt="丰富的产品线">
+              <div class="ssy_tx">丰富的<br>产品线</div>
+
+            </div>
+            <div class="ssy_des">
+              索尼商品覆盖耳机、手机、音响、电视、相机、摄像机等品类的产品，一站式满足您的多样化需求。
+            </div>
+          </li>
+          <li>
+            <div class="ssy_title clearfix">
+              <img src="/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/ys2.jpg" alt="现场咨询与线下体验">
+              <div class="ssy_tx">现场咨询<br>与线下体验</div>
+
+            </div>
+            <div class="ssy_des">
+              现场工作人员将为您提供专业的使用指导与产品解答，并协助体验产品，您还有机会接触到Sony Store优先展出的新品。同时，免费的线下交流课堂伴您轻松学摄影。
+              <p class="ssy_info">*详情参考新品体验活动或致电直营门店咨询。</p>
+            </div>
+          </li>
+          <li>
+            <div class="ssy_title clearfix">
+              <img src="/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/ys3.jpg" alt="便捷安心的购物">
+              <div class="ssy_tx">便捷安心的<br>购物</div>
+
+            </div>
+            <div class="ssy_des">
+              支持支付宝、微信支付、储蓄卡、信用卡等多种支付方式。同时，还可进行现场验货，质量有保障。
+            </div>
+          </li>
+          <li>
+            <div class="ssy_title clearfix">
+              <img src="/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/ys4.jpg" alt="专业售后及个性化服务">
+              <div class="ssy_tx">专业售后<br>及个性化服务</div>
+            </div>
+            <div class="ssy_des ssy_des1">
+              在Sony Store直营店您可享受便捷、专业的维修服务，同时还提供如Just Ear耳机定制等丰富的个性化服务。
+            </div>
+          </li>
+
+        </ul>
+
+
+      </div>
+
+
+    </div> -->
+    <!-- <div class="useful">
+      <div class="smain usfx">
+        以上信息是否对你有帮助
+        <a href="javascript:void(0)" onclick="goEffective(1)" class="lef1" title="是">是</a>
+        <a href="javascript:void(0)" onclick="goEffective(0)" title="否">否</a>
+
+
+      </div>
+
+    </div> -->
+
+
+
+  </div>
+  <div class="qyh"></div>
+  <div id="footer_con"></div>
+  <script id="other_tmp" type="text/template">
+  <option value="0">选择其他直营店</option>
+  {{for(var i = 0; i< it.length; i++ ){}}
+      <option value="{{=it[i].id}}">{{=it[i].name}}</option>
+  {{}}}
+</script>
+
+
+
+
+  <script id="xlecture" type="text/template">
+    {{ for (var i = 0, l = it.length; i < l; i++) { 
+    
+    }}
+       <li>
+        
+          
+          <div class="offline_pic"><a href="/smallapp/lecture/offline/lectures/detail.htm?acid={{=it[i].activityId}}" target="_blank" title="影像课堂"><img src='{{=it[i].iconPath}}' alt="icon"></a></div>
+          <div class="y_icon y_icon_{{=it[i].activityType}}">{{=it[i].activityType}}</div>
+          <div class="offline_bvs clearfix">
+            <div class="lm_leftvs">
+              <div class="off_t off_t_new">{{=it[i].activityName}}</div>
+              <div class="uploadtime uploadtime_new">{{=it[i].times}}</div>
+              
+            </div>
+            <div class="lm_rightvs">{{=it[i].clcs}}</div>
+          </div>
+          <div class="kcxx clearfix">
+            <div class="kcx_left">
+            剩余<span>{{=it[i].leftNum}}</span>人
+            </div>
+            <div class="kcx_level">
+            {{=it[i].activityLevel}}
+            </div>
+           
+            <div class="kcx_tc">
+            {{=it[i].lecturerName}}
+            </div>
+          
+          </div>
+          
+          
+        
+      </li>
+      
+    {{ } }}
+    </script>  
+
+  <div class="pop_m" id="success" style="display:none;">
+    <a href="javascript:void(0)" class="close" title="关闭">关闭</a>
+    <div class="pop_content gerenxinxi">
+      <div class="pop_main">
+        <div class="pop_con">
+          <div class="pop_title">
+            您正在报名，请核实个人信息
+          </div>
+          <div class="pop_c4 clearfix">
+            <p>用户名：<span class="yhm"> </span></p>
+            <p>联系电话：<span class="stmobile"></span></p>
+            <p>E-mail地址：<span class="email"> </span></p>
+            <p>真实姓名：<span class="tname"> </span></p>
+          </div>
+          <a href="javascript:void(0)" class="correctinfo" title="个人信息正确">个人信息正确</a>
+          <div class="pop_c5 clearfix">
+            <div class="edit_c">
+              如个人信息不正确，请点
+              <a href="/b2c_sony/b2c/member/z_recommendProduct.do" target="_blank" title="修改">此处修改</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pop_content bmcg" style="display:none;">
+      <div class="pop_main">
+        <div class="pop_con">
+          <div class="pop_title">
+            报名成功
+          </div>
+          <div class="pop_c1">
+            <p>亲爱的用户：</p>
+            <p>感谢您的关注，您的报名已成功！</p>
+          </div>
+          <div class="pop_c2">
+            <p>课程：<span class="bm_title"></span></p>
+            <p>地点：<span class="bm_space"></span></p>
+            <p>时间：<span class="bm_time"></span></p>
+          </div>
+        </div>
+        <div class="pop_bpad">
+          <div class="pop_bottom">
+            <p class="pt_1">注意事项：</p>
+            <p>60岁以上老人请在家属陪同下前往参加；</p>
+            <p>请避免携带15岁以下孩童参加。</p>
+            <p>感谢您的支持和配合！</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pop_m" id="ybaomingl" style="display:none;">
+    <a href="javascript:void(0)" class="close" title="关闭">关闭</a>
+    <div class="pop_content">
+      <div class="pop_main">
+        <div class="pop_con">
+          <div class="pop_c3">
+            <p class="finish1 error_mess"></p>
+            <p class="finish2"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/content/dam/sonystyle/smallapp/dealerweb/js/jquery.min.js"></script>
+  <script type="text/javascript"
+    src="https://api.map.baidu.com/api?v=2.0&amp;ak=q7LFs3kP1PNSP0ccE0etjLErsIN8GzjD&amp;s=1"></script>
+  <script type="text/javascript"
+    src="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+  <script>
+    var jquery = $.noConflict(true);
+
+  </script>
+  <script type="text/javascript" src="/content/dam/sonystyle/smallapp/dealerweb/js/jquery.slimscroll.js"></script>
+  <script type="text/javascript" src="/content/dam/sonystyle/smallapp/dealerweb/js/detail_s.js?v=805"></script>
+  <script src="/content/dam/sonystyle/smallapp/dealerweb/lectures/js/lecture1.js"></script>
+  <script type="text/javascript">window._satellite && window._satellite.pageBottom();</script>
+  <script src="/content/dam/sonystyle/smallapp/dealerweb/js/aes.js"></script>
+  <script src="/content/dam/sonystyle/smallapp/dealerweb/js/pad-nopadding.js"></script>
+  <script src="/content/dam/sonystyle/smallapp/dealerweb/js/mode-ecb.js"></script>
+ 
+ 

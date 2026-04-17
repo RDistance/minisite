@@ -1,0 +1,570 @@
+@charset "utf-8";
+/* CSS Document */
+html,body,div,p,ul,li,ol,dd,dt{ margin:0; padding:0;}
+a{ border:0 none; outline:0 none; text-decoration:none;}
+img{ border:0 none; outline:0 none; vertical-align:top;}
+.clearfix:after{ display:block; content:"."; visibility:hidden; height:0; clear:both;}
+div,p,ul,li{ margin:0; padding:0;}
+ul,li{ list-style:none;}
+.pr{ position:relative;}
+.pa{ position:absolute;}
+.fr{ float:right;}
+.fl{ float:left;}
+body{ font-family:Microsoft Yahei,Arial;}
+.nav_bg {
+  border-bottom: 1px solid   rgb( 220, 220, 220 ) ;
+ 
+  background-color: rgb( 255, 255, 255 );
+  box-shadow: 2.5px 4.33px 5px 0px rgb( 240, 240, 240 );
+  height: 64px;
+  z-index: 5;
+}
+.contaiter{ width:100%; position:relative; min-width: 1250px;}
+.smain{ width:1450px; margin:0 auto;}
+.snav_left{ float: left; padding-top: 17px;}
+.go_prev{ display:block; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/home.png) left center no-repeat; padding-left:24px; color:#555555; font-size:16px; line-height:30px;  }
+.snav_right{ float: right;}
+.snav_zx{ float: left; margin-right: 20px; padding-top: 22px;}
+.snav_zx a{ display: block; float: left; padding-right: 35px; border-right: 1px solid #a4a4a4;}
+.snav_zx a:last-child{ border: 0 none;}
+.snav_zx a.likes{ height: 18px; line-height: 18px; background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/like.png) left center no-repeat; padding-left: 24px; color: #17acff; font-size: 16px; font-weight: bold;}
+.snav_zx a.likes span{ padding-left: 12px;}
+.snav_zx a.zx{ margin-left:35px;height: 18px; line-height: 18px; background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/z.png) left center no-repeat; padding-left: 24px; color: #555555; font-size: 16px; font-weight: bold;}
+
+.snav_other{ float: left; padding-top: 14px;}
+.main_con{
+	padding-bottom: 80px;
+}
+
+.select {
+  display: inline-block;
+  z-index: 2;
+  border: 1px solid #a4a4a4;
+   background: #ffffff; 
+   height: 32px; 
+   width: 210px; 
+
+   color: #999999; 
+   font-size: 14px; 
+   background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/arrow_down.png) 188px center no-repeat;
+   border-radius: 20px;
+
+
+
+
+
+}
+
+.select:hover {
+  /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15); */
+}
+
+.select:before {
+ /*  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: #ccc;
+  top: 14px;
+  right: 10px;
+  cursor: pointer;
+  z-index: -2; */
+}
+.select select {
+  cursor: pointer;
+ /*  padding: 10px; */
+  width: 100%;
+  border: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 32px;
+  padding: 0 10px;
+  
+}
+.select select:focus {
+  outline: none;
+}
+.info_zone{ width: 100%; background: #eef1f3;}
+.store_img img{ display: block; width: 100%;}
+.map_zone{ float: right; width: 862px; height: 575px; overflow: hidden; position: relative;}
+.map_z{ width:100%; min-height:450px;}
+/* .map{ width: 862px;} */
+.map{ width: 780px;margin-left: 420px;}
+#map{ width:865px; height:575px;}
+#map img{ max-width:none;}
+/* .map_control{ width: 195px; height: 36px; position: absolute; left: 50%; margin-left: -97px; bottom: 20px ;text-align: center;}
+.map_control a{ display: block; width: 50%; height: 100%; float: left;}
+.map_control a span.map_1{ display: block; width: 100%; height: 100%; background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/map_btn.png) left top no-repeat; text-indent: -9999px;}
+.map_control a span.map_2{ display: block; width: 100%; height: 100%; background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/map_btn.png) right top no-repeat; text-indent: -9999px;}
+.map_control a.m_active span.map_1{ display: block; width: 100%; height: 100%; background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/map_btn_c.png) left top no-repeat; text-indent: -9999px;}
+.map_control a.m_active span.map_2{ display: block; width: 100%; height: 100%; background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/map_btn_c.png) right top no-repeat; text-indent: -9999px;} */
+
+
+
+.info_left{ padding: 45px 0 0 55px; float: left;}
+.info_li{ width: 425px;}
+.info_title{ border-bottom: 1px solid #555555; padding-bottom: 10px;}
+.info_s_title{ color: #000000; font-size: 48px; font-family: Arial;}
+.info_b_title{ color: #000000; font-size: 60px;}
+
+
+.info_i_item{ padding-top: 30px; width: 410px;}
+.info_i_item p{ line-height: 30px; padding-left: 36px; color: #000000; font-size: 18px;}
+.info_i_item p.addr{ background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/addr.png) left 6px no-repeat;}
+.info_i_item p.time{ background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/time.png) left 6px no-repeat;}
+.info_i_item p.tel{ background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/tel.png) left 6px no-repeat;}
+.notice_infos{ width: 100%; padding: 50px 0 0 ; background: #ffffff; display: none;}
+.d_w1200{ width: 1200px; margin: 0 auto;}
+.notice_img{ float: left;}
+.notice_info{ float: left; line-height: 30px; color: #000000; font-size: 18px; padding: 5px 0 0 30px; width: 900px;}
+
+
+.lecture_ms{ width: 100%; 
+  background-position: center top; 
+  background-repeat: no-repeat; 
+  /* background-color: #ffffff;   */
+}
+.lecture_mt{ width: 100%; text-align: center;}
+.lecture_mt p{ display: inline-block; background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/off.png) left center no-repeat; line-height: 36px; color: #555555; font-size:26px; font-weight: bold; padding-left: 44px;}
+.pad50{ padding-top: 50px;}
+
+
+
+.offline_wraps ul{ width:1200px;}
+.offline_wraps li{ width:362px; float:left; margin:0 54px 50px 0; background:#fff; position:relative; border: 1px solid #dfdfdf;}
+.offline_wraps li:nth-child(3n){ margin-right: 0px;}
+
+.offline_pic img{ width:100%; max-width:none;}
+.lm_leftvs{  padding:12px 0 10px 0;}
+.off_t {
+    font-size: 18px;
+    color: #2d2d2d;
+    margin-bottom: 4px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 24px;
+    white-space: nowrap;
+	font-weight:bold;
+}
+.off_t_new{
+  overflow: hidden;
+  color: var(--Black-272A31, #272A31);
+  text-overflow: ellipsis;
+  font-family: SL-Simplified;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+
+
+.off_p{ font-size:14px; color:#7d7d7d;}
+.off_p span{ font-size:16px; color:#ad0000; font-weight:bold; margin:0 3px;}
+.lm_rightvs{ 
+    display: flex;
+  /* padding:0px 10px 10px 0; */
+}
+.lm_rightvs img { 
+  display:block;
+   /* width:93px; */
+   width: 100px;
+   height: 37px;
+  }
+  .offline_bvs{ 
+    /* border-bottom:1px #b6b6b6 solid; */
+     /* width:95%;  */
+     /* margin:0 auto; */
+     padding: 20px;
+     box-sizing: border-box;
+     border-top: 1px dashed var(--80-gray-cccccc, #CCC);
+  }
+.uploadtime{  font-size:14px; padding:0; color:#888888;}
+.uploadtime_new{
+  color: var(--40-gray-666666, #666);
+  font-family: SL-Simplified;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+.lecture_t { line-height:14px; }
+.lecture_t img{ vertical-align:top;}
+.lecture_t img.a{ width:20px; }
+.lecture_t img.acafe{ width:60px;}
+.lecture_t img.master{ width:auto; height: 14px;}
+
+
+.n_select{ min-height:600px;}
+.n_title{ width:100%; padding:10px 0 10px; text-align:center; font-size:16px; color:#626262;}
+
+.n_slectesb{ text-align:left; }
+.n_slectesb a{ display:inline-block; width:282px;  border:1px solid #a4a4a4;  text-align:center; line-height:30px; margin:0 2px; color:#7d7d7d; font-size:14px;margin-top:25px;}
+.n_slectesb a:hover{border:1px solid #64c3f1; color:#ad0000;}
+.n_slectesb a.sactive{ border:1px solid #64c3f1; color:#ad0000;}
+.nst_tips{ width:100%; text-align:center; color:#acacac; font-size:12px; padding:60px 0 110px;}
+
+
+.video_pop{ width:100%; height:100%; position:fixed; left:0; top:0; z-index:9999; background:rgba(0,0,0,0.88); display:none;}
+.video_sp{ width:640px; height:480px; position:absolute; left:50%; top:50%; margin:-240px 0 0 -320px ;}
+#txxvideo{ width:100%; height:100%;}
+.sp_close{ width:40px; height:40px; position:absolute; right:0; top:-40px; font-size:24px; text-align:center; line-height:40px; color:#FFFFFF;}
+
+.n_title{ text-align:center; color:#626262; font-size:16px; line-height:22px;}
+.n_zone{ padding:0 2px; color:#3ca4e6;}
+.reselect{ margin-left:20px;color:#3ca4e6; font-size:12px;}
+.n_tips{ width:100%; text-align:center; color:#9a9a9a; font-size:12px; padding-bottom:20px;}
+
+.n_title2{border-left: 4px solid #64c3f1;text-align: left;line-height: 20px;padding: 0;float: left;width: auto;}
+.n_title2 span{padding-left: 8px;padding-right: 25px;color: #3a3a3a;font-size: 18px;font-weight: bold;}
+.look_schdule{display: block;float: right;color: #64c3f1;font-size: 16px;line-height: 20px;text-decoration: underline;}
+
+.pop_m{ width:450px; padding-bottom:20px; display:block; position:absolute; left:0; top:0; z-index:999;  z-index:100; background:#ffffff; }
+.pop_m .close{ display:block; width:21px; height:21px; position:absolute; right:10px; top:10px; text-indent:-9999px; z-index:1000; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/search/close_pop.png) no-repeat;}
+.pop_m .pop_content{ width:310px; margin:0 auto; padding-top:20px;}
+.pop_m .pop_main{ width:100%; }
+.pop_con{ width:100%; }
+.pop_title{ padding:20px 0px 20px 0px; font-size:18px; color:#ad0000; font-weight:bold; }
+.pop_c1{ padding:0px 0 10px 0px; border-bottom:1px solid #C4C4C4;}
+.pop_c1 p { font-size:14px; line-height:22px; color:#2d2d2d;}
+.pop_c2 { padding-bottom:10px; padding-top:10px;}
+.pop_c2 p { font-size:14px; line-height:22px; color:#2d2d2d;}
+.pop_c2 p span { color:#646464;}
+.pop_bpad{ padding:0px 0;}
+.pop_bottom{  padding:20px 0 0px;}
+.pop_bottom p{ font-size:12px; color:#939393; line-height:20px;width:370px; margin:0 auto;}
+.pop_c3{ padding:40px 0 30px 0;}
+.pop_c3 p.finish1{ text-align:center; color:#000000; font-size:24px; padding-bottom:10px;}
+.pop_c3 p.finish2{ text-align:center; color:#646464; font-size:14px;}
+
+.pop_c4 { padding:0px 0 40px 0px;}
+.pop_c4 p { font-size:14px; line-height:22px; color:#2d2d2d; width:100%;  margin-bottom:4px; font-weight:bold;}
+.pop_c4 p span { color:#2d2d2d; font-weight:normal;}
+a.correctinfo{ width:147px; height:31px; display:block; text-indent:-9999px; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/search/correctinfo.png) no-repeat; }
+a.correctinfo1{ width:147px; height:31px; display:block; text-indent:-9999px; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/search/correctinfo.png) no-repeat; margin-top:10px;}
+.pop_c5{ padding:12px 0 10px 0 ; width:100%;}
+.edit_c{ font-size:14px; color:#939393;}
+.edit_c a{ color:#ad0000; text-decoration:underline; font-size:14px; font-family:Microsoft Yahei;}
+
+
+
+
+
+
+.btns{ width:100%; padding-bottom:20px; margin:0 auto;}
+.btns a.ok{ width:130px; height:35px; display:block; text-indent:-9999px; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/search/ok.png) center center no-repeat; float:left;}
+.btns a.canc{ width:130px; height:35px; display:block; text-indent:-9999px; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/search/cancle.png) center center no-repeat; float:right;}
+
+
+
+.my_item { padding-bottom:20px;}
+.my_item p { font-size:14px; line-height:22px; color:#2d2d2d;}
+.my_item p span { color:#646464;}
+.cancel_b{ display:block; width:90px;  height:30px; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/search/cancel.png) no-repeat; text-indent:-9999px; margin-top:10px;}
+.nolect{ width:100%;font-size:14px; line-height:22px; color:#2d2d2d; text-align:center; padding-bottom:10px; }
+
+
+
+
+
+.block_sections{ position:relative;}
+.my_btn{ display:block; width:90px;  height:30px; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/search/my.png) no-repeat; text-indent:-9999px; position:absolute; right:0; top:-65px;}
+
+.lecture_icon{ position:absolute; width:60px; height:22px; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/new/index/study.png) no-repeat; background-size:100% auto; right:10px; top:190px;}
+.lecture_icon1{ position:absolute; width:60px; height:22px; background:url(/smallapp/acafe/myspace/wechat/images/master/view.png) no-repeat; background-size:100% auto; right:10px; top:190px;}
+
+
+.kcxx{ 
+  box-sizing: border-box;
+  padding:10px 20px;
+  border-top: 1px dashed var(--80-gray-cccccc, #CCC);
+  /* width:95%; 
+  margin:0 auto; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--40-gray-666666, #666);
+  font-family: SL-Simplified;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+} 
+.kcx_left{ 
+  /* width:55%;  */
+  float:left; 
+  /* height:18px; */
+  background:url(/content/dam/sonystyle/smallapp/dealerweb/images/new/lecture/left2.png) no-repeat;
+  background-size:auto 15px; 
+  background-position: left;
+  padding-left:22px; 
+  /* line-height:18px;  */
+  /* color:#3a3a3a;  */
+  /* font-size:14px;  */
+  box-sizing:border-box; 
+  /* margin-bottom:8px; */
+}
+.kcx_left span{ 
+  color: var(--Maincolor-5886F5, #5886F5);
+  font-family: SL-Simplified;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  /* font-weight:bold; */
+}
+
+.kcx_level{ 
+  /* width:40%;  */
+  float:left; 
+  /* height:18px;  */
+  background:url(/content/dam/sonystyle/smallapp/dealerweb/images/new/lecture/level2.png) no-repeat;
+  background-size:auto 15px;
+  background-position: left;
+  padding-left:22px; 
+  /* line-height:18px;  */
+  /* color:#3a3a3a;  */
+  /* font-size:14px;  */
+  box-sizing:border-box; 
+  /* margin-bottom:8px; */
+}
+.kcx_type{ width:55%; float:left; height:18px; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/new/lecture/lecture.png) no-repeat;  background-size:auto 18px;padding-left:22px; line-height:18px; color:#3a3a3a; font-size:14px; box-sizing:border-box;}
+.kcx_tc{ 
+  /* width:40%;  */
+  float:left; 
+  /* height:18px;  */
+  background:url(/content/dam/sonystyle/smallapp/dealerweb/images/new/lecture/teacher2.png) no-repeat;  
+  background-size:auto 15px;
+  background-position: left;
+  padding-left:22px; 
+  /* line-height:18px;  */
+  /* color:#3a3a3a;  */
+  /* font-size:14px;  */
+  box-sizing:border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.co_cat{ width:100%;padding-top:20px;}
+.co_cat ul li{ width:70px; margin-right:55px;display: inline-block;height: 120px;overflow: hidden;}
+.co_cat ul li:last-child{ margin-right:0px;}
+.co_cat ul li img{ width:60px; margin:0 auto;}
+.co_cat ul li p{ width:58px; margin:0 auto; padding-top:6px; text-align:center;}
+
+
+
+.xp_info{ padding-top:14px; line-height:20px; color:#676767; font-size:12px;}
+
+
+
+
+
+
+.cc{ background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/lecture_bg.jpg) center top no-repeat #ffffff; padding:60px 0px 60px 0px; display:none;  }
+
+.cc_title{ width:100%; text-align:center; padding-bottom:30px; }
+.cc_title p { display:inline-block;  width:386px; height:66px; cursor:pointer; }
+.cc_title p span.nav1{ display:inline-block; width:386px; height:66px; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/h_nav.png) left center no-repeat; text-indent:-9999px;}
+.cc_title p span.nav2{ display:inline-block; width:386px; height:66px; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/h_nav.png) right center no-repeat; text-indent:-9999px;}
+
+.cc_title p.actived span.nav1{ display:inline-block; width:386px; height:66px; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/h_nav_c.png) left center no-repeat; text-indent:-9999px;}
+.cc_title p.actived span.nav2{ display:inline-block; width:386px; height:66px; background:url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/h_nav_c.png) right center no-repeat; text-indent:-9999px;}
+
+
+
+
+.act_m{ width:1200px; margin: 0 auto; box-sizing:border-box;}
+.m_act{ width:100%;}
+.act_m ul li { float:left;  line-height:32px; padding:20px 0px; color:#313131; font-size:14px;}
+.act_m ul li.riqi{ width:180px; box-sizing: border-box; padding-left: 10px;}
+.act_m ul li.shijian{ width:200px;}
+.act_m ul li.zhuti{ width:250px;}
+.act_m ul li.neirong{ width:550px; padding-left:20px;}
+.act_m ul li.micheng{  width:456px; padding-right:20px; padding-left: 25px; box-sizing: border-box; font-size: 24px;}
+.act_m ul li.ssneirong{ width:744px; color: #555555; font-size: 16px; vertical-align: middle;}
+.act_m ul li.ssneirong img{ display: inline; vertical-align: middle;}
+
+.act_m ul li.big{ font-size:18px; color: #999999;}
+.act_m ul li.neirong a{ color:#17acff; text-decoration:underline;}
+.act_m ul li.neirong img.icon{ width:18px; display:inline; padding-left:6px; vertical-align:middle; }
+
+
+
+
+.act_m ul li.neirong a{ }
+
+
+
+
+
+.actis{ height:auto;}
+.m_act ul { width:980px;}
+.actis ul { background:#f3f3f3 ; }
+.actis ul:nth-child(even){ background: #fafafa;}
+
+
+.act_m p.nodata{ width:100%; text-align:center; font-size:18px; color:#6A6A6A; padding:30px 0px;}
+
+.newitem .m_title{ background:url(/content/dam/sonystyle/smallapp/dealerweb/images/inner/slice.png) 95px center no-repeat;border-bottom:0 none;padding-bottom:0px;}
+
+.s_xx{ width: 100%; padding-bottom: 70px; padding-top: 50px; background: url(/content/dam/sonystyle/smallapp/dealerweb/images/inner_s/lecture_bg.jpg) center top no-repeat #ffffff;}
+.s_xx_t{ text-align: center; }
+.sxx_s{ color: #555555; font-size: 24px; }
+.sxx_b{ color: #1fa8e2; font-size: 45px; font-weight: bold;}
+.sxx_con{ padding-top: 65px;}
+.sxx_con ul li{ float: left; width: 276px; margin-right: 32px; }
+.sxx_con ul li:last-child{ margin-right: 0px;}
+.ssy_title img{ float: left; display: block; width: 80px;}
+.ssy_tx{ float: left; color: #000000; font-size: 26px; line-height: 36px; padding-top: 4px;}
+.ssy_1 .ssy_tx{ padding-left: 19px;}
+.ssy_des{ width: 100%; min-height: 134px; position: relative; margin-top: 20px; color: #000000; font-size: 16px; line-height: 28px; box-sizing: border-box; padding-right: 30px;}
+.ssy_des:after{ position: absolute; content: " "; right: 0; top: 0; width: 2px; height:134px ; border-right: 1px solid #e8e8e8; }
+.ssy_des1:after{border-right: 0 none;}
+.ssy_info{ color: #777777; font-size: 12px; padding-top: 12px;}
+
+.useful {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 40px;
+  color: #999999;
+  font-size: 24px;
+  
+
+
+}
+.usfx{ width: 1200px; border-top: 1px solid #f0f0f0; padding-top: 30px; padding-bottom: 30px;}
+
+
+
+.useful a {
+  color: #ffffff;
+  display: inline-block;
+  width: 74px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 10px;
+  background: #999999;
+}
+
+
+
+a.lef1 {
+  margin-left: 30px;
+  margin-right: 25px;
+  background: #1fa8e2;
+
+}
+
+
+.loading{ 
+  width: 100%;
+  padding: 40px 0px;
+  text-align: center;
+  font-size: 14px;
+  color: #989898;
+  display: none;
+  }
+  .no_result{ 
+  width: 100%;
+  padding: 40px 0px;
+  text-align: center;
+  font-size: 14px;
+  color: #989898;
+  display: none;
+  }
+
+@media screen and (max-width:1400px){
+.smain{ width: 1250px;}  
+.d_w1200{ width: 1000px; margin: 0 auto;}
+.info_left{ padding: 40px 0 0 35px;}
+.map_zone{ width: 750px; height: 500px;}
+.info_s_title{ font-size: 38px;}
+.info_b_title{ font-size: 50px;}
+.info_title{ padding-bottom: 5px;}
+.info_i_item{ padding-top: 20px;}
+.pad50{ padding: 40px 0;}
+.offline_wraps ul{ width: 1000px;}
+.offline_wraps li{ width: 314px; margin: 0 25px 20px 0;}
+.act_m{ width: 1000px;}
+.act_m ul li.riqi{ width:140px;}
+.act_m ul li.shijian{ width:140px;}
+.act_m ul li.zhuti{ width:220px;}
+.act_m ul li.neirong{ width:480px;}
+.act_m ul li.micheng{width:340px; font-size: 20px;}
+.act_m ul li.ssneirong{ width:560px; font-size: 14px;}
+.act_m ul li.big{ font-size: 18px;}
+
+.sxx_b{ font-size: 35px;}
+.sxx_con ul li{ width: 235px; margin-right: 15px;}
+.ssy_tx{ font-size: 22px;}
+.ssy_des{ font-size: 14px;}
+.sxx_con{ padding-top: 40px;}
+.s_xx{ padding-bottom: 50px;}
+.useful{ font-size: 20px;}
+.notice_info{ width: 700px;}
+.usfx{ width: 1000px;}
+
+
+
+
+
+
+}
+.y_icon{ 
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  /* text-indent: -9999px; */
+  padding: 5px 10px;
+  background: var(--Maincolor-5886F5, #5886F5);
+  border-radius: 5px;
+  color: var(--100-white-ffffff, #FFF);
+  text-align: center;
+  font-family: SL-Simplified;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 9px;
+  box-sizing: border-box;
+}
+.y_icon_DI{ 
+  /* background: url(/smallapp/acafe/images/new/mobile/DI.png) no-repeat;  */
+ 
+  background-size: 100% auto;
+}
+.y_icon_Xperia{ 
+  /* background: url(/smallapp/acafe/images/new/mobile/DI.png) no-repeat;  */
+
+  background-size: 100% auto;
+}
+/* .y_icon_Xperia{ background: url(/smallapp/acafe/images/new/mobile/icon_xperia.png) no-repeat; background-size: 100% auto;} */
