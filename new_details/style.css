@@ -115,11 +115,45 @@
     margin-bottom: 42px;
 }
 
+/* 按钮和二维码的父级容器 */
+.store-detail .card-btn-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* 二维码样式 */
+.store-detail .card-qr-code {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 100;
+    white-space: nowrap;
+}
+
+.store-detail .card-qr-code img {
+    width: 150px;
+    height: 150px;
+    display: block;
+}
+
 .store-detail .card-body .btn-link {
     color: #000;
     font-size: 15px;
     cursor: pointer;
     text-decoration: none;
+    position: relative;
+    z-index: 2;
+}
+
+.store-detail .card-body .btn-link.no-link {
+    cursor: default;
 }
 
 /* Tabs 样式 */

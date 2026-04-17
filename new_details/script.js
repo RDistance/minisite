@@ -40,7 +40,10 @@ $(function () {
         swipers[selector] = new Swiper(selector, { ...defaultConfig, ...options });
     }
 
-    // 渲染卡片 HTML
+    // 检测是否是移动端
+    const isMobile = $(window).width() <= 768;
+
+    // 渲染卡片 HTML（Alpha俱乐部和体验活动）
     function createCardHtml(item) {
         return `
             <div class="swiper-slide">
@@ -50,7 +53,61 @@ $(function () {
                     <div class="card-body">
                         <h3>${item.title}</h3>
                         <p class="time">${item.time}</p>
-                        <a href="#" class="btn-link">我要报名 ></a>
+                        <div class="btn-link" data-url="${item.url}">查看详情 ></div>
+                    </div>
+                </div>
+            </div>`;
+    }
+
+    // 渲染促销活动卡片 HTML（新品体验和促销活动）
+    function createPromoCardHtml(item) {
+        // 1 查看详情 2 立即报名 3 备注
+        let btnText = "";
+        let linkUrl = item.linkUrl || item.url || "#";
+        let qrImgPath = item.qrImgPath || "";
+        let linkClass = "";
+        let linkData = "";
+        
+        if (item.linkName == "1" || item.linkName == "2") {
+            // 查看详情和立即报名逻辑相同
+            btnText = item.linkName == "1" ? "查看详情 >" : "立即报名 >";
+            
+            if (item.linkType == "1") {
+                // linkType为1时PC端直接跳转
+                linkUrl = isMobile ? (item.mobileLink || item.linkUrl) : item.linkUrl;
+            } else if (item.linkType == "2") {
+                // linkType为2时PC端显示二维码，移动端跳转
+                if (isMobile) {
+                    linkUrl = item.mobileLink || item.linkUrl;
+                } else {
+                    linkUrl = "#"; // PC端不跳转，显示二维码
+                    linkClass = " has-qr";
+                    linkData = ` data-qr="${qrImgPath}"`;
+                }
+            }
+        } else if (item.linkName == "3") {
+            btnText = item.remark || "";
+            linkUrl = "#"; // 备注不可跳转
+            linkClass = " no-link";
+        } else {
+            // 默认情况
+            btnText = "查看详情 >";
+        }
+        
+        return `
+            <div class="swiper-slide">
+                <div class="card">
+                    <div class="swiper-lazy-preloader"></div>
+                    <img data-src="${item.img}" alt="${item.title}" class="swiper-lazy">
+                    <div class="card-body">
+                        <h3>${item.title}</h3>
+                        <p class="time">${item.time}</p>
+                        <div class="card-btn-wrapper">
+                            <div class="card-qr-code" style="display: none;">
+                                <img src="${qrImgPath}" alt="二维码" />
+                            </div>
+                            <div class="btn-link${linkClass}" data-url="${linkUrl}"${linkData}>${btnText}</div>
+                        </div>
                     </div>
                 </div>
             </div>`;
@@ -192,7 +249,12 @@ $(function () {
                     title: item.productName || item.title || '',
                     img: item.activityImgUrl || '',
                     time: item.activityDate || '',
-                    url: item.linkUrl || item.mobileLink || '#'
+                    linkUrl: item.linkUrl || '#',
+                    mobileLink: item.mobileLink || '#',
+                    linkType: item.linkType,
+                    linkName: item.linkName,
+                    remark: item.remark || '',
+                    qrImgPath: item.qrImgPath || ''
                 };
                 promoData.new.push(productData);
             });
@@ -205,7 +267,12 @@ $(function () {
                     title: item.title || '',
                     img: item.activityImgUrl || '',
                     time: item.activityDate || '',
-                    url: item.linkUrl || item.mobileLink || '#'
+                    linkUrl: item.linkUrl || '#',
+                    mobileLink: item.mobileLink || '#',
+                    linkType: item.linkType,
+                    linkName: item.linkName,
+                    remark: item.remark || '',
+                    qrImgPath: item.qrImgPath || ''
                 };
                 promoData.sale.push(activityData);
             });
@@ -347,7 +414,38 @@ $(function () {
 
     function updatePromo(key) {
         const list = allData.promoData[key];
-        $('#promoList').html(list.map(createCardHtml).join(''));
+        $('#promoList').html(list.map(createPromoCardHtml).join(''));
         initSwiper('.promo-swiper');
     }
+
+    // 卡片按钮hover显示二维码（PC端）
+    $(document).on({
+        mouseenter: function () {
+            const qrImgPath = $(this).data("qr");
+            const $wrapper = $(this).closest(".card-btn-wrapper");
+            const $qrCode = $wrapper.find(".card-qr-code");
+
+            if (qrImgPath && !isMobile) {
+                $qrCode.fadeIn(200);
+            }
+        },
+        mouseleave: function () {
+            const $wrapper = $(this).closest(".card-btn-wrapper");
+            const $qrCode = $wrapper.find(".card-qr-code");
+            $qrCode.fadeOut(200);
+        }
+    }, ".btn-link.has-qr");
+
+    // 卡片按钮点击跳转
+    $(document).on("click", ".btn-link", function () {
+        const linkUrl = $(this).data("url");
+        // 如果有no-link类，不跳转
+        if ($(this).hasClass("no-link")) {
+            return;
+        }
+        // 正常跳转
+        if (linkUrl && linkUrl !== "#") {
+            window.open(linkUrl, "_blank");
+        }
+    });
 });
