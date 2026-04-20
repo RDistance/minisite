@@ -143,9 +143,9 @@ $(function () {
                     <img data-src="${item.img}" class="swiper-lazy">
                     <div class="store-info-box">
                         <h3>Sony Store · ${item.name}</h3>
-                        <p>📍 ${item.address}</p>
-                        <p>📞 ${item.phone}</p>
-                        <p>🕒 ${item.time}</p>
+                        <p><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/location.png" alt="" class="info-icon">${item.address}</p>
+                        <p><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/phone.png" alt="" class="info-icon">${item.phone}</p>
+                        <p><img src="/content/dam/sonystyle/smallapp/dealerweb/images/directstore/icon/time.png" alt="" class="info-icon">${item.time}</p>
                         <div class="store-info-contact">
                            <div class="qr-code-wrapper">
                                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=SONY" class="qr-code">
@@ -272,7 +272,7 @@ $(function () {
     $('#storeSelect').on('change', function() {
         const storeId = $(this).val();
         if (storeId !== '0') {
-            window.location.href = 'new_details.html?storeId=' + storeId;
+            window.location.href = 'detail_s.html?storeId=' + storeId;
         }
     });
 

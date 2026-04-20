@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,143 +8,12 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@7.4.1/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* 地图区域样式 */
-        .map-section {
-            width: 100%;
-            background: #fff;
-            padding: 20px 0;
-        }
-        .map-nav {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            padding: 0 20px 20px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .map-nav-right {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-        .store-select {
-            border: 1px solid #a4a4a4;
-            background: #ffffff;
-            height: 32px;
-            width: 210px;
-            color: #999999;
-            font-size: 14px;
-            border-radius: 20px;
-            padding: 0 10px;
-        }
-        .breadcrumb {
-            padding: 20px;
-            color: #999;
-            font-size: 14px;
-            background: #f8f8f8;
-            line-height: 1.5;
-        }
-        .breadcrumb a {
-            color: #666;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        .breadcrumb a:hover {
-            color: #1fa8e2;
-        }
-        .breadcrumb span {
-            margin: 0 8px;
-        }
-        .breadcrumb span:first-child {
-            margin-left: 0;
-        }
-        .breadcrumb #breadcrumbStoreName {
-            color: #333;
-            font-weight: 500;
-        }
-        .map-zone {
-            width: 100%;
-            position: relative;
-            min-height: 500px;
-            padding: 20px;
-        }
-        .map-display {
-            display: none;
-        }
-        .map-display.active {
-            display: block;
-        }
-        .map-display img {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-        }
-        #map {
-            width: 100%;
-            height: 500px;
-        }
-        .map-control {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            background: #fff;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .map-control a {
-            padding: 8px 30px;
-            color: #666;
-            text-decoration: none;
-            background: #fff;
-            border-right: 1px solid #ddd;
-            cursor: pointer;
-        }
-        .map-control a:last-child {
-            border-right: none;
-        }
-        .map-control a.active {
-            background: #1fa8e2;
-            color: #fff;
-        }
-        .BMapLib_sendToPhone {
-            display: none;
-        }
-        
-        @media (max-width: 768px) {
-            .map-nav {
-                flex-direction: row;
-                gap: 10px;
-                align-items: center;
-                justify-content: flex-end;
-            }
-            .map-nav-right {
-                width: auto;
-                justify-content: flex-end;
-            }
-            .map-zone {
-                padding: 10px;
-            }
-            .map-display img,
-            #map {
-                height: 300px;
-            }
-        }
-    </style>
 </head>
+
 <body>
     <div class="container store-detail">
         <!-- 地图区域 -->
         <div class="map-section">
-            <div class="map-nav">
-                <div class="map-nav-right">
-                    <select class="store-select" id="storeSelect">
-                        <option value="0">选择其他直营店</option>
-                    </select>
-                </div>
-            </div>
-            
             <div class="breadcrumb">
                 <span>索尼在线商城</span>
                 <span>></span>
@@ -151,7 +21,14 @@
                 <span>></span>
                 <span id="breadcrumbStoreName">加载中...</span>
             </div>
-            
+            <div class="map-nav">
+                <div class="map-nav-right">
+                    <select class="store-select" id="storeSelect">
+                        <option value="0">选择其他直营店</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="map-zone">
                 <div class="map-display active" id="storeImage">
                     <img src="https://via.placeholder.com/862x500?text=Store+Image" alt="门店图片" id="storeImg">
@@ -159,14 +36,14 @@
                 <div class="map-display" id="mapContainer">
                     <div id="map"></div>
                 </div>
-                
+
                 <div class="map-control">
                     <a href="javascript:void(0)" class="active" data-target="storeImage">门店实景</a>
                     <a href="javascript:void(0)" data-target="mapContainer">地图</a>
                 </div>
             </div>
         </div>
-        
+
         <div class="header-info" id="storeInfo">
         </div>
         <div class="divider"></div>
@@ -204,8 +81,11 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/swiper@7.4.1/swiper-bundle.min.js"></script>
-    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=q7LFs3kP1PNSP0ccE0etjLErsIN8GzjD&s=1"></script>
-    <script type="text/javascript" src="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
+    <script type="text/javascript"
+        src="https://api.map.baidu.com/api?v=2.0&ak=q7LFs3kP1PNSP0ccE0etjLErsIN8GzjD&s=1"></script>
+    <script type="text/javascript"
+        src="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
