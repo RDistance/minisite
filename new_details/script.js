@@ -23,7 +23,7 @@ $(function () {
         // 如果已存在实例，先销毁
         if (swipers[selector]) swipers[selector].destroy(true, true);
 
-        const isMobile = window.innerWidth <= 768;
+        const isMobile =  $(window).width() <= 768;
         
         const defaultConfig = isMobile ? {
             slidesPerView: 'auto',
@@ -540,7 +540,7 @@ $(function () {
 
     // 渲染门店信息
     function renderStoreInfo(info) {
-        const isMobile = window.innerWidth <= 768;
+        const isMobile =  $(window).width() <= 768;
         
         if (isMobile) {
             $('#storeInfo').html(`
