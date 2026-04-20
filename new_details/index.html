@@ -1,5 +1,7 @@
+<link rel="stylesheet" href="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css">
+
 <style>
-   .store-detail * {
+    .store-detail * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -15,6 +17,120 @@
     width: 1580px;
     margin: 0 auto;
 }
+
+/* ==================== 地图区域样式 ==================== */
+.store-detail .map-section {
+    width: 100%;
+    background: #fff;
+    padding: 20px 0;
+}
+
+.store-detail .map-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.store-detail .map-nav-left {
+    flex: 1;
+}
+
+.store-detail .map-nav-left .store-name {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.store-detail .map-nav-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.store-detail .store-select {
+    border: 1px solid #a4a4a4;
+    background: #ffffff;
+    height: 32px;
+    width: 210px;
+    color: #999999;
+    font-size: 14px;
+    border-radius: 20px;
+    padding: 0 10px;
+}
+
+.store-detail .map-zone {
+    width: 100%;
+    position: relative;
+    min-height: 735px;
+    padding: 20px;
+}
+
+.store-detail .map-display {
+    display: none;
+}
+
+.store-detail .map-display.active {
+    display: block;
+}
+
+.store-detail #map {
+    width: 100%;
+    height: 735px;
+    border-radius: 20px;
+}
+
+.store-detail .map-display img {
+    border-radius: 20px;
+    height: 735px;
+}
+
+.store-detail .map-control {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.store-detail .map-control a {
+    padding: 8px 30px;
+    color: #666;
+    text-decoration: none;
+    background: #fff;
+    border-right: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.store-detail .map-control a:last-child {
+    border-right: none;
+}
+
+.store-detail .map-control a.active {
+    background: #1fa8e2;
+    color: #fff;
+}
+
+.store-detail .BMapLib_sendToPhone {
+    display: none;
+}
+
+.store-detail .breadcrumb {
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 400;
+    margin: 20px auto;
+    background: none;
+}
+
+.store-detail .map-nav {
+    padding: 50px 0;
+}
+
 
 /* 头部信息 */
 .store-detail .header-info {
@@ -326,7 +442,6 @@
     border-radius: 24px;
     text-decoration: none;
     font-size: 11px;
-
 }
 
 /* Swiper 进度条自定义 (图片中的蓝色进度条) */
@@ -348,6 +463,7 @@
 }
 
 
+
 @media (max-width: 1660px) {
     .store-detail.container {
         width: calc(100% - 80px);
@@ -357,6 +473,42 @@
 
 /* 移动端适配 */
 @media (max-width: 768px) {
+    /* 地图区域移动端适配 */
+    .store-detail .map-nav {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 0 10px 15px;
+    }
+
+    .store-detail .map-nav-left {
+        width: 100%;
+    }
+
+    .store-detail .map-nav-left .store-name {
+        font-size: 14px;
+    }
+
+    .store-detail .map-nav-right {
+        width: 100%;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .store-detail .store-select {
+        width: 100%;
+    }
+
+    .store-detail .map-zone {
+        padding: 10px;
+    }
+
+    .store-detail .map-display img {
+        height: 580px;
+    }
+
+
     .store-detail.container {
         width: calc(100% - 5.333333vw);
     }
@@ -477,7 +629,7 @@
         margin-bottom: 3.733333vw;
     }
 
-    .store-detail .store-card .store-info-box  .qr-code  {
+    .store-detail .store-card .store-info-box .qr-code  {
         width: 18.133333vw;
         max-height: 18.133333vw;
     }
@@ -492,9 +644,41 @@
         font-size: 2.266667vw;
         border-radius: 3.866667vw;
     }
-} 
+}
 </style>
 <div class="container store-detail">
+    <!-- 地图区域 -->
+    <div class="map-section">
+        <div class="breadcrumb">
+            <span>索尼在线商城</span>
+            <span>></span>
+            <a href="index.html">门店查找</a>
+            <span>></span>
+            <span id="breadcrumbStoreName">加载中...</span>
+        </div>
+        <div class="map-nav">
+            <div class="map-nav-right">
+                <select class="store-select" id="storeSelect">
+                    <option value="0">选择其他直营店</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="map-zone">
+            <div class="map-display active" id="storeImage">
+                <img src="https://via.placeholder.com/862x500?text=Store+Image" alt="门店图片" id="storeImg">
+            </div>
+            <div class="map-display" id="mapContainer">
+                <div id="map"></div>
+            </div>
+
+            <div class="map-control">
+                <a href="javascript:void(0)" class="active" data-target="storeImage">门店实景</a>
+                <a href="javascript:void(0)" data-target="mapContainer">地图</a>
+            </div>
+        </div>
+    </div>
+
     <div class="header-info" id="storeInfo">
     </div>
     <div class="divider"></div>
@@ -529,10 +713,30 @@
         <div class="swiper-button-next"></div>
     </div>
 </div>
+<script type="text/javascript"
+    src="https://api.map.baidu.com/api?v=2.0&ak=q7LFs3kP1PNSP0ccE0etjLErsIN8GzjD&s=1"></script>
+<script type="text/javascript"
+    src="https://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
 <script>
-$(function () {
+    $(function () {
     let allData = null; // 存储数据流
     const swipers = {}; // 存储所有 swiper 实例
+    let map = null; // 百度地图实例
+    let currentStoreData = null; // 当前门店数据
+
+    // 其他门店数据（用于下拉选择）
+    const otherStores = [
+        { id: "884e852190394db8b3c584dfddb17285", name: "Sony Store重庆万象城店" },
+        { id: "92449722c1b7423db185b99819de8b53", name: "Sony Store武汉梦时代店" },
+        { id: "615f36d66a694724ab62070db516571b", name: "Sony Store北京东方广场店" },
+        { id: "11dd790be96140b392dfd4d2e7026075", name: "Sony Store上海淮海中路店" },
+        { id: "c921749301a34e17af42ce331485311a", name: "Sony Store广州正佳广场店" },
+        { id: "ed667737875c45b888886c192bd324af", name: "Sony Store成都来福士店" },
+        { id: "50403606a52e486dbb7ce6ce6373e944", name: "Sony Store深圳深业上城店" },
+        { id: "9921f17ab60e458c91b1439167393116", name: "Sony Store南京水游城店" },
+        { id: "ac76e7798c3540748d2119f48bbc3ea3", name: "Sony Store杭州湖滨88店" },
+        { id: "7cf912ff839a4c0a9cddedfe2aff7b41", name: "Sony Store苏州万象天地店" }
+    ];
 
     // 通用 Swiper 初始化配置
     function initSwiper(selector, options = {}) {
@@ -673,6 +877,124 @@ $(function () {
                 </div>
             </div>`;
     }
+
+    // 从URL获取storeId
+    function getStoreIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('storeId');
+    }
+
+    // 初始化地图
+    function initMap(latitude, longitude, name, address, phone, img) {
+        if (!map) {
+            map = new BMap.Map("map");
+        } else {
+            // 清除地图上的所有覆盖物
+            map.clearOverlays();
+        }
+        
+        const poi = new BMap.Point(longitude, latitude);
+        map.centerAndZoom(poi, 20);
+        map.enableScrollWheelZoom();
+
+        const content = '<div style="margin:0;line-height:20px;padding:2px;">' +
+            '<img src="' + img + '" alt="" style="float:right;zoom:1;overflow:hidden;width:100px;margin-left:3px;"/>' +
+            '地址：' + address + '<br/>电话：' + phone + '<br/>' +
+            '</div>';
+
+        // 创建检索信息窗口对象
+        const searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+            title: name,
+            width: 290,
+            height: 120,
+            panel: "panel",
+            enableAutoPan: true,
+            searchTypes: [
+                BMAPLIB_TAB_TO_HERE,
+                BMAPLIB_TAB_FROM_HERE,
+                BMAPLIB_TAB_SEARCH
+            ]
+        });
+
+        const marker = new BMap.Marker(poi);
+        marker.enableDragging();
+        marker.addEventListener("click", function(e) {
+            searchInfoWindow.open(marker);
+        });
+        map.addOverlay(marker);
+    }
+
+    // 渲染地图区域信息
+    function renderMapSection(storeData) {
+        currentStoreData = storeData;
+
+        // 更新门店名称（更新面包屑和导航栏）
+        const storeName = storeData.name.replace(/Sony Store/gi, "");
+        $('#breadcrumbStoreName').text(storeName);
+
+        // 添加或更新导航栏中的门店名称
+        let mapNavLeft = $('.map-nav-left');
+        if (mapNavLeft.length === 0) {
+            $('.map-nav').prepend('<div class="map-nav-left"><span class="store-name"></span></div>');
+            mapNavLeft = $('.map-nav-left');
+        }
+        mapNavLeft.find('.store-name').text(storeName);
+
+        // 更新门店图片 - 从接口的 imgURL 字段获取
+        if (storeData.imgURL && storeData.imgURL !== '/dealero2o/upload/images/default.jpg') {
+            $('#storeImg').attr('src', storeData.imgURL);
+        } else {
+            // 如果没有图片或是默认图片，使用占位图
+            $('#storeImg').attr('src', 'https://via.placeholder.com/862x500?text=Store+Image');
+        }
+
+        // 填充下拉选择框
+        const currentStoreId = getStoreIdFromUrl();
+        let optionsHtml = '<option value="0">选择其他直营店</option>';
+        otherStores.forEach(store => {
+            if (store.id !== currentStoreId) {
+                optionsHtml += '<option value="' + store.id + '">' + store.name + '</option>';
+            }
+        });
+        $('#storeSelect').html(optionsHtml);
+
+        // 初始化地图 - 使用门店图片作为地图标注的缩略图
+        const phone = storeData.phone && storeData.mobile
+            ? storeData.phone + '，' + storeData.mobile
+            : (storeData.phone || storeData.mobile || '');
+        const mapThumbnail = storeData.imgURL && storeData.imgURL !== '/dealero2o/upload/images/default.jpg'
+            ? storeData.imgURL
+            : 'https://via.placeholder.com/100x100?text=Store';
+        initMap(storeData.latitude, storeData.longitude, storeData.name, storeData.address, phone, mapThumbnail);
+    }
+
+    // 地图/实景切换
+    $(document).on('click', '.map-control a', function() {
+        const target = $(this).data('target');
+        $('.map-control a').removeClass('active');
+        $(this).addClass('active');
+        $('.map-display').removeClass('active');
+        $('#' + target).addClass('active');
+        
+        // 如果切换到地图，需要触发地图重新渲染
+        if (target === 'mapContainer' && map) {
+            setTimeout(function() {
+                // 重新设置中心点以确保标注点显示
+                if (currentStoreData) {
+                    const poi = new BMap.Point(currentStoreData.longitude, currentStoreData.latitude);
+                    map.setCenter(poi);
+                }
+            }, 100);
+        }
+    });
+
+    // 下拉选择切换门店
+    $('#storeSelect').on('change', function() {
+        const storeId = $(this).val();
+        if (storeId !== '0') {
+            window.location.href = 'new_details.html?storeId=' + storeId;
+        }
+    });
 
     // 从URL获取storeId
     function getStoreIdFromUrl() {
@@ -854,6 +1176,9 @@ $(function () {
 
         // 1. 获取门店详情并渲染
         fetchStoreDetail(storeId).then(storeDetail => {
+            // 渲染地图区域
+            renderMapSection(storeDetail);
+            
             // 渲染门店信息
             const info = {
                 address: storeDetail.address || '',
@@ -1009,5 +1334,5 @@ $(function () {
             window.open(linkUrl, "_blank");
         }
     });
-});    
+});
 </script>

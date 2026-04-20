@@ -207,11 +207,19 @@ $(function () {
     // 渲染地图区域信息
     function renderMapSection(storeData) {
         currentStoreData = storeData;
-        
-        // 更新门店名称（只更新面包屑）
+
+        // 更新门店名称（更新面包屑和导航栏）
         const storeName = storeData.name.replace(/Sony Store/gi, "");
         $('#breadcrumbStoreName').text(storeName);
-        
+
+        // 添加或更新导航栏中的门店名称
+        let mapNavLeft = $('.map-nav-left');
+        if (mapNavLeft.length === 0) {
+            $('.map-nav').prepend('<div class="map-nav-left"><span class="store-name"></span></div>');
+            mapNavLeft = $('.map-nav-left');
+        }
+        mapNavLeft.find('.store-name').text(storeName);
+
         // 更新门店图片 - 从接口的 imgURL 字段获取
         if (storeData.imgURL && storeData.imgURL !== '/dealero2o/upload/images/default.jpg') {
             $('#storeImg').attr('src', storeData.imgURL);
@@ -219,7 +227,7 @@ $(function () {
             // 如果没有图片或是默认图片，使用占位图
             $('#storeImg').attr('src', 'https://via.placeholder.com/862x500?text=Store+Image');
         }
-        
+
         // 填充下拉选择框
         const currentStoreId = getStoreIdFromUrl();
         let optionsHtml = '<option value="0">选择其他直营店</option>';
@@ -229,15 +237,15 @@ $(function () {
             }
         });
         $('#storeSelect').html(optionsHtml);
-        
+
         // 初始化地图 - 使用门店图片作为地图标注的缩略图
-        const phone = storeData.phone && storeData.mobile 
-            ? storeData.phone + '，' + storeData.mobile 
+        const phone = storeData.phone && storeData.mobile
+            ? storeData.phone + '，' + storeData.mobile
             : (storeData.phone || storeData.mobile || '');
-        const mapThumbnail = storeData.imgURL && storeData.imgURL !== '/dealero2o/upload/images/default.jpg' 
-            ? storeData.imgURL 
+        const mapThumbnail = storeData.imgURL && storeData.imgURL !== '/dealero2o/upload/images/default.jpg'
+            ? storeData.imgURL
             : 'https://via.placeholder.com/100x100?text=Store';
-        initMap(storeData.longitude, storeData.latitude, storeData.name, storeData.address, phone, mapThumbnail);
+        initMap(storeData.latitude, storeData.longitude, storeData.name, storeData.address, phone, mapThumbnail);
     }
 
     // 地图/实景切换
@@ -251,7 +259,6 @@ $(function () {
         // 如果切换到地图，需要触发地图重新渲染
         if (target === 'mapContainer' && map) {
             setTimeout(function() {
-                map.resize();
                 // 重新设置中心点以确保标注点显示
                 if (currentStoreData) {
                     const poi = new BMap.Point(currentStoreData.longitude, currentStoreData.latitude);
