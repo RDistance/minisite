@@ -255,6 +255,23 @@
     align-items: flex-start;
 }
 
+/* 按钮链接包装器 */
+.store-detail .btn-link-wrapper {
+    display: flex;
+    gap: 0.1rem;
+    align-items: center;
+}
+
+.store-detail .btn-link-wrapper a {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.store-detail .btn-link-wrapper img {
+    height: auto;
+    max-width: 100%;
+}
+
 /* 二维码样式 */
 .store-detail .card-qr-code {
     position: absolute;
@@ -267,6 +284,163 @@
     /* box-shadow: 0 4px 12px rgba(0,0,0,0.05); */
     z-index: 100;
     white-space: nowrap;
+}
+
+.store-detail .card-qr-code img {
+    width: 150px;
+    height: 150px;
+    display: block;
+}
+
+/* 弹窗样式 */
+.store-detail .pop_m {
+    width: 450px;
+    padding-bottom: 20px;
+    display: block;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.store-detail .pop_m .close {
+    display: block;
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    text-indent: -9999px;
+    z-index: 1000;
+    background: url(/content/dam/sonystyle/smallapp/dealerweb/images/search/close_pop.png) no-repeat;
+    cursor: pointer;
+}
+
+.store-detail .pop_m .pop_content {
+    width: 310px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.store-detail .pop_m .pop_main {
+    width: 100%;
+}
+
+.store-detail .pop_con {
+    width: 100%;
+}
+
+.store-detail .pop_title {
+    padding: 20px 0px 20px 0px;
+    font-size: 18px;
+    color: #ad0000;
+    font-weight: bold;
+}
+
+.store-detail .pop_c1 {
+    padding: 0px 0 10px 0px;
+    border-bottom: 1px solid #C4C4C4;
+}
+
+.store-detail .pop_c1 p {
+    font-size: 14px;
+    line-height: 22px;
+    color: #2d2d2d;
+}
+
+.store-detail .pop_c2 {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.store-detail .pop_c2 p {
+    font-size: 14px;
+    line-height: 22px;
+    color: #2d2d2d;
+}
+
+.store-detail .pop_c2 p span {
+    color: #646464;
+}
+
+.store-detail .pop_bpad {
+    padding: 0px 0;
+}
+
+.store-detail .pop_bottom {
+    padding: 20px 0 0px;
+}
+
+.store-detail .pop_bottom p {
+    font-size: 12px;
+    color: #939393;
+    line-height: 20px;
+    width: 370px;
+    margin: 0 auto;
+}
+
+.store-detail .pop_c3 {
+    padding: 40px 0 30px 0;
+}
+
+.store-detail .pop_c3 p.finish1 {
+    text-align: center;
+    color: #000000;
+    font-size: 24px;
+    padding-bottom: 10px;
+}
+
+.store-detail .pop_c3 p.finish2 {
+    text-align: center;
+    color: #646464;
+    font-size: 14px;
+}
+
+.store-detail .pop_c4 {
+    padding: 0px 0 40px 0px;
+}
+
+.store-detail .pop_c4 p {
+    font-size: 14px;
+    line-height: 22px;
+    color: #2d2d2d;
+    width: 100%;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.store-detail .pop_c4 p span {
+    color: #2d2d2d;
+    font-weight: normal;
+}
+
+.store-detail a.correctinfo {
+    width: 147px;
+    height: 31px;
+    display: block;
+    text-indent: -9999px;
+    background: url(/content/dam/sonystyle/smallapp/dealerweb/images/search/correctinfo.png) no-repeat;
+    cursor: pointer;
+}
+
+.store-detail .pop_c5 {
+    padding: 12px 0 10px 0;
+    width: 100%;
+}
+
+.store-detail .edit_c {
+    font-size: 14px;
+    color: #939393;
+}
+
+.store-detail .edit_c a {
+    color: #ad0000;
+    text-decoration: underline;
+    font-size: 14px;
 }
 
 .store-detail .card-qr-code img {
