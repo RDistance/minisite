@@ -3,7 +3,6 @@ $(function () {
     const swipers = {}; // 存储所有 swiper 实例
     let map = null; // 百度地图实例
     let currentStoreData = null; // 当前门店数据
-    let activeList = []; // 存储活动列表
 
     // 其他门店数据（用于下拉选择）
     const otherStores = [
@@ -62,28 +61,6 @@ $(function () {
 
     // 渲染卡片 HTML（Alpha俱乐部和体验活动）
     function createCardHtml(item) {
-        let buttonHtml = '';
-        const status = item.status;
-        const activityId = item.activityId;
-
-        // 根据状态生成按钮
-        if (status == 0) {
-            // 即将开始
-            buttonHtml = '<a><img src="/content/dam/sonystyle/smallapp/dealerweb/images/new/lecture/jqqd.png" alt="即将开始"></a>';
-        } else if (status == 1) {
-            // 可以报名
-            buttonHtml = `<a href="javascript:void(0);" onclick="aplly('${activityId}')" ><img src="/content/dam/sonystyle/smallapp/dealerweb/images/new/lecture/wybm2.png" alt="立即报名"></a>`;
-        } else if (status == 2) {
-            // 报名已满
-            buttonHtml = '<a><img src="/content/dam/sonystyle/smallapp/dealerweb/images/new/lecture/bmym2.png" alt="报名已满"></a>';
-        } else if (status == 3) {
-            // 无按钮
-            buttonHtml = '';
-        }
-
-        // 添加查看详情链接
-        buttonHtml += `<a style="margin-left: 0.1rem;" href="/smallapp/acafe/lectures/detail.htm?acid=${activityId}" target="_blank" title="查看详情"><img src='/content/dam/sonystyle/smallapp/dealerweb/images/new/lecture/ckxq2.png' alt="查看详情"></a>`;
-
         return `
             <div class="swiper-slide">
                 <div class="card">
@@ -92,9 +69,7 @@ $(function () {
                     <div class="card-body">
                         <h3>${item.title}</h3>
                         <p class="time">${item.time}</p>
-                        <div class="btn-link-wrapper">
-                            ${buttonHtml}
-                        </div>
+                        <div class="btn-link" data-url="${item.url}">查看详情 ></div>
                     </div>
                 </div>
             </div>`;
@@ -401,8 +376,6 @@ $(function () {
                         : '',
                     time: formatActivityTime(item.startTime, item.endTime),
                     url: item.activityUrl || '#',
-                    status: item.status || 3,  // 默认为3（无按钮）
-                    activityId: item.activityId || ''
                 };
 
                 // activityType为DI的是Alpha俱乐部，非DI的是体验活动
@@ -532,11 +505,6 @@ $(function () {
         fetchShopActivities(storeId).then(shopActivities => {
             const { alpha, experience } = processActivities(shopActivities);
             
-            // 保存活动数据供aplly函数使用
-            allData = allData || {};
-            activeList = shopActivities.result || [];
-            allData.activities = activeList;
-            
             // 渲染 Alpha 俱乐部
             if (alpha.length === 0) {
                 $('.activity-swiper').replaceWith(createNoActivityHtml());
@@ -661,127 +629,5 @@ $(function () {
         if (linkUrl && linkUrl !== "#") {
             window.open(linkUrl, "_blank");
         }
-    });
-
-    // 弹窗函数
-    function showdialog(id) {
-        const $id = $("#" + id);
-        $id.bPopup({
-            fadeSpeed: 'fast',
-            followSpeed: 'fast',
-            modalColor: 'black'
-        });
-        $id.find(".close").unbind("click").click(function () {
-            $id.bPopup().close();
-        });
-    }
-
-    // 报名函数
-    window.aplly = function (id) {
-        if(activeList.length) {
-            for (let i = 0; i < activeList.length; i++) {
-                const element = activeList[i];
-                if(id == element.activityId) {
-                    window.adobeDataLayer = window.adobeDataLayer || [];
-                    window.adobeDataLayer.push({
-                        event:'retailer_activity_register',
-                        eventInfo:{
-                            activityName: element.activityName,
-                            activityType: element.activityName,
-                            pageType:'dealerPage'
-                        }
-                    });
-                }
-            }
-        }
-
-        $(".correctinfo").data('id', id);
-        setTimeout(function () {
-            $.ajax({
-                url: "https://dev-nsp.sonystyle.com.cn/retailer_activity/registration/ifRegistered?activityId=" + id,
-                type: "get",
-                contentType: "application/json",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", "Bearer " + (localStorage.getItem("access_token") || ""));
-                },
-                dataType: "json",
-                cache: false,
-                success: function (data) {
-                    if (data.returnCode == '200') {
-                        var rs = data.returnData;
-                        $(".yhm").html(rs.nickname);
-                        $(".stmobile").html(rs.phone);
-                        $(".email").html(rs.email);
-                        $(".tname").html(rs.name);
-                        showdialog("success");
-                    } else if (data.returnCode == '903') {
-                        var mess = data.message;
-                        $(".error_mess").html(mess);
-                        showdialog("ybaomingl");
-                    } else {
-                        var whref = window.location.href;
-                        localStorage.setItem("backurl", whref);
-                        window.location.href = "https://dev-nsp.sonystyle.com.cn/content/dam/sonystyle-club/index.html#/login";
-                    }
-                }
-            });
-        }, 400);
-    };
-
-    // 提交报名函数
-    function sumitR(id) {
-        $.ajax({
-            url: "https://dev-nsp.sonystyle.com.cn/retailer_activity/registration/activityRegistration?activityId=" + id,
-            type: "get",
-            contentType: "application/json",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", "Bearer " + (localStorage.getItem("access_token") || ""));
-            },
-            dataType: "json",
-            cache: false,
-            success: function (data) {
-                if (data.returnCode == '200') {
-                    var rs = data.returnData;
-                    var stattime = rs.activityStartTime.substring(0, 10);
-                    var stattime1 = rs.activityStartTime.substring(10, 16);
-                    var endtimes = rs.activityEndTime.substring(10, 16);
-                    $(".yhm").html(rs.nickname);
-                    $(".stmobile").html(rs.phone);
-                    $(".email").html(rs.email);
-                    $(".tname").html(rs.name);
-                    $(".bm_title").html(rs.activityName);
-                    $(".bm_space").html(rs.activityAddress);
-                    $(".bm_time").html(stattime + ":" + stattime1 + "~" + endtimes);
-
-                    $(".gerenxinxi").hide();
-                    $(".bmcg").show();
-
-                    // 发送openId
-                    $.ajax({
-                        url: "https://dev-nsp.sonystyle.com.cn/retailer_activity/registration/shareOpen?wechatOpen=" + (localStorage.getItem("openId") || ""),
-                        type: "post",
-                        contentType: "application/json",
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader("Authorization", "Bearer " + (localStorage.getItem("access_token") || ""));
-                        },
-                        dataType: "json",
-                        cache: false,
-                        success: function (data) {}
-                    });
-                } else if (data.returnCode == '903') {
-                    alert(data.message);
-                } else {
-                    var whref = window.location.href;
-                    localStorage.setItem("backurl", whref);
-                    window.location.href = "https://dev-nsp.sonystyle.com.cn/content/dam/sonystyle-club/index.html#/login";
-                }
-            }
-        });
-    }
-
-    // 报名确认按钮点击事件
-    $(document).on("click", ".correctinfo", function () {
-        var id = $(this).data('id');
-        sumitR(id);
     });
 });
