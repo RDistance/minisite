@@ -270,15 +270,7 @@ $(function () {
   function initSwiper() {
     if (swiper) swiper.destroy(true, true);
 
-    if (window.innerWidth > 768) {
-      // PC端显示3个卡片
-      swiper = new Swiper(".card-swiper", {
-        slidesPerView: 3,
-        spaceBetween: 50,
-        initialSlide: 1,
-        centeredSlides: true
-      });
-    } else {
+    if ($(window).width() <= 768) {
       // 移动端自适应
       swiper = new Swiper(".card-swiper", {
         initialSlide: 1,
@@ -286,7 +278,7 @@ $(function () {
         spaceBetween: 30,
         centeredSlides: true
       });
-    }
+    } 
   }
 
   function render(type) {

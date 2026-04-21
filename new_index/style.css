@@ -2,22 +2,25 @@ body {
     margin: 0;
 }
 
-.banner,
-.city-list,
-.content-experience,
-.vip-section {
-    padding: 0 8.75vw;
+.city-list {
+    width: 1412px;
+    margin: 0 auto;
+}
+.content-experience .container-1200,
+.vip-section .container-1200 {
+    width: 1200px;
+    margin: 0 auto;
 }
 
 
 /* Banner */
 .store-main-content .banner {
-    margin-top: 60px;
+    margin-top: 0;
 }
 
 .store-main-content .banner img {
     width: 100%;
-    border-radius: 20px;
+    border-radius: 0;
     display: block;
 }
 
@@ -33,6 +36,11 @@ body {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.store-main-content .city-item:hover {
+    transform: scale(1.2);
 }
 
 .store-main-content .city-icon {
@@ -84,6 +92,10 @@ body {
     height: 24px;
 }
 
+.store-main-content .tab:hover {
+    color: #000;
+}
+
 .store-main-content .tab.active {
     background: #000;
     color: #fff;
@@ -102,6 +114,15 @@ body {
     border-radius: 20px;
     overflow: hidden;
     text-align: left;
+    transition: all 0.3s ease;
+}
+
+.store-main-content .swiper {
+    overflow: visible;
+}
+
+.store-main-content .card:hover {
+    transform: scale(1.05);
 }
 
 .store-main-content .card img {
@@ -369,20 +390,37 @@ body {
     display: none;
 }
 
+@media (min-width: 768px) {
+    .store-main-content .card-list .swiper-slide {
+        width: calc((100% - 100px) / 3);
+        margin-right: 50px;
+    }
 
-@media (max-width: 1664px) {
+    .store-main-content .card-list .swiper-slide:nth-child(3n) {
+        margin-right: 0;
+    }
+}
 
-    .banner,
+
+@media (max-width: 1200px) {
+
     .city-list,
-    .content-experience,
-    .vip-section {
-        padding: 0 40px;
+    .content-experience .container-1200,
+    .vip-section .container-1200 {
+        width: calc(100% - 214px);
+        margin: 0 auto;
     }
 }
 
 @media (max-width: 768px) {
     .store-main-content .banner {
         margin-top: 3.466667vw;
+    }
+
+    .city-list,
+    .content-experience .container-1200,
+    .vip-section .container-1200 {
+        width: 100%;
     }
 
     .banner,
