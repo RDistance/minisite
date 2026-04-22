@@ -68,6 +68,7 @@ $(function () {
                     <img data-src="${item.img}" alt="${item.title}" class="swiper-lazy">
                     <div class="card-body">
                         <h3>${item.title}</h3>
+                        <p class="content">${item.content || ''}</p>
                         <p class="time">${item.time}</p>
                         <div class="btn-link" data-url="${item.url}">查看详情 ></div>
                     </div>
@@ -122,6 +123,7 @@ $(function () {
                     <img data-src="${item.img}" alt="${item.title}" class="swiper-lazy">
                     <div class="card-body">
                         <h3>${item.title}</h3>
+                        <p class="content">${item.content || ''}</p>
                         <p class="time">${item.time}</p>
                         <div class="card-btn-wrapper">
                             <div class="card-qr-code" style="display: none;">
@@ -376,6 +378,7 @@ $(function () {
                         : '',
                     time: formatActivityTime(item.startTime, item.endTime),
                     url: item.activityUrl || '#',
+                    content: item.content || ''
                 };
 
                 // activityType为DI的是Alpha俱乐部，非DI的是体验活动
@@ -414,7 +417,8 @@ $(function () {
                     linkType: item.linkType,
                     linkName: item.linkName,
                     remark: item.remark || '',
-                    qrImgPath: item.qrImgPath || ''
+                    qrImgPath: item.qrImgPath || '',
+                    content: item.content || ''
                 };
                 promoData.new.push(productData);
             });
@@ -437,7 +441,8 @@ $(function () {
                     linkType: item.linkType,
                     linkName: item.linkName,
                     remark: item.remark || '',
-                    qrImgPath: item.qrImgPath || ''
+                    qrImgPath: item.qrImgPath || '',
+                    content: item.content || ''
                 };
                 promoData.sale.push(activityData);
             });
@@ -482,10 +487,31 @@ $(function () {
             renderMapSection(storeDetail);
             
             // 渲染门店信息
+            let qrImages = '';
+            if(storeDetail.customerServiceUrl && storeDetail.customerServiceUrl != '/dealero2o/upload/images/default.jpg'){
+                qrImages += `<div class="qr-code-wrapper">
+                    <img src="${storeDetail.customerServiceUrl}" class="qr-code">
+                    <span class="qr-code-name">门店专属客服</span>
+                </div>`;
+            }
+            if(storeDetail.activityUrl && storeDetail.activityUrl != '/dealero2o/upload/images/default.jpg'){
+                qrImages += `<div class="qr-code-wrapper">
+                    <img src="${storeDetail.activityUrl}" class="qr-code">
+                    <span class="qr-code-name">活动二维码</span>
+                </div>`;
+            }
+            if(storeDetail.productRegisterUrl && storeDetail.productRegisterUrl != '/dealero2o/upload/images/default.jpg'){
+                qrImages += `<div class="qr-code-wrapper">
+                    <img src="${storeDetail.productRegisterUrl}" class="qr-code">
+                    <span class="qr-code-name">产品注册码</span>
+                </div>`;
+            }
+            
             const info = {
                 address: storeDetail.address || '',
                 time: storeDetail.businessHour || '',
-                phone: storeDetail.phone || storeDetail.mobile || ''
+                phone: storeDetail.phone || storeDetail.mobile || '',
+                qrImages: qrImages
             };
             renderStoreInfo(info);
 
@@ -499,9 +525,13 @@ $(function () {
             ];
             
             // 渲染促销活动 Tab
-            $('#promoTabs').html(allData.promoTabs.map((t, i) => 
-                `<div class="promp-tab ${i === 0 ? 'active' : ''}" data-key="${t.key}"><span>${t.name}</span></div>`
+            $('#promoTabs').html(allData.promoTabs.map((t, i) =>
+                `<div class="promp-tab ${i === 0 ? 'active' : ''}" data-key="${t.key}">${t.name}</div>`
             ).join(''));
+
+            // 初始化滑块位置
+            setTimeout(updatePromoTabIndicator, 0);
+
             updatePromo('new');
         }).catch(error => {
             console.error('门店详情获取失败:', error);
@@ -544,6 +574,7 @@ $(function () {
             initSwiper('.store-swiper', {
                 slidesPerView: 1.45,
                 centeredSlides: false,
+                initialSlide: 0,
                 scrollbar: { el: '.swiper-scrollbar', draggable: true },
                 navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
                 breakpoints: { 768: { slidesPerView: 3, spaceBetween: 20 } },
@@ -563,7 +594,7 @@ $(function () {
     // 渲染门店信息
     function renderStoreInfo(info) {
         const isMobile =  $(window).width() <= 768;
-        
+
         if (isMobile) {
             $('#storeInfo').html(`
                 <div class="info-item"><h4>门店地址</h4><p>${info.address}</p></div>
@@ -577,6 +608,11 @@ $(function () {
                 <div class="info-item"><h4>门店地址</h4><p>${info.address}</p></div>
                 <div class="info-item"><h4>营业时间</h4><p>${info.time}</p></div>
                 <div class="info-item"><h4>联系方式</h4><p>${info.phone}</p></div>
+                ${info.qrImages ? `
+                <div class="info-item">
+                    ${info.qrImages}
+                </div>
+                ` : ''}
             `);
         }
     }
@@ -596,21 +632,28 @@ $(function () {
     });
 
     function updatePromoTabIndicator() {
-        const activeTab = $('.promp-tab.active span');
-        
+        const activeTab = $('.promp-tab.active');
+
         if (activeTab.length) {
             const left = activeTab.position().left;
             const width = activeTab.outerWidth();
             const height = activeTab.outerHeight();
-            
+
+            // 移除旧的样式标签
+            $('#promo-tabs-style').remove();
+
+            // 创建新的样式标签
             const style = document.createElement('style');
-            style.textContent = `.store-detail .tabs::before { left: ${left}px !important; width: ${width}px !important; height: ${height}px !important; }`;
+            style.id = 'promo-tabs-style';
+            style.textContent = `.store-detail .tabs::before { left: ${left + 8}px !important; width: ${width - 16}px !important; height: ${height - 16}px !important; }`;
             document.head.appendChild(style);
         }
     }
 
-    // 初始化时设置黑色色块位置
-    setTimeout(updatePromoTabIndicator, 100);
+    // 窗口大小改变时更新滑块位置
+    $(window).on('resize', function() {
+        updatePromoTabIndicator();
+    });
 
     function updatePromo(key) {
         const list = allData.promoData[key];

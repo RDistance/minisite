@@ -245,7 +245,7 @@ $(function () {
         longitude = longitude || 0;
         latitude = latitude || 0;
         return $.ajax({
-            url: "https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/dealer/findAllDealer?longitude=" + longitude + "&latitude=" + latitude,
+            url: "https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/dealer/findDirectDealer?longitude=" + longitude + "&latitude=" + latitude,
             method: "GET",
             dataType: "json"
         });
