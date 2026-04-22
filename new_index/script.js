@@ -180,7 +180,8 @@ $(function () {
               linkType: item.linkType,
               linkName: item.linkName,
               remark: item.remark || "",
-              qrImgPath: item.qrImgPath || ""
+              qrImgPath: item.qrImgPath || "",
+              content: item.content || ""
             };
           });
           console.log('促销活动加载成功:', activityData.promo.length + '条');
@@ -199,7 +200,8 @@ $(function () {
               title: item.activityName,
               time: formatActivityTime(item.startTime, item.endTime),
               img: getCoverImage(item.activityPics),
-              linkUrl: item.activityUrl || "#"
+              linkUrl: item.activityUrl || "#",
+              content: item.content || ""
             };
           });
           console.log('Alpha俱乐部加载成功:', activityData.alpha.length + '条');
@@ -220,7 +222,8 @@ $(function () {
               title: item.activityName,
               time: formatActivityTime(item.startTime, item.endTime),
               img: getCoverImage(item.activityPics),
-              linkUrl: item.activityUrl || "#"
+              linkUrl: item.activityUrl || "#",
+              content: item.content || ""
             };
           });
           console.log('体验活动加载成功:', activityData.event.length + '条');
@@ -327,6 +330,7 @@ $(function () {
                 '<img src="' + item.img + '" />' +
                 '<div class="card-content">' +
                 '<div class="card-title">' + item.title + '</div>' +
+                (item.content ? '<div class="card-desc">' + item.content + '</div>' : '') +
                 '<div class="card-time">' + item.time + '</div>' +
                 '<div class="card-btn-wrapper">' +
                 '<div class="card-qr-code" style="display: none;">' +
@@ -472,7 +476,7 @@ $(function () {
         currentServiceIndex = (currentServiceIndex + 1) % serviceData.length;
         updateServiceContent(currentServiceIndex);
       }
-    }, 5000);
+    }, 3000);
   }
 
   function stopAutoplay() {

@@ -142,7 +142,8 @@ body {
 .store-main-content .card img {
     width: 100%;
     object-fit: cover;
-    max-height: 360px;
+    object-position: center;
+    height: 360px;
     display: block;
 }
 
@@ -153,6 +154,12 @@ body {
 .store-main-content .card-title {
     font-size: 18px;
     font-weight: bold;
+}
+
+.store-main-content .card-desc {
+    color: #afafaf;
+    font-size: 16px;
+    margin-top: 16px;
 }
 
 .store-main-content .card-time {
@@ -365,10 +372,12 @@ body {
 }
 
 .store-main-content .service-desc {
-    font-size: 16px;
+    font-size: 18px;
     margin: 42px 0 0 0;
-    color: #747474;
     line-height: 27px;
+    text-align: center;
+    text-align: -webkit-center;
+
 }
 
 /* 右侧tab */
@@ -395,6 +404,7 @@ body {
     transition: color 0.3s ease;
 }
 
+.store-main-content .service-tab:hover,
 .store-main-content .service-tab.active {
     color: #000;
 }
@@ -408,7 +418,7 @@ body {
     height: 52px;
     background: #000;
     border-radius: 2px;
-    z-index: 0;
+    z-index: 2;
     transition: top 0.4s ease, height 0.4s ease;
 }
 
@@ -484,8 +494,15 @@ body {
         height: 11.466667vw;
     }
 
+    .store-main-content .city-name {
+        font-size: 2.933333vw;
+    }
+
     .store-main-content .content-experience .content-title {
-        display: none;
+        text-align: center;
+        font-size: 6.8vw;
+        line-height: 1.1;
+        margin: 7.2vw 0 10.4vw;
     }
 
     .store-main-content .tabs {
@@ -525,7 +542,7 @@ body {
 
     .store-main-content .card img {
         width: 100%;
-        max-height: 48.533333vw;
+        height: 48.533333vw;
         object-fit: cover;
     }
 
@@ -537,6 +554,11 @@ body {
         font-size: 3.466667vw;
         line-height: 1.2;
         font-weight: bold;
+    }
+
+    .store-main-content .card-desc {
+        font-size: 3.2vw;
+        line-height: 1.1;
     }
 
     .store-main-content .card-time {
@@ -671,7 +693,7 @@ body {
     }
 
     .store-main-content .service-content-wrap.for-mobile .service-desc  {
-        font-size: 2.933333vw;
+        font-size: 3.466666vw;
         line-height: 4.8vw;
     }
 
@@ -697,6 +719,10 @@ body {
 
     .store-main-content .service-img img {
         max-height: 52.266667vw;
+    }
+
+    .store-main-content .service-tabs::before {
+        width: 0;
     }
 
 }

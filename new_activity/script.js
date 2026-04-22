@@ -5,7 +5,7 @@ $(function () {
     let currentPage = 1;
     let filteredData = [];
     let currentStoreId = "";
-    let currentSort = 0; // 0是新品，1是促销
+    let currentSort = ""; // ""是全部，0是新品，1是促销
     let dealerData = []; // 存储API返回的商店数据
     let totalCount = 0; // 活动总数
     let isLoading = false; // 是否正在加载
@@ -58,6 +58,7 @@ $(function () {
         <img class="card-img" src="${item.img}" alt="${item.title}" data-link="${linkUrl}" data-qr="${qrImgPath}" />
         <div class="card-content">
           <div class="card-title">${item.title}</div>
+          <div class="card-desc">${item.content || ""}</div>
           <div class="card-time">${item.time}</div>
           <div class="card-btn-wrapper">
             <div class="card-qr-code" style="display: none;">
@@ -176,13 +177,15 @@ $(function () {
         }
     });
 
-    // 卡片图片点击跳转
-    $(document).on("click", ".card", function () {
-        const linkUrl = $(this).data("link");
-        // 正常跳转
-        if (linkUrl && linkUrl !== "#") {
-            window.open(linkUrl, "_blank");
+    // 卡片点击跳转
+    $(document).on("click", ".card", function (e) {
+        // 如果点击的是card-btn，不处理（由card-btn的点击事件处理）
+        if ($(e.target).closest(".card-btn").length > 0) {
+            return;
         }
+
+        const storeDetailUrl = `/content/sonystyle/smallapp/dealerweb/mobile/detail_s.html?storeId=${currentStoreId}`;
+        window.open(storeDetailUrl, "_blank");
     });
 
 
@@ -273,7 +276,10 @@ $(function () {
     // 获取活动列表API
     function fetchActivityList(pageNumber, pageSize, sort, dealerId) {
         const baseUrl = "https://dev-nsp.sonystyle.com.cn/dealero2o/app/master/getActivityList";
-        let url = `${baseUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}&sort=${sort}`;
+        let url = `${baseUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+        if (sort !== "") {
+            url += `&sort=${sort}`;
+        }
         if (dealerId) {
             url += `&dealerId=${dealerId}`;
         }
@@ -329,7 +335,8 @@ $(function () {
                         
                         return {
                             title: item.title,
-                            time: `${formattedDate} ${item.activityTime}`,
+                            content: item.content || "",
+                            time: `${formattedDate}`,
                             img: item.activityImgUrl,
                             linkUrl: item.linkUrl || "#",
                             mobileLink: item.mobileLink || "#",
@@ -373,6 +380,7 @@ $(function () {
                         
                         return {
                             title: item.title,
+                            content: item.content || "",
                             time: `${formattedDate} ${item.activityTime}`,
                             img: item.activityImgUrl,
                             linkUrl: item.linkUrl || "#",
