@@ -582,8 +582,40 @@ $(function () {
     $(document).on('click', '.promp-tab', function () {
         const key = $(this).data('key');
         $(this).addClass('active').siblings().removeClass('active');
+        
+        // 更新蓝色色块位置
+        updatePromoTabIndicator();
+        
         updatePromo(key);
     });
+
+    function updatePromoTabIndicator() {
+        const activeTab = $('.promp-tab.active span');
+        
+        if (activeTab.length) {
+            const left = activeTab.position().left;
+            const width = activeTab.outerWidth();
+            
+            let styleId = 'promo-indicator-style';
+            let existingStyle = document.getElementById(styleId);
+            if (existingStyle) {
+                existingStyle.remove();
+            }
+            
+            const style = document.createElement('style');
+            style.id = styleId;
+            style.textContent = `
+                .store-detail .tabs::before {
+                    left: ${left}px !important;
+                    width: ${width}px !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+
+    // 初始化蓝色色块位置
+    setTimeout(updatePromoTabIndicator, 200);
 
     function updatePromo(key) {
         const list = allData.promoData[key];

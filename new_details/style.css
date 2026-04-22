@@ -299,9 +299,12 @@
     background: #e8eaee;
     border-radius: 8px;
     display: inline-flex;
+    position: relative;
 }
 .store-detail .tabs .promp-tab {
     padding: 8px;
+    position: relative;
+    z-index: 1;
 }
 .store-detail .tabs .promp-tab span {
     padding: 14px 108px;
@@ -309,13 +312,23 @@
     cursor: pointer;
     border-radius: 6px;
     font-size: 14px;
-    transition: 0.3s;
-    color: #9f9fa0;;
+    transition: color 0.3s ease;
+    color: #9f9fa0;
 }
 
 .store-detail .tabs .promp-tab.active span{
-    background: #5a87ed;
     color: #fff;
+}
+
+.store-detail .tabs::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    background: #5a87ed;
+    border-radius: 6px;
+    z-index: 0;
+    transition: left 0.3s ease, width 0.3s ease;
 }
 
 /* 门店卡片 */
