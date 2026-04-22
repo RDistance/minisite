@@ -400,8 +400,11 @@ $(function () {
         // 处理新品体验 (productList)
         if (storeData.productList && storeData.productList.length > 0) {
             storeData.productList.forEach(item => {
-                const startDate = new Date(item.activityStartDate);
-                const formattedDate = startDate.toISOString().split('T')[0];
+                // activityDate 格式: "2026/04/14-08/31"
+                // 提取开始日期部分
+                const startDateStr = item.activityDate ? item.activityDate.split('-')[0] : '';
+                // 将 "/" 替换为 "-" 得到标准格式
+                const formattedDate = startDateStr.replace(/\//g, '-');
                 const productData = {
                     title: item.productName || item.title || '',
                     img: item.activityImgUrl || '',
@@ -420,8 +423,11 @@ $(function () {
         // 处理促销活动 (activityList)
         if (storeData.activityList && storeData.activityList.length > 0) {
             storeData.activityList.forEach(item => {
-                const startDate = new Date(item.activityStartDate);
-                const formattedDate = startDate.toISOString().split('T')[0];
+                // activityDate 格式: "2026/04/14-08/31"
+                // 提取开始日期部分
+                const startDateStr = item.activityDate ? item.activityDate.split('-')[0] : '';
+                // 将 "/" 替换为 "-" 得到标准格式
+                const formattedDate = startDateStr.replace(/\//g, '-');
                 const activityData = {
                     title: item.title || '',
                     img: item.activityImgUrl || '',
