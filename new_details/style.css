@@ -305,6 +305,7 @@
     padding: 8px;
     position: relative;
     z-index: 1;
+    transition: color 0.3s ease;
 }
 .store-detail .tabs .promp-tab span {
     padding: 14px 108px;
@@ -312,7 +313,6 @@
     cursor: pointer;
     border-radius: 6px;
     font-size: 14px;
-    transition: color 0.3s ease;
     color: #9f9fa0;
 }
 
@@ -325,10 +325,10 @@
     position: absolute;
     left: 8px;
     top: 8px;
-    background: #5a87ed;
+    background: #000;
     border-radius: 6px;
     z-index: 0;
-    transition: left 0.3s ease, width 0.3s ease;
+    transition: left 0.3s ease, width 0.3s ease, height 0.3s ease;
 }
 
 /* 门店卡片 */
