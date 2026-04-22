@@ -82,6 +82,7 @@ body {
     background: #e8eaee;
     color: #9f9fa0;
     border-radius: 8px;
+    position: relative;
 }
 
 .store-main-content .tab {
@@ -90,6 +91,9 @@ body {
     font-size: 16px;
     line-height: 24px;
     height: 24px;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
 }
 
 .store-main-content .tab:hover {
@@ -97,10 +101,20 @@ body {
 }
 
 .store-main-content .tab.active {
-    background: #000;
     color: #fff;
-    border-radius: 8px;
     font-size: 18px;
+}
+
+.store-main-content .tabs::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #000;
+    border-radius: 8px;
+    z-index: 0;
+    transition: left 0.3s ease, width 0.3s ease;
 }
 
 /* 卡片 */
@@ -364,6 +378,7 @@ body {
     justify-content: space-between;
     margin: 8.229166vw 0 48px;
     gap: 1.25vw;
+    position: relative;
 }
 
 .store-main-content .service-tab {
@@ -375,11 +390,26 @@ body {
     padding: 26px 14px;
     text-align: right;
     width: 110px;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
 }
 
 .store-main-content .service-tab.active {
     color: #000;
-    border-right: 3px solid #000;
+}
+
+.store-main-content .service-tabs::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 26px;
+    width: 3px;
+    height: 52px;
+    background: #000;
+    border-radius: 2px;
+    z-index: 0;
+    transition: top 0.4s ease, height 0.4s ease;
 }
 
 .store-main-content .city-list .city-title {

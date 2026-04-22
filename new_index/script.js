@@ -385,25 +385,118 @@ $(function () {
     $(".tab").removeClass("active");
     $(this).addClass("active");
 
+    // 更新黑色色块位置
+    updateTabIndicator();
+
     var type = $(this).data("type");
     render(type);
   });
 
-  $(".service-tab").click(function () {
-    var index = $(this).data("index");
+  function updateTabIndicator() {
+    const activeTab = $(".tab.active");
+    
+    if (activeTab.length) {
+      const left = activeTab.position().left;
+      const width = activeTab.outerWidth();
+      
+      const style = document.createElement('style');
+      style.textContent = `.store-main-content .tabs::before { left: ${left}px !important; width: ${width}px !important; }`;
+      document.head.appendChild(style);
+    }
+  }
 
+  // 初始化时设置黑色色块位置
+  setTimeout(updateTabIndicator, 100);
+
+  // service-tab自动切换和光标移动
+  let autoplayTimer = null;
+  let isUserInteracting = false;
+  let currentServiceIndex = 0;
+
+  function updateServiceTabIndicator() {
+    const activeTab = $(".service-tab.active");
+    
+    if (activeTab.length) {
+      const top = activeTab.position().top;
+      const height = activeTab.outerHeight();
+      
+      let styleId = 'service-indicator-style';
+      let existingStyle = document.getElementById(styleId);
+      if (existingStyle) {
+        existingStyle.remove();
+      }
+      
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
+        .store-main-content .service-tabs::before {
+          top: ${top}px !important;
+          height: ${height}px !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }
+
+  function updateServiceContent(index) {
+    const item = serviceData[index];
+    currentServiceIndex = index;
+
+    // 更新active tab
     $(".service-tab").removeClass("active");
-    $(this).addClass("active");
+    $(".service-tab[data-index='" + index + "']").addClass("active");
 
-    var item = serviceData[index];
+    // 更新指示条位置
+    updateServiceTabIndicator();
 
-    $(".service-heading").text(item.title);
-    $(".service-desc").text(item.desc);
-
-    // 图片切换（带淡入）
-    $(".service-img img").fadeOut(150, function () {
-      $(this).attr("src", item.img).fadeIn(150);
+    // 褪化过渡效果
+    $(".service-heading").fadeOut(250, function() {
+      $(this).text(item.title).fadeIn(250);
     });
+
+    $(".service-desc").fadeOut(250, function() {
+      $(this).text(item.desc).fadeIn(250);
+    });
+
+    // 图片切换（带褪化）
+    $(".service-img img").fadeOut(250, function () {
+      $(this).attr("src", item.img).fadeIn(250);
+    });
+  }
+
+  function startAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+
+    autoplayTimer = setInterval(function() {
+      if (!isUserInteracting) {
+        currentServiceIndex = (currentServiceIndex + 1) % serviceData.length;
+        updateServiceContent(currentServiceIndex);
+      }
+    }, 5000);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  // 初始化指示条
+  setTimeout(function() {
+    updateServiceTabIndicator();
+  }, 200);
+
+  // 初始化自动播放
+  startAutoplay();
+
+  // 更新tab切换事件
+  $(".service-tab").click(function () {
+    isUserInteracting = true;
+    stopAutoplay();
+
+    const index = parseInt($(this).data("index"));
+    updateServiceContent(index);
   });
 
 
