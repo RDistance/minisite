@@ -151,7 +151,7 @@ $(function () {
       endHour = endParts[1]; // "05:00"
     }
     
-    return startDate + " " + startHour + (endHour ? " - " + endHour : "");
+    return startDate;
   }
 
   // 数据缓存
@@ -173,7 +173,7 @@ $(function () {
             const formattedDate = startDate.toISOString().split('T')[0];
             return {
               title: item.title,
-              time: `${formattedDate} ${item.activityTime}`,
+              time: `${formattedDate}`,
               img: item.activityImgUrl || "activity-default.jpg",
               linkUrl: item.linkUrl || "#",
               mobileLink: item.mobileLink || "#",
@@ -453,19 +453,28 @@ $(function () {
     // 更新指示条位置
     updateServiceTabIndicator();
 
-    // 褪化过渡效果
-    $(".service-heading").fadeOut(250, function() {
-      $(this).text(item.title).fadeIn(250);
-    });
+    // 添加动画类开始淡出
+    $(".service-heading").addClass("fade-out");
+    $(".service-desc").addClass("fade-out");
+    $(".service-img img").addClass("fade-out");
 
-    $(".service-desc").fadeOut(250, function() {
-      $(this).text(item.desc).fadeIn(250);
-    });
+    // 使用setTimeout确保动画同步
+    setTimeout(function() {
+      // 更新内容
+      $(".service-heading").text(item.title);
+      $(".service-desc").text(item.desc);
+      $(".service-img img").attr("src", item.img);
 
-    // 图片切换（带褪化）
-    $(".service-img img").fadeOut(250, function () {
-      $(this).attr("src", item.img).fadeIn(250);
-    });
+      // 移除淡出类，添加淡入类
+      $(".service-heading").removeClass("fade-out").addClass("fade-in");
+      $(".service-desc").removeClass("fade-out").addClass("fade-in");
+      $(".service-img img").removeClass("fade-out").addClass("fade-in");
+
+      // 动画完成后移除淡入类
+      setTimeout(function() {
+        $(".service-heading, .service-desc, .service-img img").removeClass("fade-in");
+      }, 400);
+    }, 400);
   }
 
   function startAutoplay() {
@@ -502,6 +511,36 @@ $(function () {
     const index = parseInt($(this).data("index"));
     updateServiceContent(index);
   });
+
+  // 滚动动画
+  function initScrollAnimation() {
+    const animateElements = document.querySelectorAll('.scroll-animate');
+
+    function checkScroll() {
+      const windowHeight = window.innerHeight;
+
+      animateElements.forEach(function(element) {
+        const elementTop = element.getBoundingClientRect().top;
+        const triggerPoint = windowHeight - 100; // 元素距离视窗底部100px时触发
+
+        if (elementTop < triggerPoint) {
+          element.classList.add('animate-in');
+        }
+      });
+    }
+
+    // 初始检查
+    setTimeout(checkScroll, 100);
+
+    // 滚动时检查
+    $(window).on('scroll', checkScroll);
+
+    // 窗口大小改变时检查
+    $(window).on('resize', checkScroll);
+  }
+
+  // 初始化滚动动画
+  initScrollAnimation();
 
 
 });
