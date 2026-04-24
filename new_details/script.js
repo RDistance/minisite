@@ -600,19 +600,26 @@ $(function () {
                 <div class="info-item"><h4>门店地址</h4><p>${info.address}</p></div>
                 <div class="info-right-group">
                     <div class="info-item"><h4>营业时间</h4><p>${info.time}</p></div>
-                    <div class="info-item"><h4>联系方式</h4><p>${info.phone}</p></div>
+                    <div class="info-item">
+                        <h4>联系方式</h4>
+                        <div style="display: flex; align-items: flex-start; gap: 16px; flex-wrap: wrap;">
+                            <p>${info.phone}</p>
+                            ${info.qrImages ? `<div>${info.qrImages}</div>` : ''}
+                        </div>
+                    </div>
                 </div>
             `);
         } else {
             $('#storeInfo').html(`
                 <div class="info-item"><h4>门店地址</h4><p>${info.address}</p></div>
                 <div class="info-item"><h4>营业时间</h4><p>${info.time}</p></div>
-                <div class="info-item"><h4>联系方式</h4><p>${info.phone}</p></div>
-                ${info.qrImages ? `
                 <div class="info-item">
-                    ${info.qrImages}
+                    <h4>联系方式</h4>
+                    <div style="display: flex; align-items: flex-start; gap: 16px;">
+                        <p>${info.phone}</p>
+                        ${info.qrImages ? `<div>${info.qrImages}</div>` : ''}
+                    </div>
                 </div>
-                ` : ''}
             `);
         }
     }
