@@ -270,18 +270,25 @@ $(function () {
     }
   ];
 
-  function initSwiper() {
+  function initSwiper(currentType) {
     if (swiper) swiper.destroy(true, true);
 
     if ($(window).width() <= 768) {
+      // 获取当前类型的活动数量
+      var list = activityData[currentType] || [];
+      var activityCount = list.length;
+
+      // 根据活动数量设置初始幻灯片位置
+      var initialSlide = activityCount > 2 ? 1 : 0;
+
       // 移动端自适应
       swiper = new Swiper(".card-swiper", {
-        initialSlide: 1,
+        initialSlide: initialSlide,
         slidesPerView: "auto",
         spaceBetween: 30,
-        centeredSlides: true
+        centeredSlides: activityCount > 2 // 活动数量大于2时才居中
       });
-    } 
+    }
   }
 
   function render(type) {
@@ -346,7 +353,7 @@ $(function () {
 
     $(".card-list").html(html);
 
-    initSwiper();
+    initSwiper(type);
 
   }
 
